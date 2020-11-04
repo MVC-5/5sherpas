@@ -1,6 +1,6 @@
 import React from "react";
 import API from "../utils/API";
-import { Col, Row, Container } from "../components/Grid";
+import { Container } from "../components/Grid";
 
 function User() {
 
@@ -62,11 +62,7 @@ function User() {
 
 
   return (
-    <Container fluid>
-      <Row>
-        <Col size="md-6">
-        </Col>
-      </Row>
+    <Container>
     </Container>
   );
 }
