@@ -1,3 +1,7 @@
 module.exports = {
-  Category: require("./Category")
+  Category: require("./Category"),
+  Challenge: require('./Challenge'),
+  LifeAttributes: require('./LifeAttributes'),
+  User: require('./User'),
+  Matching: require('./Matching')
 };

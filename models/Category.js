@@ -3,17 +3,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
-  category: {
+  name: {
     type: String
   },
-  description: {
-    type: String
-  },
-  activities: 
-  {
-  type: Array,
-  ref: "Activity"
-  }
 
 });
 
