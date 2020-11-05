@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./App.css";
+import User from "./pages/User";
 
 function App() {
   const [registerUsername, setRegisterUsername] = useState("");
@@ -16,7 +16,7 @@ function App() {
         password: registerPassword,
       },
       withCredentials: true,
-      url: "http://localhost:3001/register",
+      url: "http://localhost:3001/api/user/register",
     }).then((res) => {
       console.log(res);
       setRegisterUsername("");
@@ -35,7 +35,7 @@ function App() {
         password: loginPassword,
       },
       withCredentials: true,
-      url: "http://localhost:3001/login",
+      url: "http://localhost:3001/api/user/login",
     }).then((res) => {
       console.log(res);
       setLoginUsername("");
@@ -84,6 +84,8 @@ function App() {
         />
         <button onClick={login}>Submit</button>
       </div>
+
+      <User />
     </div>
   );
 }

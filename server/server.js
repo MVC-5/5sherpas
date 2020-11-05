@@ -50,58 +50,9 @@ require("./passportConfig")(passport);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
 // Add routes, both API and view
-// app.use(routes);
-
-app.post("/login", function (req, res, next) {
-  passport.authenticate("local", function (err, user, info) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.redirect("/login");
-    }
-    req.logIn(user, function (err) {
-      if (err) {
-        return next(err);
-      }
-      return res.redirect("/users/" + user.username);
-    });
-  })(req, res, next);
-});
-
-// app.post("/login", (req, res) => {
-//   console.log(req.body);
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) throw err;
-//     if (!user) res.send("No user exists");
-//     else {
-//       console.log("here");
-//       req.logIn((user, err) => {
-//         if (err) throw err;
-//         res.send("logged in");
-//         console.log(user);
-//       });
-//     }
-//   });
-// });
-
-app.post("/register", (req, res) => {
-  console.log(req.body);
-  db.User.findOne({ username: req.body.username }, async (err, doc) => {
-    if (err) throw err;
-    if (doc) res.send("User already exists");
-    if (!doc) {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const newUser = new db.User({
-        username: req.body.username,
-        password: hashedPassword,
-      });
-      await newUser.save();
-      res.send("User created");
-    }
-  });
-});
+app.use(routes);
 
 app.get("/user", (req, res) => {});
 
