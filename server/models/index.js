@@ -3,5 +3,6 @@ module.exports = {
   Challenge: require('./Challenge'),
   LifeAttributes: require('./LifeAttributes'),
   User: require('./User'),
-  Matching: require('./Matching')
+  Matching: require('./Matching'),
+  ShortActivity: require('./ShortActivity')
 };
