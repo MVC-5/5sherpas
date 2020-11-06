@@ -42,9 +42,9 @@ function Register() {
 
   const testEmail = (email) => {
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-      setIsValidEmail(false);
+      setIsValidEmail("not-valid");
     } else {
-      setIsValidEmail(true);
+      setIsValidEmail("valid");
     }
   };
 

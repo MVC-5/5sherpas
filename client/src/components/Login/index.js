@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
-import axios from "axios";
 import API from "../../utils/API";
 
 function Login() {
