@@ -1,55 +1,68 @@
 import React, { useState } from "react";
+import { Button, Form } from "semantic-ui-react";
 import axios from "axios";
 import API from "../../utils/API";
 
 function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const login = () => {
+  const login = (e) => {
     API.loginUser({ username: loginEmail, password: loginPassword }).then(
       (res) => {
-        console.log(res.data);
+        setMessage(res.data);
         setLoginEmail("");
         setLoginPassword("");
       }
     );
+    e.preventDefault();
   };
 
+  // this is more of a proof of concept. we can use this route to get user id, email, and name
   const getUser = () => {
-    // move api call
-    axios({
-      method: "get",
-      withCredentials: true,
-      url: "http://localhost:3001/api/user",
-    }).then((res) => {
+    API.getUser().then((res) => {
+      setMessage(res.data.name || "No user logged in");
       console.log(res.data);
       return res.data.email;
     });
   };
 
   return (
-    <>
+    <div>
       <div>
         <h1>Login</h1>
-        <input
-          type="text"
-          name="loginEmail"
-          id="loginUsername"
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
-        />
-        <input
-          type="text"
-          name="loginPassword"
-          id="loginPassword"
-          value={loginPassword}
-          onChange={(e) => setLoginPassword(e.target.value)}
-        />
-        <button onClick={login}>Submit</button>
+        <Form onSubmit={login}>
+          <Form.Field required>
+            <label htmlFor="loginEmail">Email</label>
+
+            <input
+              type="text"
+              name="loginEmail"
+              id="loginEmail"
+              placeholder="Account Email"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+          </Form.Field>
+          <Form.Field required>
+            <label htmlFor="loginPassword">Password</label>
+            <input
+              type="password"
+              name="loginPassword"
+              id="loginPassword"
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+          </Form.Field>
+          <Button onClick={login}>Submit</Button>
+        </Form>
       </div>
-      <button onClick={getUser}>Logged-in user in console</button>
-    </>
+
+      <h3>{message}</h3>
+      <Button onClick={getUser}>Get current user.</Button>
+    </div>
   );
 }
 

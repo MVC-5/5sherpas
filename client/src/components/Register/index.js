@@ -6,7 +6,7 @@ import API from "../../utils/API";
 
 function Register() {
   const [registerEmail, setRegisterEmail] = useState("");
-  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidEmail, setIsValidEmail] = useState("valid");
   const [registerName, setRegisterName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [isValidPassword, setIsValidPassword] = useState("");
@@ -62,84 +62,72 @@ function Register() {
     }
   };
   return (
-    <>
-      <div>
-        <h1>Register</h1>
-        <h2>{message}</h2>
-        <Form onSubmit={register}>
-          <Form.Field>
-            <label htmlFor="regName">
-              Name
-              <input
-                type="text"
-                name="regName"
-                id="regName"
-                placeholder="Name"
-                value={registerName}
-                onChange={(e) => setRegisterName(e.target.value)}
-              />
-            </label>
-          </Form.Field>
+    <div>
+      <h1>Register</h1>
+      <h2>{message}</h2>
+      <Form onSubmit={register}>
+        <Form.Field required>
+          <label htmlFor="regName">Name</label>
+          <input
+            type="text"
+            name="regName"
+            id="regName"
+            placeholder="Name"
+            value={registerName}
+            onChange={(e) => setRegisterName(e.target.value)}
+          />
+        </Form.Field>
 
-          <Form.Field>
-            <label htmlFor="regEmail">
-              Email
-              <input
-                error={isValidEmail}
-                type="email"
-                name="regEmail"
-                id="regEmail"
-                placeholder="Email"
-                value={registerEmail}
-                className={isValidEmail}
-                onChange={(e) => {
-                  testEmail(e.target.value);
-                  setRegisterEmail(e.target.value);
-                }}
-              />
-            </label>
-          </Form.Field>
+        <Form.Field required>
+          <label htmlFor="regEmail">Email</label>
+          <input
+            type="email"
+            name="regEmail"
+            id="regEmail"
+            placeholder="Email"
+            value={registerEmail}
+            className={isValidEmail}
+            onChange={(e) => {
+              testEmail(e.target.value);
+              setRegisterEmail(e.target.value);
+            }}
+          />
+        </Form.Field>
 
-          <Form.Field>
-            <label htmlFor="regPassword">
-              {" "}
-              Password
-              <input
-                type="password"
-                name="regPassword"
-                id="regPassword"
-                placeholder="Password"
-                value={registerPassword}
-                className={isValidPassword}
-                onChange={(e) => {
-                  testPassword(e.target.value, registerPassword2);
-                  setRegisterPassword(e.target.value);
-                }}
-              />
-            </label>
-          </Form.Field>
+        <Form.Field required>
+          <label htmlFor="regPassword">Password</label>
+          <input
+            type="password"
+            name="regPassword"
+            id="regPassword"
+            placeholder="Password"
+            value={registerPassword}
+            className={isValidPassword}
+            onChange={(e) => {
+              testPassword(e.target.value, registerPassword2);
+              setRegisterPassword(e.target.value);
+            }}
+          />
+        </Form.Field>
 
-          <Form.Field>
-            <label htmlFor="regPassword2">
-              Verify Password
-              <input
-                name="regPassword2"
-                id="regPassword2"
-                placeholder="Verify Password"
-                type="password"
-                value={registerPassword2}
-                className={isValidPassword}
-                onChange={(e) => {
-                  testPassword(e.target.value, registerPassword);
-                  setRegisterPassword2(e.target.value);
-                }}
-              />
-            </label>
-          </Form.Field>
-          <Button type="submit">Submit</Button>
-        </Form>
-      </div>
-    </>
+        <Form.Field required>
+          <label htmlFor="regPassword2">Verify Password</label>
+          <input
+            name="regPassword2"
+            id="regPassword2"
+            placeholder="Verify Password"
+            type="password"
+            value={registerPassword2}
+            className={isValidPassword}
+            onChange={(e) => {
+              testPassword(e.target.value, registerPassword);
+              setRegisterPassword2(e.target.value);
+            }}
+          />
+        </Form.Field>
+        <Button type="submit">Submit</Button>
+      </Form>
+    </div>
   );
 }
 

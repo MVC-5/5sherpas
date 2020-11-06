@@ -21,7 +21,12 @@ export default {
   },
   // Gets user from matching username/password from login
   getUser: function () {
-    return axios.get("/api/user");
+    // returns empty string or object with id, email, and name
+    return axios({
+      method: "get",
+      withCredentials: true,
+      url: "http://localhost:3001/api/user",
+    });
   },
   // Gets the user settings with the given id
   getUserSettings: function (id) {
