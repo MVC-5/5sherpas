@@ -21,4 +21,3 @@ const Challenge = mongoose.model("Challenge", ChallengeSchema);
 
 module.exports = Challenge;
 
-//Add comment to trigger GitHub change
