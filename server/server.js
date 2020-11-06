@@ -3,13 +3,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
-const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
-const bcrypt = require("bcryptjs");
 const session = require("express-session");
 
 const routes = require("./routes");
-const db = require("./models");
 
 //
 const app = express();
@@ -18,6 +15,10 @@ const PORT = process.env.PORT || 3001;
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/5sherpas",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
   () => console.log("Mongoose is hooked up!")
 );
 

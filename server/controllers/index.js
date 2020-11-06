@@ -42,9 +42,15 @@ module.exports = {
           email: req.body.email,
           password: hashedPassword,
         });
-        await newUser.save();
-        // put in db error handling
-        res.send("User created");
+        await newUser
+          .save()
+          .then((result) => {
+            res.send("User created");
+            console.log(result);
+          })
+          .catch((error) => {
+            throw error;
+          });
       }
     });
   },
