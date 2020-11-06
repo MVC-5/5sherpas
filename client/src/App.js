@@ -1,10 +1,13 @@
 import React from "react";
 import User from "./pages/User";
-// import Settings from "./pages/UserSettings";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
-    <div>
+    <div className="App">
+      <Register />
+      <Login />
       <User />
     </div>
   );
