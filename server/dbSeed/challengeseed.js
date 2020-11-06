@@ -11,7 +11,7 @@ let challenges = [
     name: "Exercise",
     description: "Whether it's cardio, strength, calisthenics or any exercise, physical activity benefits the mind and body",
     links: ["https://www.healthline.com/health/fitness-exercise/10-best-exercises-everyday", "https://www.acefitness.org/education-and-resources/lifestyle/blog/6593/top-25-at-home-exercises/", "https://greatist.com/fitness/50-bodyweight-exercises-you-can-do-anywhere"]
-
+    
   },
 
   {

@@ -8,41 +8,44 @@ mongoose.connect("mongodb://localhost/5sherpas", {
 
 let categories = [
   {
-    name: "Wellness",
-
+    _id: 1,
+    name: "Wellness"
+    
   },
 
   {
+    _id: 2,
     name: "Intelligence",
 
   },
 
   {
+    _id: 3,
     name: "Well-Roundedness",
 
   },
 
   {
+    _id: 4,
     name: "Organization",
  
   },
 
   {
+    _id: 5,
     name: "Career",
 
   },
 
   {
+    _id: 6,
     name: "Bad Habit Cessation",
 
   },
 
-  {
-    name: "Bad Habit Cessation",
-
-  },
 
   {
+    _id: 7,
     name: "Interpersonal Relationships",
  
   },

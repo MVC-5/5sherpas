@@ -7,9 +7,13 @@ const ShortActivitySchema = new Schema({
     type: String
   },
 
-  shortactivity: {
+  activitytype: {
     type: String
   },
+
+  link: {
+    type: String
+  }
 
 });
 
