@@ -41,20 +41,20 @@ export default {
     return axios.get("/api/dashboard/" + id);
   },
   // Gets new weekly challenge when challenge sherpa clicked
-  getNewChallenge: function (id) {
-    return axios.get("/api/dashboard/" + id + "/newchallenge");
+  getNewChallenge: function () {
+    return axios.get("/api/dashboard/newchallenge");
   },
   // Gets movie suggestion when movie sherpa clicked
-  getMovieSugg: function (id) {
-    return axios.get("/api/dashboard/" + id + "/movie");
+  getMovieSugg: function () {
+    return axios.get("/api/dashboard/movie");
   },
   // Gets physical activity suggestion when physical health sherpa clicked
-  getPhysActSugg: function (id) {
-    return axios.get("/api/dashboard/" + id + "/physical");
+  getPhysActSugg: function () {
+    return axios.get("/api/dashboard/physical");
   },
   // Gets mental activity suggestion when mental health shepra clicked
-  getMentalActSugg: function (id) {
-    return axios.get("/api/dashboard/" + id + "/mental");
+  getMentalActSugg: function () {
+    return axios.get("/api/dashboard/mental")
   },
   // Updates weekly challenge based on user selection of completed, not now, or never show again
   updateChall: function (id) {
