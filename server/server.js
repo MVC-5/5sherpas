@@ -42,19 +42,17 @@ app.use(
 
 app.use(cookieParser("secretcode"));
 
+require("./passportConfig")(passport);
+
 app.use(passport.initialize());
 app.use(passport.session());
-require("./passportConfig")(passport);
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Add routes, both API and view
 app.use(routes);
-
-app.get("/user", (req, res) => {});
 
 // Start the API server
 app.listen(PORT, function () {

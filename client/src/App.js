@@ -1,11 +1,13 @@
 import React from "react";
 import User from "./pages/User";
-import LoginRegister from "./components/LoginRegister";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
     <div className="App">
-      <LoginRegister />
+      <Register />
+      <Login />
       <User />
     </div>
   );
