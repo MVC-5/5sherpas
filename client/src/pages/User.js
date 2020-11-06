@@ -49,7 +49,7 @@ function User() {
       console.log(res)
     )
     .catch(err => console.log(err));
-  API.updateChall()
+  API.updateChall(1)
     .then(res =>
       console.log(res)
     )
