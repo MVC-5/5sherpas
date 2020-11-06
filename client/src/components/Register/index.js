@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import { Button, Form } from "semantic-ui-react";
 import "./style.css";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import API from "../../utils/API";
 
@@ -9,16 +9,15 @@ function Register() {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [registerName, setRegisterName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState("");
   const [registerPassword2, setRegisterPassword2] = useState("");
   const [message, setMessage] = useState("");
 
   const register = async (e) => {
     if (
-      registerEmail &&
+      isValidEmail === "valid" &&
       registerName &&
-      registerPassword &&
-      registerPassword2
+      isValidPassword === "valid"
     ) {
       API.registerUser({
         email: registerEmail,
@@ -49,16 +48,17 @@ function Register() {
     }
   };
 
-  const testPassword = (password, password2) => {
+  const testPassword = (passwordA, passwordB) => {
     if (
-      /^(?=[^\s].*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).[^\s]{8,}$/i.test(
-        password
+      // must contiain uppercase, lowercase, number, and be at least 8 characters long
+      /^(?=[^\s].*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[^\s]).{8,}$/i.test(
+        passwordA
       ) &&
-      password === password2
+      passwordA === passwordB
     ) {
-      setIsValidPassword(true);
+      setIsValidPassword("valid");
     } else {
-      setIsValidPassword(false);
+      setIsValidPassword("not-valid");
     }
   };
   return (
@@ -66,53 +66,78 @@ function Register() {
       <div>
         <h1>Register</h1>
         <h2>{message}</h2>
-        <form onSubmit={register}>
-          <input
-            type="text"
-            name="regName"
-            id="regName"
-            placeholder="Name"
-            value={registerName}
-            onChange={(e) => setRegisterName(e.target.value)}
-          />
+        <Form onSubmit={register}>
+          <Form.Field>
+            <label htmlFor="regName">
+              Name
+              <input
+                type="text"
+                name="regName"
+                id="regName"
+                placeholder="Name"
+                value={registerName}
+                onChange={(e) => setRegisterName(e.target.value)}
+              />
+            </label>
+          </Form.Field>
 
-          <input
-            type="email"
-            name="regEmail"
-            id="regEmail"
-            placeholder="Email"
-            value={registerEmail}
-            className={isValidEmail ? "valid" : "not-valid"}
-            onChange={(e) => {
-              testEmail(e.target.value);
-              setRegisterEmail(e.target.value);
-            }}
-          />
+          <Form.Field>
+            <label htmlFor="regEmail">
+              Email
+              <input
+                error={isValidEmail}
+                type="email"
+                name="regEmail"
+                id="regEmail"
+                placeholder="Email"
+                value={registerEmail}
+                className={isValidEmail}
+                onChange={(e) => {
+                  testEmail(e.target.value);
+                  setRegisterEmail(e.target.value);
+                }}
+              />
+            </label>
+          </Form.Field>
 
-          <input
-            type="password"
-            name="regPassword"
-            id="regPassword"
-            placeholder="Password"
-            value={registerPassword}
-            className={isValidPassword ? "valid" : "not-valid"}
-            onChange={(e) => {
-              testPassword(e.target.value, registerPassword2);
-              setRegisterPassword(e.target.value);
-            }}
-          />
+          <Form.Field>
+            <label htmlFor="regPassword">
+              {" "}
+              Password
+              <input
+                type="password"
+                name="regPassword"
+                id="regPassword"
+                placeholder="Password"
+                value={registerPassword}
+                className={isValidPassword}
+                onChange={(e) => {
+                  testPassword(e.target.value, registerPassword2);
+                  setRegisterPassword(e.target.value);
+                }}
+              />
+            </label>
+          </Form.Field>
 
-          <input
-            name="regPassword2"
-            id="regPassword2"
-            placeholder="Verify Password"
-            type="password"
-            value={registerPassword2}
-            className={isValidPassword ? "valid" : "not-valid"}
-            onChange={(e) => setRegisterPassword2(e.target.value)}
-          />
-          <button type="submit">Submit</button>
-        </form>
+          <Form.Field>
+            <label htmlFor="regPassword2">
+              Verify Password
+              <input
+                name="regPassword2"
+                id="regPassword2"
+                placeholder="Verify Password"
+                type="password"
+                value={registerPassword2}
+                className={isValidPassword}
+                onChange={(e) => {
+                  testPassword(e.target.value, registerPassword);
+                  setRegisterPassword2(e.target.value);
+                }}
+              />
+            </label>
+          </Form.Field>
+          <Button type="submit">Submit</Button>
+        </Form>
       </div>
     </>
   );
