@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const LifeAttrSchema = new Schema({
   name: {
-    type: String
+    type: String,
   },
 
   categoryreference: {
-    ref: "Category"
-  }
-
+    type: Number,
+    ref: "Category",
+  },
 });
 
 const LifeAttr = mongoose.model("LifeAttr", LifeAttrSchema);

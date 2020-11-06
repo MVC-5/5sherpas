@@ -1,27 +1,25 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const ChallengeSchema = new Schema({
   name: {
-    type: String
+    type: String,
   },
 
   description: {
-    type: String
+    type: String,
   },
 
   links: {
-    type: Array
+    type: Array,
   },
 
   categoryreference: {
-    ref: "Category"
-  }
-  
+    type: Number,
+    ref: "Category",
+  },
 });
 
 const Challenge = mongoose.model("Challenge", ChallengeSchema);
 
 module.exports = Challenge;
-

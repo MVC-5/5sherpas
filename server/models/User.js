@@ -1,12 +1,11 @@
+const validator = require("validator");
 const mongoose = require("mongoose");
-import { isEmail } from 'validator';
-
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   name: {
     type: String,
-    required: "First name required"
+    required: "First name required",
   },
 
   email: {
@@ -14,14 +13,14 @@ const UserSchema = new Schema({
     required: "Email required",
     unique: true,
     validate: {
-      validator: isEmail, message: 
-      'Invalid email'
-    }
+      validator: validator.isEmail,
+      message: "Invalid email",
+    },
   },
 
   password: {
     type: String,
-    required: "Password required"
+    required: "Password required",
   },
 
   avatar: {
@@ -29,30 +28,27 @@ const UserSchema = new Schema({
   },
 
   keywords: {
-    type: Array
+    type: Array,
   },
 
   matchingactivities: {
-
     type: Array,
-    ref: "Matching"
-
+    ref: "Matching",
   },
 
   neverdolist: {
-    type: Array
+    type: Array,
   },
 
   currentchallenge: {
     type: Array,
-    ref: "Challenge"
+    ref: "Challenge",
   },
 
   totalprogress: {
     type: Array,
-    ref: "Challenge"
-  }
-  
+    ref: "Challenge",
+  },
 });
 
 const User = mongoose.model("User", UserSchema);

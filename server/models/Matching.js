@@ -1,20 +1,18 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const MatchingSchema = new Schema({
   words: {
-    type: Array
+    type: Array,
   },
 
   matchingcategories: {
-    type: Array
+    type: Array,
   },
 
   activities: {
-    type: Array
+    type: Array,
   },
-
 });
 
 const Matching = mongoose.model("Matching", MatchingSchema);

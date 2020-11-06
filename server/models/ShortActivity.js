@@ -1,20 +1,18 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const ShortActivitySchema = new Schema({
   name: {
-    type: String
+    type: String,
   },
 
   activitytype: {
-    type: String
+    type: String,
   },
 
   link: {
-    type: String
-  }
-
+    type: String,
+  },
 });
 
 const ShortActivity = mongoose.model("ShortActivity", ShortActivitySchema);

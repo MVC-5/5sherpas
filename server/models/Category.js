@@ -1,20 +1,16 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const CategorySchema = new Schema({
-
   _id: {
-    type: Number
+    type: Number,
   },
   name: {
     type: String,
-    unique: true
+    unique: true,
   },
-
 });
 
 const Category = mongoose.model("Category", CategorySchema);
 
 module.exports = Category;
-
