@@ -34,7 +34,7 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
-    "validator": "^13.1.17",
+    "passport-local": "^1.0.0",
+    "validator": "^13.1.17"
   }
 }
