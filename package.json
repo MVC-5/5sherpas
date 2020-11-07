@@ -1,0 +1,20 @@
+{
+  "name": "5sherpas",
+  "version": "1.0.0",
+  "description": "## Project 3 Proposal.",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd server && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MVC-5/5sherpas.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MVC-5/5sherpas/issues"
+  },
+  "homepage": "https://github.com/MVC-5/5sherpas#readme"
+}
