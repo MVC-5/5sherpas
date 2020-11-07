@@ -1,22 +1,15 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
 import FormButton from './formButton'
+import FormInput from './input'
 
-const ReadOnlyAccount = () => (
-  <Form>
-    <Form.Group widths='equal'>
-      <Form.Input fluid label='Name' placeholder='Read only' readOnly />
-      <FormButton color='blue' icon='pencil alternate' text='Edit' />
+const ReadGroup = (props) => {
+  return (
+    <Form.Group>
+      <FormInput label={props.field} value='Read Only' readOnly={true} />
+      <FormButton name={props.field} color='blue' icon='alternate pencil' text='Edit' onClick={props.onClick} />
     </Form.Group>
-    <Form.Group widths='equal'>
-      <Form.Input fluid label='Email' placeholder='Read only' readOnly />
-      <FormButton color='blue' icon='pencil alternate' text='Edit' />
-    </Form.Group>
-    <Form.Group widths='equal'>
-      <Form.Input fluid label='Password' placeholder='Read only' readOnly />
-      <FormButton color='blue' icon='pencil alternate' text='Edit' />
-    </Form.Group>
-  </Form>
-)
+  )
+}
 
-export default ReadOnlyAccount
+export default ReadGroup
