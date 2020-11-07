@@ -1,7 +1,6 @@
 #mainButton {
-  background-color: cadetblue;
+  background-color: var(--secondary-color);
   color: white;
   font-weight: 100;
-  border-radius: 10px;
-  padding: 28px;
+  border-radius: var(--button-border-radius);
 }

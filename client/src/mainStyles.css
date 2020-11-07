@@ -1,0 +1,20 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+/* Main site styles */
+:root {
+  --primary-color: #00c4ff;
+  --dark-background: #292929;
+  --accent-dark-color: #2e2e2e;
+  --secondary-color: #6200ee;
+  --secondary-accent-color: #5620e8;
+  --default-text: #ffffff;
+  --text-placeholder: #78849e;
+  --default-border-radius: 15px;
+  --top-border-radius: 10px 10px 0 0;
+  --btm-border-radius: 0 0 10px 10px;
+  --button-border-radius: 10px;
+  --button-border-width: 2px;
+}
