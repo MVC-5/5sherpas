@@ -4,7 +4,6 @@ import { Grid, Image, Form } from 'semantic-ui-react';
 import ReadGroup from "../components/Form/readAccount"
 import EditGroup from "../components/Form/editAccount"
 import API from "../utils/API";
-// import API from "../utils/API";
 
 function Settings() {
 
@@ -20,16 +19,18 @@ function Settings() {
   const [emailInput, setEmailInput] = useState("")
   const [passInput, setPassInput] = useState("")
 
-  // const getUserSettings = () => {
-  //   API.getUserSettings()
-  //     .then((res) => {
-  //       setUserName(res.name);
-  //       setUserEmail(res.email);
-  //       setUserPass(res.passsword);
-  //     })
-  // }
+  const getUserSettings = () => {
+    API.getUserSettings()
+      .then((res) => {
+        setUserName(res.name);
+        setUserEmail(res.email);
+        setUserPass(res.passsword);
+      })
+  }
 
-  // getUserSettings();
+  useEffect(() => {
+    getUserSettings()
+  }, [])
 
   useEffect(() => {
     console.log(nameInput);
