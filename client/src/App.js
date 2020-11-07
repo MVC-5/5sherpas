@@ -8,8 +8,8 @@ import LandingPage from "./pages/LandingPage";
 import User from "./pages/User";
 //components
 import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import UserLogin from "./pages/UserLogin";
+import Registration from "./pages/Registration";
 
 function App() {
   return (
@@ -29,10 +29,10 @@ function App() {
                 <User />
               </Route>
               <Route path="/register">
-                <Register />
+                <Registration />
               </Route>
               <Route path="/login">
-                <Login />
+                <UserLogin />
               </Route>
             </Switch>
           </Wrapper>

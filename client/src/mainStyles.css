@@ -18,3 +18,51 @@
   --button-border-radius: 10px;
   --button-border-width: 2px;
 }
+
+.knot-container {
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
+  height: 900px;
+}
+
+#main-knot {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sherpa-img {
+  position: absolute;
+  height: 25%;
+}
+
+.s-1 {
+  left: 50%;
+  top: 120px;
+  transform: translate(-50%, -50%);
+}
+
+.s-2 {
+  left: 71.5%;
+  top: 340px;
+  transform: translate(-50%, -50%);
+}
+
+.s-3 {
+  left: 71.5%;
+  top: 550px;
+  transform: translate(-50%, -50%);
+}
+
+.s-4 {
+  left: 28.5%;
+  top: 340px;
+  transform: translate(-50%, -50%);
+}
+
+.s-5 {
+  left: 28.5%;
+  top: 550px;
+  transform: translate(-50%, -50%);
+}

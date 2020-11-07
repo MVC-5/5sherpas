@@ -4,57 +4,9 @@
   width: 100vw;
 }
 
-.knot-container {
-  position: relative;
-  margin: 0 auto;
-  width: 1000px;
-  height: 900px;
-}
-
 .register-btn {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.sherpa-img {
-  position: absolute;
-  height: 25%;
-}
-
-.s-1 {
-  left: 50%;
-  top: 120px;
-  transform: translate(-50%, -50%);
-}
-
-.s-2 {
-  left: 71.5%;
-  top: 340px;
-  transform: translate(-50%, -50%);
-}
-
-.s-3 {
-  left: 71.5%;
-  top: 550px;
-  transform: translate(-50%, -50%);
-}
-
-.s-4 {
-  left: 28.5%;
-  top: 340px;
-  transform: translate(-50%, -50%);
-}
-
-.s-5 {
-  left: 28.5%;
-  top: 550px;
-  transform: translate(-50%, -50%);
-}
-
-#main-knot {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }

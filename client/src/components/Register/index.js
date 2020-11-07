@@ -62,7 +62,7 @@ function Register() {
     }
   };
   return (
-    <div>
+    <div id="register-form">
       <h1>Register</h1>
       <h2>{message}</h2>
       <Form onSubmit={register}>
@@ -125,7 +125,7 @@ function Register() {
             }}
           />
         </Form.Field>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">BEGIN</Button>
       </Form>
     </div>
   );

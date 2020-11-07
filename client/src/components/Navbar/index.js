@@ -1,29 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../../utils/API";
+import { Menu, Icon } from "semantic-ui-react";
+import "./style.css";
 
 const Navbar = () => {
+  const [activeItem, setActiveItem] = useState();
+
+  const handleItemClick = (e, { name }) => setActiveItem(name);
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          {API.getUser ? (
-            <Link to="/register">Register</Link>
-          ) : (
-            <Link to="/login">Login</Link>
-          )}
-        </li>
-      </ul>
-    </nav>
+    <div id="navbar">
+      <Menu pointing secondary>
+        <Link to="/">
+          <Menu.Item
+            name="5 Sherpas"
+            active={activeItem === "logout"}
+            onClick={handleItemClick}
+          />
+        </Link>
+
+        <Menu.Menu position="right">
+          <Link to="/login">
+            <Menu.Item
+              name="login"
+              active={activeItem === "home"}
+              onClick={handleItemClick}
+            />
+          </Link>
+          <Link to="/register">
+            <Menu.Item
+              name="register"
+              active={activeItem === "messages"}
+              onClick={handleItemClick}
+            />
+          </Link>
+          <Link to="/dashboard">
+            <Menu.Item
+              name="video camera"
+              active={activeItem === "video camera"}
+              onClick={handleItemClick}
+            >
+              <Icon name="user" inverted />
+            </Menu.Item>
+          </Link>
+        </Menu.Menu>
+      </Menu>
+    </div>
   );
 };
 
