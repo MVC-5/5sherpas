@@ -5,23 +5,53 @@ import API from "../../utils/API";
 function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState("not-valid");
   const [message, setMessage] = useState("");
+  const [loginError, setLoginError] = useState(false);
 
-  const login = (e) => {
-    API.loginUser({ username: loginEmail, password: loginPassword }).then(
-      (res) => {
-        setMessage(res.data);
-        setLoginEmail("");
-        setLoginPassword("");
-      }
-    );
+  const testEmail = (email) => {
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(email)) {
+      setIsValidEmail("not-valid");
+    } else {
+      setIsValidEmail("valid");
+    }
+    console.log(isValidEmail);
+  };
+
+  const login = async (e) => {
+    if (isValidEmail === "valid" && loginPassword) {
+      API.loginUser({ username: loginEmail, password: loginPassword }).then(
+        (res) => {
+          if (res.data === "no user") {
+            setLoginError(true);
+            setMessage("Login credentials do not match any user.");
+          } else {
+            setMessage(res.data);
+          }
+
+          setLoginEmail("");
+          setLoginPassword("");
+          setIsValidEmail("not-valid");
+        }
+      );
+    } else {
+      setMessage("Please provide a valid email and password.");
+      setLoginError(true);
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
+    }
+
     e.preventDefault();
   };
 
   // this is more of a proof of concept. we can use this route to get user id, email, and name
   const getUser = () => {
     API.getUser().then((res) => {
-      setMessage(res.data.name || "No user logged in");
+      setMessage(`Current user: ${res.data.name}` || "No user logged in");
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
       console.log(res.data);
       return res.data.email;
     });
@@ -41,7 +71,12 @@ function Login() {
               id="loginEmail"
               placeholder="Account Email"
               value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
+              className={loginError ? "error-bg" : null}
+              onChange={(e) => {
+                setLoginError(false);
+                testEmail(loginEmail);
+                setLoginEmail(e.target.value);
+              }}
             />
           </Form.Field>
           <Form.Field required>
@@ -52,7 +87,11 @@ function Login() {
               id="loginPassword"
               placeholder="Password"
               value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
+              className={loginError ? "error-bg" : null}
+              onChange={(e) => {
+                setLoginError(false);
+                setLoginPassword(e.target.value);
+              }}
             />
           </Form.Field>
           <Button onClick={login}>Submit</Button>
