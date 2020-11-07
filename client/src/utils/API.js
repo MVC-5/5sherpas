@@ -1,10 +1,32 @@
 import axios from "axios";
 
 export default {
-
+  // Logs in User
+  loginUser: function (userData) {
+    return axios({
+      method: "post",
+      data: userData,
+      withCredentials: true,
+      url: "/api/user/login",
+    });
+  },
+  // register new user
+  registerUser: function (userData) {
+    return axios({
+      method: "post",
+      data: userData,
+      withCredentials: true,
+      url: "/api/user/register",
+    });
+  },
   // Gets user from matching username/password from login
   getUser: function () {
-    return axios.get("/api/user");
+    // returns empty string or object with id, email, and name
+    return axios({
+      method: "get",
+      withCredentials: true,
+      url: "http://localhost:3001/api/user",
+    });
   },
   // Gets the user settings with the given id
   getUserSettings: function (id) {
@@ -13,10 +35,6 @@ export default {
   // Updates user settings with given id
   updateUserSettings: function (id) {
     return axios.put("/api/user/" + id);
-  },
-  // Saves new user account creation data
-  saveUser: function (userData) {
-    return axios.post("/api/user/", userData);
   },
   // Gets weekly challenges and progress map data
   getDashData: function (id) {
@@ -41,5 +59,5 @@ export default {
   // Updates weekly challenge based on user selection of completed, not now, or never show again
   updateChall: function (id) {
     return axios.put("/api/dashboard/" + id);
-  }
+  },
 };
