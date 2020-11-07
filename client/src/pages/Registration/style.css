@@ -1,0 +1,10 @@
+.reg-form-container {
+  position: absolute;
+  top: 51%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  background-color: var(--secondary-color);
+  padding: 40px;
+  border-radius: var(--default-border-radius);
+}

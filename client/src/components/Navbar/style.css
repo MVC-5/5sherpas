@@ -1,0 +1,24 @@
+#navbar {
+  background-color: rgb(31, 30, 30);
+}
+
+.ui.secondary.pointing.menu .item {
+  color: rgb(65, 195, 235);
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.ui.secondary.pointing.menu .right .item {
+  color: white;
+  font-weight: 200;
+  font-size: 1.3rem;
+}
+
+.ui.secondary.pointing.menu .link.item:hover,
+.ui.secondary.pointing.menu a.item:hover {
+  color: rgb(76, 195, 250);
+}
+
+i.inverted.icon:hover {
+  color: rgb(76, 195, 250);
+}
