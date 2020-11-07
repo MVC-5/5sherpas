@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Form } from 'semantic-ui-react'
 
-export function ChallengeOptions() {
+export function ChallengeOptions(props) {
 
   // pull in props from UserSettings getUserSettings API call and set each challCat initially equal to correct prop
 
-  const [challCat1, setChallCat1] = useState("");
-  const [challCat2, setChallCat2] = useState("");
-  const [challCat3, setChallCat3] = useState("");
+  const [challCat1, setChallCat1] = useState(props.choice1);
+  const [challCat2, setChallCat2] = useState(props.choice2);
+  const [challCat3, setChallCat3] = useState(props.choice3);
 
   const handleChange = (event, data) => {
     event.preventDefault()

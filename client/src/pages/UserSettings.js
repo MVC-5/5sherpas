@@ -19,12 +19,15 @@ function Settings() {
   const [emailInput, setEmailInput] = useState("")
   const [passInput, setPassInput] = useState("")
 
+  const [challenges, setChallenges] = useState("")
+
   const getUserSettings = () => {
     API.getUserSettings()
       .then((res) => {
         setUserName(res.name);
         setUserEmail(res.email);
         setUserPass(res.passsword);
+        setChallenges(res.challengeCategories)
       })
   }
 
@@ -62,25 +65,28 @@ function Settings() {
     }
   }
 
-  const handleSave = (btnType, update, field) => {
-    let updateBody = {};
+  const handleSave = (btnType, update) => {
     if (btnType === "Cancel") {
       // run cancel function
     } else if (btnType === "Save") {
-      switch (field) {
+      switch (update.field) {
         case "Name":
-          setUserName(update.name)
+          setUserName(update.value)
           break;
         case "Email":
-          setUserEmail(update.email)
+          setUserEmail(update.value)
           break;
         case "Password":
-          setUserPass(update.password)
+          setUserPass(update.value)
           break;
         default:
           return;
       }
-      updateBody = update
+      const updateBody = {
+        field: update.field.toLowerCase(),
+        value: update.value
+      }
+      console.log(updateBody);
       API.updateUserSettings(updateBody)
         .then(res => {
           console.log(res)
@@ -101,15 +107,15 @@ function Settings() {
     }
     switch (field) {
       case "Name":
-        handleSave(btnType, { name: nameInput }, field)
+        handleSave(btnType, { field: field, value: nameInput })
         setNameState(newState);
         break;
       case "Email":
-        handleSave(btnType, { email: emailInput }, field)
+        handleSave(btnType, { field: field, value: emailInput })
         setEmailState(newState);
         break;
       case "Password":
-        handleSave(btnType, { password: passInput }, field)
+        handleSave(btnType, { field: field, value: passInput })
         setPassState(newState);
         break;
       default:
@@ -160,7 +166,7 @@ function Settings() {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-          <ChallengeOptions></ChallengeOptions>
+          <ChallengeOptions categories={challenges}></ChallengeOptions>
         </Grid.Column>
       </Grid.Row>
     </Grid>
