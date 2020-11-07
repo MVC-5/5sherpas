@@ -5,3 +5,17 @@
   color: white;
   background-color: red;
 }
+
+#register-form label,
+#login-form label {
+  color: white;
+}
+
+#register-form button,
+#login-form button {
+  margin-top: 10px;
+  width: 100%;
+  color: var(--default-text);
+  background-color: var(--primary-color);
+  font-size: 1.2rem;
+}
