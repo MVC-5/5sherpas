@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/MVC-5/5sherpas/issues"
   },
-  "homepage": "https://github.com/MVC-5/5sherpas#readme"
+  "homepage": "https://github.com/MVC-5/5sherpas#readme",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  }
 }
