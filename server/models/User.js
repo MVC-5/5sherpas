@@ -28,16 +28,8 @@ const UserSchema = new Schema({
   },
 
   challengeCategories: {
-    choice1: {
-      type: String,
-      required: "Must choose at least 1 category"
-    },
-    choice2: {
-      type: String
-    },
-    choice3: {
-      type: String
-    }
+    type: Array,
+    ref: "Category"
   },
 
   keywords: {

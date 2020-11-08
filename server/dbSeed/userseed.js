@@ -19,11 +19,11 @@ let users = [
     email: "user1@gmail.com",
     password: "USER1",
     avatar: 1,
-    challengeCategories: {
-      choice1: "user1 choice 1",
-      choice2: "user1 choice 2",
-      choice3: "user1 choice 3"
-    },
+    challengeCategories: [
+      "Placeholder 1",
+      "Placeholder 2",
+      "Placeholder 3"
+    ],
 
     keywords: ["user1 keyword 1", "user1 keyword 2", "user1 keyword 3"],
 
@@ -40,11 +40,11 @@ let users = [
     email: "user2@gmail.com",
     password: "USER2",
     avatar: 1,
-    challengeCategories: {
-      choice1: "user2 choice 1",
-      choice2: "user2 choice 2",
-      choice3: "user2 choice 3"
-    },
+    challengeCategories: [
+      "Placeholder 1",
+      "Placeholder 2",
+      "Placeholder 3"
+    ],
 
     keywords: ["user2 keyword 1", "user2 keyword 2", "user2 keyword 3"],
 
@@ -61,11 +61,11 @@ let users = [
     email: "user3@gmail.com",
     password: "USER3",
     avatar: 1,
-    challengeCategories: {
-      choice1: "user3 choice 1",
-      choice2: "user3 choice 2",
-      choice3: "user3 choice 3"
-    },
+    challengeCategories: [
+      "Placeholder 1",
+      "Placeholder 2",
+      "Placeholder 3"
+    ],
 
     keywords: ["user3 keyword 1", "user3 keyword 2", "user3 keyword 3"],
 

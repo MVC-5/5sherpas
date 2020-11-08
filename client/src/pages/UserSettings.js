@@ -19,20 +19,53 @@ function Settings() {
   const [emailInput, setEmailInput] = useState("")
   const [passInput, setPassInput] = useState("")
 
+  const [placeholder1, setPlaceholder1] = useState("");
+  const [placeholder2, setPlaceholder2] = useState("");
+  const [placeholder3, setPlaceholder3] = useState("");
+
   const [challenges, setChallenges] = useState("")
 
+  const [challCat1, setChallCat1] = useState(challenges[0]);
+  const [challCat2, setChallCat2] = useState(challenges[1]);
+  const [challCat3, setChallCat3] = useState(challenges[2]);
+
+  const id = "5fa74a6f9d0fcaeb93ac934e"
+
   const getUserSettings = () => {
-    API.getUserSettings()
+    API.getUserSettings(id)
       .then((res) => {
-        setUserName(res.name);
-        setUserEmail(res.email);
-        setUserPass(res.passsword);
-        setChallenges(res.challengeCategories)
+        const c1 = res.data[0].challengeCategories[0]
+        const c2 = res.data[0].challengeCategories[1]
+        const c3 = res.data[0].challengeCategories[2]
+        console.log(res);
+        setUserName(res.data[0].name);
+        setUserEmail(res.data[0].email);
+        setUserPass(res.data[0].password);
+        setChallenges(res.data[0].challengeCategories)
+        if (!c1) {
+          setPlaceholder1("Choose Category");
+        } else {
+          setPlaceholder1(c1)
+        }
+
+        if (!c2) {
+          setPlaceholder2("Choose Category");
+        } else {
+          setPlaceholder2(c2)
+        }
+
+        if (!c3) {
+          setPlaceholder3("Choose Category");
+        } else {
+          setPlaceholder3(c3)
+        }
+
       })
   }
 
   useEffect(() => {
     getUserSettings()
+    console.log("ran")
   }, [])
 
   useEffect(() => {
@@ -66,9 +99,7 @@ function Settings() {
   }
 
   const handleSave = (btnType, update) => {
-    if (btnType === "Cancel") {
-      // run cancel function
-    } else if (btnType === "Save") {
+    if (btnType === "Save") {
       switch (update.field) {
         case "Name":
           setUserName(update.value)
@@ -87,7 +118,7 @@ function Settings() {
         value: update.value
       }
       console.log(updateBody);
-      API.updateUserSettings(updateBody)
+      API.updateUserSettings("5fa6f735bf8912e0c05af875", updateBody)
         .then(res => {
           console.log(res)
         })
@@ -148,6 +179,69 @@ function Settings() {
     return getFields(passState, "Password", userPass)
   }
 
+  const handleFieldChange = (event, data) => {
+    event.preventDefault()
+    switch (data.name) {
+      case "cat1":
+        if (data.value === "None") {
+          setChallCat1(null)
+        } else {
+          setChallCat1(data.value);
+          console.log(data.value)
+        }
+        break;
+      case "cat2":
+        if (data.value === "None") {
+          setChallCat2(null)
+        } else {
+          setChallCat2(data.value);
+          console.log(data.value)
+        }
+        break;
+      case "cat3":
+        if (data.value === "None") {
+          setChallCat3(null)
+        } else {
+          setChallCat3(data.value);
+          console.log(data.value)
+        }
+        break;
+      default:
+        return
+    }
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const challengeCategories = {
+      id: id,
+      choice1: challCat1,
+      choice2: challCat2,
+      choice3: challCat3
+    }
+    console.log(challengeCategories)
+    API.updateUserChallengeCategories(challengeCategories)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const options1 = [
+    { key: '1', text: 'Placeholder 1', value: 'Placeholder 1' },
+    { key: '2', text: 'Placeholder 2', value: 'Placeholder 2' },
+    { key: '3', text: 'Placeholder 3', value: 'Placeholder 3' }
+  ]
+
+  const options2 = [
+    { key: '0', text: 'None', value: 'None' },
+    { key: '1', text: 'Placeholder 1', value: 'Placeholder 1' },
+    { key: '2', text: 'Placeholder 2', value: 'Placeholder 2' },
+    { key: '3', text: 'Placeholder 3', value: 'Placeholder 3' }
+  ]
+
   return (
     <Grid>
       <Grid.Row>
@@ -166,7 +260,7 @@ function Settings() {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-          <ChallengeOptions categories={challenges}></ChallengeOptions>
+          <ChallengeOptions placeholder1={placeholder1} placeholder2={placeholder2} placeholder3={placeholder3} options1={options1} options2={options2} onSubmit={handleSubmit} onChange={handleFieldChange}></ChallengeOptions>
         </Grid.Column>
       </Grid.Row>
     </Grid>
