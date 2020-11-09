@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form } from "semantic-ui-react";
 import API from "../../utils/API";
+import AuthContext from "../../utils/AuthContext";
 
 function Login() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -8,6 +9,8 @@ function Login() {
   const [isValidEmail, setIsValidEmail] = useState("not-valid");
   const [message, setMessage] = useState("");
   const [loginError, setLoginError] = useState(false);
+
+  const { setUserEmail } = useContext(AuthContext);
 
   const testEmail = (email) => {
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(email)) {
@@ -27,6 +30,7 @@ function Login() {
             setMessage("Login credentials do not match any user.");
           } else {
             setMessage(res.data);
+            setUserEmail(res.data.email);
           }
 
           setLoginEmail("");
