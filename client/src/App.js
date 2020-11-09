@@ -15,6 +15,7 @@ import User from "./pages/User";
 import Navbar from "./components/Navbar";
 import UserLogin from "./pages/UserLogin";
 import Registration from "./pages/Registration";
+import UserSettings from "./pages/UserSettings"
 
 function App() {
   const authCall = () => {
@@ -64,6 +65,9 @@ function App() {
                 </Route>
                 <Route path="/login">
                   <UserLogin />
+                </Route>
+                <Route path="/usersettings">
+                    <UserSettings />
                 </Route>
               </Switch>
             </Wrapper>

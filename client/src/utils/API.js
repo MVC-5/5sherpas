@@ -33,8 +33,21 @@ export default {
     return axios.get("/api/user/" + id);
   },
   // Updates user settings with given id
-  updateUserSettings: function (id) {
-    return axios.put("/api/user/" + id);
+  updateUserSettings: function (id, userData) {
+    console.log(userData, id)
+    return axios({
+      method: "put",
+      data: userData,
+      url: "/api/user/" + id
+    });
+  },
+  updateUserChallengeCategories: function (userData) {
+    console.log(userData)
+    return axios({
+      method: "put",
+      data: userData,
+      url: "/api/user/categories"
+    });
   },
   // Gets weekly challenges and progress map data
   getDashData: function (id) {

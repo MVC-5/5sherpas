@@ -12,6 +12,10 @@ router.post("/register", (req, res) => {
 
 router.route("/").get((req, res) => res.send(req.user));
 
+router
+  .route("/categories")
+  .put(controller.updateUserChallengeCategories)
+
 // Matches with "/api/user/:id"
 router
   .route("/:id")

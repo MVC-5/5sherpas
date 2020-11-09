@@ -22,18 +22,17 @@ module.exports = {
   },
 
   findUser: function (req, res) {
-      res.send("Found user by email from login");
+    res.send("Found user by email from login");
     // db.User
     //   .findOne(req.email)
     //   .then(dbModel => res.json(dbModel))
     //   .catch(err => res.status(422).json(err));
   },
   findUserById: function (req, res) {
-      res.send("Found user settings based on user id");
-    // db.User
-    //   .findById(req.params.id)
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    db.User
+      .find({ _id: req.params.id })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   createUser: function (req, res) {
     db.User.findOne({ email: req.body.email }, async (err, doc) => {
@@ -59,11 +58,21 @@ module.exports = {
     });
   },
   updateUserSettings: function (req, res) {
-      res.send("User settings updated");
-    // db.User
-    //   .findOneAndUpdate({ _id: req.params.id }, req.body)
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    const updateId = req.params.id;
+    const field = req.body.field;
+    const value = req.body.value;
+    console.log(req.body)
+    db.User.findOneAndUpdate({ _id: updateId }, { $set: { [field]: value } }, { useFindAndModify: false })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  updateUserChallengeCategories: function (req, res) {
+    const updateId = req.body.id;
+    const categoryArr = [req.body.choice1, req.body.choice2, req.body.choice3]
+    console.log(req.body)
+    db.User.findOneAndUpdate({ _id: updateId }, { $set: { challengeCategories: categoryArr } }, { useFindAndModify: false })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   getDashboard: function (req, res) {
     res.send("User dashboard challenges & progress data received")
@@ -73,11 +82,10 @@ module.exports = {
     //   .catch(err => res.status(422).json(err));
   },
   getChallenge: function (req, res) {
-    res.send("Additional weekly challenge received")
-    // db.Challenge
-    //   .find()
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    db.Challenge
+      .find()
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   getMovie: function (req, res) {
     res.send("Movie suggestion received")
@@ -87,18 +95,16 @@ module.exports = {
     //   .catch(err => res.status(422).json(err));
   },
   getPhysAct: function (req, res) {
-    res.send("Physical health activity suggestion received")
-    // db.ShortActivity
-    //   .find({ shortactivity: "physical" })
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    db.ShortActivity
+      .find({ activityType: "Physical" })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   getMentalAct: function (req, res) {
-    res.send("Mental health activity suggestion received")
-    // db.ShortActivity
-    //   .find({ shortactivity: "mental" })
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    db.ShortActivity
+      .find({ activityType: "Mental" })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   updateChallenge: function (req, res) {
     res.send("Challenge updated to completed/not now/never show")
