@@ -30,7 +30,6 @@ function ConsultSherpas() {
         </div>
       </>
     );
-  }
+}
   
-  export default ConsultSherpas;
-  
+export default ConsultSherpas;
