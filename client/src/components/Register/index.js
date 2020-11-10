@@ -100,6 +100,7 @@ function Register() {
             type="password"
             name="regPassword"
             id="regPassword"
+            autoComplete="on"
             placeholder="Password"
             value={registerPassword}
             className={isValidPassword}
@@ -117,6 +118,7 @@ function Register() {
             id="regPassword2"
             placeholder="Verify Password"
             type="password"
+            autoComplete="on"
             value={registerPassword2}
             className={isValidPassword}
             onChange={(e) => {

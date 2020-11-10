@@ -89,6 +89,7 @@ function Login() {
               type="password"
               name="loginPassword"
               id="loginPassword"
+              autoComplete="on"
               placeholder="Password"
               value={loginPassword}
               className={loginError ? "error-bg" : null}
