@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Icon } from "semantic-ui-react";
+import { Menu, Image } from "semantic-ui-react";
 import AuthContext from "../utils/AuthContext";
+import userIcon from "../assets/user-icon.png";
 
 const AuthNav = () => {
   const [activeItem, setActiveItem] = useState();
@@ -36,7 +37,7 @@ const AuthNav = () => {
             active={activeItem === "User Settings"}
             onClick={handleItemClick}
           >
-            <Icon name="user" />
+            <Image id="user-icon" src={userIcon} size="mini" />
             {`Hi ${userName}`}
           </Menu.Item>
         </Menu.Menu>

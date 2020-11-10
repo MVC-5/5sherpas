@@ -10,6 +10,10 @@
   color: rgb(131, 209, 233);
 }
 
+#user-icon {
+  padding-right: 7px;
+}
+
 .ui.secondary.pointing.menu .item {
   color: rgb(65, 195, 235);
   font-family: Poppins;
