@@ -40,6 +40,7 @@ function App() {
   const [userId, setUserId] = useState(false);
   const [userEmail, setUserEmail] = useState(false);
   const [auth, setAuth] = useState(false);
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
 
   useEffect(() => {
     authCall();
@@ -52,7 +53,7 @@ function App() {
       <div className="App">
         <Router>
           <div>
-            <Navbar />
+            {auth || isLoggedIn ? <Navbar /> : null}
 
             <Wrapper>
               <Switch>
