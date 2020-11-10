@@ -27,6 +27,11 @@ const UserSchema = new Schema({
     type: Number,
   },
 
+  challengeCategories: {
+    type: Array,
+    ref: "Category"
+  },
+
   keywords: {
     type: Array,
   },

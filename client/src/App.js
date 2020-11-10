@@ -10,6 +10,7 @@ import UserDashboard from "./pages/UserDashboard";
 import Navbar from "./components/Navbar";
 import UserLogin from "./pages/UserLogin";
 import Registration from "./pages/Registration";
+import UserSettings from "./pages/UserSettings"
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
               </Route>
               <Route path="/login">
                 <UserLogin />
+              </Route>
+              <Route path="/usersettings">
+                <UserSettings />
               </Route>
             </Switch>
           </Wrapper>
