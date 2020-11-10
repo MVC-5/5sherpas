@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form } from "semantic-ui-react";
 import API from "../../utils/API";
+import AuthContext from "../../utils/AuthContext";
 
 function Login() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -8,6 +9,8 @@ function Login() {
   const [isValidEmail, setIsValidEmail] = useState("not-valid");
   const [message, setMessage] = useState("");
   const [loginError, setLoginError] = useState(false);
+
+  const { setAuth } = useContext(AuthContext);
 
   const testEmail = (email) => {
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(email)) {
@@ -27,6 +30,7 @@ function Login() {
             setMessage("Login credentials do not match any user.");
           } else {
             setMessage(res.data);
+            setAuth(true);
           }
 
           setLoginEmail("");
@@ -45,22 +49,11 @@ function Login() {
     e.preventDefault();
   };
 
-  // this is more of a proof of concept. we can use this route to get user id, email, and name
-  const getUser = () => {
-    API.getUser().then((res) => {
-      setMessage(`Current user: ${res.data.name}` || "No user logged in");
-      setTimeout(() => {
-        setMessage("");
-      }, 3000);
-      console.log(res.data);
-      return res.data.email;
-    });
-  };
-
   return (
     <div id="login-form">
       <div>
         <h1>Login</h1>
+        <h4>{message}</h4>
         <Form onSubmit={login}>
           <Form.Field required>
             <label htmlFor="loginEmail">Email</label>
@@ -85,6 +78,7 @@ function Login() {
               type="password"
               name="loginPassword"
               id="loginPassword"
+              autoComplete="on"
               placeholder="Password"
               value={loginPassword}
               className={loginError ? "error-bg" : null}
@@ -97,9 +91,6 @@ function Login() {
           <Button onClick={login}>Submit</Button>
         </Form>
       </div>
-
-      <h3>{message}</h3>
-      <Button onClick={getUser}>Get current user.</Button>
     </div>
   );
 }

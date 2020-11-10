@@ -2,6 +2,18 @@
   background-color: rgb(31, 30, 30);
 }
 
+#nav-logo {
+  color: rgb(65, 195, 235);
+}
+
+#nav-logo:active {
+  color: rgb(131, 209, 233);
+}
+
+#user-icon {
+  padding-right: 7px;
+}
+
 .ui.secondary.pointing.menu .item {
   color: rgb(65, 195, 235);
   font-family: Poppins;
@@ -13,11 +25,21 @@
   color: white;
   font-weight: 200;
   font-size: 1.3rem;
+  line-height: 30px;
 }
 
 .ui.secondary.pointing.menu .link.item:hover,
 .ui.secondary.pointing.menu a.item:hover {
   color: rgb(76, 195, 250);
+}
+
+.ui.secondary.pointing.menu .active.item:hover {
+  color: rgb(76, 195, 250);
+}
+
+.ui.secondary.pointing.menu .link.item:active,
+.ui.secondary.pointing.menu a.item:active {
+  color: rgb(131, 209, 233);
 }
 
 i.inverted.icon:hover {

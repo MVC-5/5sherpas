@@ -67,7 +67,7 @@ export default {
   },
   // Gets mental activity suggestion when mental health shepra clicked
   getMentalActSugg: function () {
-    return axios.get("/api/dashboard/mental")
+    return axios.get("/api/dashboard/mental");
   },
   // Updates weekly challenge based on user selection of completed, not now, or never show again
   updateChall: function (id) {
