@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ChallengeOptions } from "../components/Form/ChallengeDropdown";
-import { Grid, Image, Form } from 'semantic-ui-react';
-import ReadGroup from "../components/Form/readAccount"
-import EditGroup from "../components/Form/editAccount"
+import { Grid, Image, Form } from "semantic-ui-react";
+import ReadGroup from "../components/Form/readAccount";
+import EditGroup from "../components/Form/editAccount";
 import API from "../utils/API";
 
 function Settings() {
-
   const [nameState, setNameState] = useState("Read");
   const [emailState, setEmailState] = useState("Read");
   const [passState, setPassState] = useState("Read");

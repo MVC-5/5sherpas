@@ -3,13 +3,15 @@ import { Route, Redirect } from "react-router-dom";
 import AuthContext from "./AuthContext";
 
 function ProtectedRoute({ children, ...rest }) {
-  const { userId } = useContext(AuthContext);
-  console.log(userId);
+  const { auth } = useContext(AuthContext);
+
+  const isLoggedIn = sessionStorage.getItem("loggedIn");
+
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        userId ? (
+        auth || isLoggedIn ? (
           children
         ) : (
           <Redirect

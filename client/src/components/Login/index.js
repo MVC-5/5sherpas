@@ -10,7 +10,7 @@ function Login() {
   const [message, setMessage] = useState("");
   const [loginError, setLoginError] = useState(false);
 
-  const { setUserEmail } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
 
   const testEmail = (email) => {
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(email)) {
@@ -30,7 +30,7 @@ function Login() {
             setMessage("Login credentials do not match any user.");
           } else {
             setMessage(res.data);
-            setUserEmail(res.data.email);
+            setAuth(true);
           }
 
           setLoginEmail("");
