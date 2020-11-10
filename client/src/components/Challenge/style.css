@@ -1,0 +1,23 @@
+#challenge-description {
+    background-color: #292929;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    font-family: 'poppins';
+    font-weight: 300;
+    font-size: 1.2em;
+}
+
+#challenge-holder {
+    border-style: none;
+}
+
+#button-group {
+    padding: 0 35px 20px;
+}
+
+#button-style {
+    font-family: 'poppins';
+    font-weight: 400;
+    background-color: #00c4ff;
+}

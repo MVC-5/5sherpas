@@ -3,6 +3,7 @@
 *:after {
   box-sizing: border-box;
 }
+
 /* Main site styles */
 :root {
   --primary-color: #00c4ff;

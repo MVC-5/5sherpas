@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Wrapper from "./components/Wrapper";
 // Pages
 import LandingPage from "./pages/LandingPage";
-import User from "./pages/User";
+import UserDashboard from "./pages/UserDashboard";
 //components
 import Navbar from "./components/Navbar";
 import UserLogin from "./pages/UserLogin";
@@ -26,7 +26,7 @@ function App() {
                 <LandingPage />
               </Route>
               <Route path="/dashboard">
-                <User />
+                <UserDashboard />
               </Route>
               <Route path="/register">
                 <Registration />
