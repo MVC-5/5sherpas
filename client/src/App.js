@@ -17,11 +17,10 @@ function App() {
     <div className="App">
       <Router>
         <div>
-          <Navbar />
-
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Wrapper>
+            <Navbar />
             <Switch>
               <Route path="/" exact>
                 <LandingPage />
