@@ -4,7 +4,8 @@
 
 .ui.secondary.pointing.menu .item {
   color: rgb(65, 195, 235);
-  font-weight: 700;
+  font-family: Poppins;
+  font-weight: 500;
   font-size: 2rem;
 }
 
