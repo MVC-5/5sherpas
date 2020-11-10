@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
-import "./style.css";
+import { Menu, Icon } from "semantic-ui-react";
+import AuthContext from "../utils/AuthContext";
 
-const Navbar = () => {
+const AuthNav = () => {
   const [activeItem, setActiveItem] = useState();
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
+  const { userName } = useContext(AuthContext);
 
   return (
     <div id="navbar">
@@ -14,7 +15,7 @@ const Navbar = () => {
         <Menu.Item
           as={NavLink}
           id="nav-logo"
-          to="/"
+          to="/dashboard"
           name="5 Sherpas"
           onClick={handleItemClick}
         />
@@ -22,22 +23,26 @@ const Navbar = () => {
         <Menu.Menu position="right">
           <Menu.Item
             as={NavLink}
-            to="/register"
-            name="register"
-            active={activeItem === "register"}
+            to="/dashboard"
+            name="Dashboard"
+            active={activeItem === "dashboard"}
             onClick={handleItemClick}
           />
+
           <Menu.Item
             as={NavLink}
-            to="/login"
-            name="login"
-            active={activeItem === "login"}
+            to="/usersettings"
+            name="User Settings"
+            active={activeItem === "User Settings"}
             onClick={handleItemClick}
-          />
+          >
+            <Icon name="user" />
+            {`Hi ${userName}`}
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
     </div>
   );
 };
 
-export default Navbar;
+export default AuthNav;

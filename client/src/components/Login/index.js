@@ -49,22 +49,11 @@ function Login() {
     e.preventDefault();
   };
 
-  // this is more of a proof of concept. we can use this route to get user id, email, and name
-  const getUser = () => {
-    API.getUser().then((res) => {
-      setMessage(`Current user: ${res.data.name}` || "No user logged in");
-      setTimeout(() => {
-        setMessage("");
-      }, 3000);
-      console.log(res.data);
-      return res.data.email;
-    });
-  };
-
   return (
     <div id="login-form">
       <div>
         <h1>Login</h1>
+        <h4>{message}</h4>
         <Form onSubmit={login}>
           <Form.Field required>
             <label htmlFor="loginEmail">Email</label>
@@ -102,9 +91,6 @@ function Login() {
           <Button onClick={login}>Submit</Button>
         </Form>
       </div>
-
-      <h3>{message}</h3>
-      <Button onClick={getUser}>Get current user.</Button>
     </div>
   );
 }
