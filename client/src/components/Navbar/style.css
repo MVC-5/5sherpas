@@ -25,6 +25,7 @@
   color: white;
   font-weight: 200;
   font-size: 1.3rem;
+  line-height: 30px;
 }
 
 .ui.secondary.pointing.menu .link.item:hover,
