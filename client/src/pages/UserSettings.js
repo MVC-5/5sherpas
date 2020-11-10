@@ -23,25 +23,22 @@ function Settings() {
   const [placeholder2, setPlaceholder2] = useState("");
   const [placeholder3, setPlaceholder3] = useState("");
 
-  const [challenges, setChallenges] = useState("")
+  const [challCat1, setChallCat1] = useState("");
+  const [challCat2, setChallCat2] = useState("");
+  const [challCat3, setChallCat3] = useState("");
 
-  const [challCat1, setChallCat1] = useState(challenges[0]);
-  const [challCat2, setChallCat2] = useState(challenges[1]);
-  const [challCat3, setChallCat3] = useState(challenges[2]);
-
-  const id = "5fa74a6f9d0fcaeb93ac934e"
+  const id = "5faa294a6c923807bf34d4f9"
 
   const getUserSettings = () => {
     API.getUserSettings(id)
       .then((res) => {
-        const c1 = res.data[0].challengeCategories[0]
-        const c2 = res.data[0].challengeCategories[1]
-        const c3 = res.data[0].challengeCategories[2]
         console.log(res);
+        const c1 = res.data[0].challengeCategories[0].name
+        const c2 = res.data[0].challengeCategories[1].name
+        const c3 = res.data[0].challengeCategories[2].name
         setUserName(res.data[0].name);
         setUserEmail(res.data[0].email);
         setUserPass(res.data[0].password);
-        setChallenges(res.data[0].challengeCategories)
         if (!c1) {
           setPlaceholder1("Choose Category");
         } else {
@@ -118,7 +115,7 @@ function Settings() {
         value: update.value
       }
       console.log(updateBody);
-      API.updateUserSettings("5fa6f735bf8912e0c05af875", updateBody)
+      API.updateUserSettings(id, updateBody)
         .then(res => {
           console.log(res)
         })
@@ -230,16 +227,16 @@ function Settings() {
   }
 
   const options1 = [
-    { key: '1', text: 'Placeholder 1', value: 'Placeholder 1' },
-    { key: '2', text: 'Placeholder 2', value: 'Placeholder 2' },
-    { key: '3', text: 'Placeholder 3', value: 'Placeholder 3' }
+    { key: '1', text: 'Wellness', value: 1 },
+    { key: '2', text: 'Placeholder 2', value: 2 },
+    { key: '3', text: 'Placeholder 3', value: 3 }
   ]
 
   const options2 = [
-    { key: '0', text: 'None', value: 'None' },
-    { key: '1', text: 'Placeholder 1', value: 'Placeholder 1' },
-    { key: '2', text: 'Placeholder 2', value: 'Placeholder 2' },
-    { key: '3', text: 'Placeholder 3', value: 'Placeholder 3' }
+    { key: '0', text: 'None', value: 0 },
+    { key: '1', text: 'Placeholder 1', value: 1 },
+    { key: '2', text: 'Placeholder 2', value: 2 },
+    { key: '3', text: 'Placeholder 3', value: 3 }
   ]
 
   return (

@@ -27,10 +27,10 @@ const UserSchema = new Schema({
     type: Number,
   },
 
-  challengeCategories: {
-    type: Array,
+  challengeCategories: [{
+    type: Schema.Types.Number,
     ref: "Category"
-  },
+  }],
 
   keywords: {
     type: Array,
