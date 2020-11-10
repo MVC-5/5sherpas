@@ -1,0 +1,64 @@
+#second-knot {
+    padding: 50px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.s-8 {
+    left: 50%;
+    top: 350px;
+    transform: translate(-50%, -50%);
+}
+
+.s-9 {
+    left: 69.5%;
+    top: 350px;
+    transform: translate(-50%, -50%);
+}
+
+.s-10 {
+    left: 30.5%;
+    top: 350px;
+    transform: translate(-50%, -50%);
+}
+
+.s-yak {
+    left: 69.5%;
+    top: 730px;
+    transform: translate(-50%, -50%);
+}
+
+.yak-img {
+    position: absolute;
+    height: 15%;
+}
+
+.bubble-img {
+    position: absolute;
+    height: 20%;
+}
+
+.bubble-1 {
+    left: 18%;
+    top: 170px;
+    transform: translate(-50%, -50%);
+}
+
+.bubble-2 {
+    left: 50%;
+    top: 170px;
+    transform: translate(-50%, -50%);
+}
+
+.bubble-3 {
+    left: 82%;
+    top: 170px;
+    transform: translate(-50%, -50%);
+}
+
+.bubble-4 {
+    left: 77%;
+    top: 620px;
+    transform: translate(-50%, -50%);
+}

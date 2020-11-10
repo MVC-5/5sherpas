@@ -3,6 +3,11 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  height: 100%;
+}
+
 /* Main site styles */
 :root {
   --primary-color: #00c4ff;
@@ -21,7 +26,7 @@
 
 .knot-container {
   position: relative;
-  margin: 0 auto;
+  margin: 30px auto;
   width: 1000px;
   height: 900px;
 }

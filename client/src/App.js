@@ -10,7 +10,7 @@ import API from "./utils/API";
 import Wrapper from "./components/Wrapper";
 // Pages
 import LandingPage from "./pages/LandingPage";
-import User from "./pages/User";
+import UserDashboard from "./pages/UserDashboard";
 //components
 import Navbar from "./components/Navbar";
 import AuthNav from "./components/AuthNav";
@@ -62,7 +62,7 @@ function App() {
                   <LandingPage />
                 </Route>
                 <ProtectedRoute path="/dashboard">
-                  <User />
+                  <UserDashboard />
                 </ProtectedRoute>
                 <Route path="/register">
                   <Registration />
