@@ -40,18 +40,21 @@ function Settings() {
         setUserPass(res.data[0].password);
         if (c1 === "None") {
           setPlaceholder1("Choose Category");
+          setChallCat1(0)
         } else {
           setPlaceholder1(c1)
         }
 
         if (c2 === "None") {
           setPlaceholder2("Choose Category");
+          setChallCat2(0)
         } else {
           setPlaceholder2(c2)
         }
 
         if (c3 === "None") {
           setPlaceholder3("Choose Category");
+          setChallCat3(0)
         } else {
           setPlaceholder3(c3)
         }
