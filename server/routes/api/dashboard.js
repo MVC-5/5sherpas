@@ -4,8 +4,8 @@ const controller = require("../../controllers");
 // Matches with "/api/dashboard"
 
 router
-  .route("/newchallenge")
-  .get(controller.getChallenge)
+  .route("/getdashboard")
+  .get(controller.getDashboard)
 
 router
   .route("/movie")

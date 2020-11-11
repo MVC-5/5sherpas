@@ -36,19 +36,20 @@ const UserSchema = new Schema({
     type: Array,
   },
 
-  matchingactivities: {
-    type: Array,
-    ref: "Matching",
-  },
+  matchingactivities: [{
+    id: Schema.Types.ObjectId,
+    ref: "Challenges",
+  }],
 
   neverdolist: {
     type: Array,
   },
 
-  currentchallenge: {
-    type: Array,
+  currentchallenge: [{
+    id: Schema.Types.ObjectId,
+    completed: Boolean,
     ref: "Challenge",
-  },
+  }],
 
   totalprogress: {
     type: Array,

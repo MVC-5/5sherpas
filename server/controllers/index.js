@@ -1,9 +1,10 @@
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const db = require("../models");
+const challengeController = require("./challengecontroller")
 
 module.exports = {
-  loginUser: function (req, res, next) {
+  looginUser: function (req, res, next) {
     passport.authenticate("local", function (err, user) {
       if (err) {
         return next(err);
@@ -72,11 +73,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getDashboard: function (req, res) {
-    res.send("User dashboard challenges & progress data received")
-    // db.User
-    //   .findById(req.params.id)
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    challengeController.getChallenges(req, res)
   },
   getChallenge: function (req, res) {
     db.Challenge
