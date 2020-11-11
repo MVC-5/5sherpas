@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ChallengeOptions } from "../components/Form/ChallengeDropdown";
-import { Grid, Image, Form } from 'semantic-ui-react';
-import ReadGroup from "../components/Form/readAccount"
-import EditGroup from "../components/Form/editAccount"
+import { Grid, Image, Form } from "semantic-ui-react";
+import ReadGroup from "../components/Form/readAccount";
+import EditGroup from "../components/Form/editAccount";
 import API from "../utils/API";
 
 function Settings() {
-
   const [nameState, setNameState] = useState("Read");
   const [emailState, setEmailState] = useState("Read");
   const [passState, setPassState] = useState("Read");
@@ -15,9 +14,9 @@ function Settings() {
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
 
-  const [nameInput, setNameInput] = useState("")
-  const [emailInput, setEmailInput] = useState("")
-  const [passInput, setPassInput] = useState("")
+  const [nameInput, setNameInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [passInput, setPassInput] = useState("");
 
   const [placeholder1, setPlaceholder1] = useState("");
   const [placeholder2, setPlaceholder2] = useState("");
@@ -59,8 +58,13 @@ function Settings() {
           setPlaceholder3(c3)
         }
 
-      })
-  }
+        if (!c3) {
+          setPlaceholder3("Choose Category");
+        } else {
+          setPlaceholder3(c3);
+        }
+      });
+  };
 
   useEffect(() => {
     getUserSettings()
@@ -71,102 +75,114 @@ function Settings() {
     const fieldName = event.target.parentElement.getAttribute('data-name')
     switch (fieldName) {
       case "Name":
-        setNameInput(value)
+        setNameInput(value);
         break;
       case "Email":
-        setEmailInput(value)
+        setEmailInput(value);
         break;
       case "Password":
-        setPassInput(value)
+        setPassInput(value);
         break;
       default:
-        return
+        return;
     }
-  }
+  };
 
   const handleSave = (btnType, update) => {
     if (btnType === "Save") {
       switch (update.field) {
         case "Name":
-          setUserName(update.value)
+          setUserName(update.value);
           break;
         case "Email":
-          setUserEmail(update.value)
+          setUserEmail(update.value);
           break;
         case "Password":
-          setUserPass(update.value)
+          setUserPass(update.value);
           break;
         default:
           return;
       }
       const updateBody = {
         field: update.field.toLowerCase(),
-        value: update.value
-      }
+        value: update.value,
+      };
       console.log(updateBody);
       API.updateUserSettings(id, updateBody)
         .then(res => {
           console.log(res)
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-        })
+        });
     }
-  }
+  };
 
-  const handleButton = event => {
+  const handleButton = (event) => {
     console.log(event.target);
-    const field = event.target.getAttribute('data-name');
+    const field = event.target.getAttribute("data-name");
     const btnType = event.target.textContent;
-    let newState = "Read"
+    let newState = "Read";
     if (btnType === "Edit") {
-      newState = "Edit"
+      newState = "Edit";
     }
     switch (field) {
       case "Name":
-        handleSave(btnType, { field: field, value: nameInput })
+        handleSave(btnType, { field: field, value: nameInput });
         setNameState(newState);
         break;
       case "Email":
-        handleSave(btnType, { field: field, value: emailInput })
+        handleSave(btnType, { field: field, value: emailInput });
         setEmailState(newState);
         break;
       case "Password":
-        handleSave(btnType, { field: field, value: passInput })
+        handleSave(btnType, { field: field, value: passInput });
         setPassState(newState);
         break;
       default:
-        return
+        return;
     }
-  }
+  };
 
   const getFields = (condition, fieldName, inputValue) => {
     switch (condition) {
       case "Read":
-        return <ReadGroup field={fieldName} value={inputValue} onChange={handleInputChange} onClick={handleButton} />
-      case "Edit":
-        return <EditGroup field={fieldName} value={inputValue} onChange={handleInputChange} onClick={handleButton} />
-      default:
         return (
-          <div>Error loading identifiers form</div>
-        )
+          <ReadGroup
+            field={fieldName}
+            value={inputValue}
+            onChange={handleInputChange}
+            onClick={handleButton}
+          />
+        );
+      case "Edit":
+        return (
+          <EditGroup
+            field={fieldName}
+            value={inputValue}
+            onChange={handleInputChange}
+            onClick={handleButton}
+          />
+        );
+      default:
+        return <div>Error loading identifiers form</div>;
     }
-  }
+  };
 
   const renderNameField = () => {
-    return getFields(nameState, "Name", userName)
-  }
+    return getFields(nameState, "Name", userName);
+  };
 
   const renderEmailField = () => {
-    return getFields(emailState, "Email", userEmail)
-  }
+    return getFields(emailState, "Email", userEmail);
+  };
 
   const renderPassField = () => {
-    return getFields(passState, "Password", userPass)
-  }
+    return getFields(passState, "Password", userPass);
+  };
 
   const handleFieldChange = (event, data) => {
-    event.preventDefault()
+    event.preventDefault();
     switch (data.name) {
       case "cat1":
         setChallCat1(data.value);
@@ -178,9 +194,9 @@ function Settings() {
         setChallCat3(data.value);
         break;
       default:
-        return
+        return;
     }
-  }
+  };
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -219,13 +235,13 @@ function Settings() {
     }
     console.log(challengeCategories)
     API.updateUserChallengeCategories(challengeCategories)
-      .then(res => {
-        console.log(res)
+      .then((res) => {
+        console.log(res);
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const options1 = [
     { key: '1', text: 'Wellness', value: 1 },
@@ -252,7 +268,7 @@ function Settings() {
     <Grid>
       <Grid.Row>
         <Grid.Column width={4}>
-          <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
         </Grid.Column>
         <Grid.Column width={9}>
           <Form>
@@ -261,16 +277,23 @@ function Settings() {
             {renderPassField()}
           </Form>
         </Grid.Column>
-        <Grid.Column width={3}>
-        </Grid.Column>
+        <Grid.Column width={3}></Grid.Column>
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-          <ChallengeOptions placeholder1={placeholder1} placeholder2={placeholder2} placeholder3={placeholder3} options1={options1} options2={options2} onSubmit={handleSubmit} onChange={handleFieldChange}></ChallengeOptions>
+          <ChallengeOptions
+            placeholder1={placeholder1}
+            placeholder2={placeholder2}
+            placeholder3={placeholder3}
+            options1={options1}
+            options2={options2}
+            onSubmit={handleSubmit}
+            onChange={handleFieldChange}
+          ></ChallengeOptions>
         </Grid.Column>
       </Grid.Row>
     </Grid>
-  )
+  );
 }
 
-export default Settings
+export default Settings;
