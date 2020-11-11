@@ -20,9 +20,7 @@ let users = [
     password: "USER1",
     avatar: 1,
     challengeCategories: [
-      "Placeholder 1",
-      "Placeholder 2",
-      "Placeholder 3"
+      1, 2, 3
     ],
 
     keywords: ["user1 keyword 1", "user1 keyword 2", "user1 keyword 3"],

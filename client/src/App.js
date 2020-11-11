@@ -24,6 +24,7 @@ function App() {
       .then((user) => {
         if (user.data.id) {
           sessionStorage.setItem("loggedIn", true);
+          sessionStorage.setItem("userId", user.data.id)
           setUserName(user.data.name);
           setUserId(user.data.id);
           setUserEmail(user.data.email);

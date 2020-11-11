@@ -15,6 +15,10 @@ mongoose.connect(
 
 let categories = [
   {
+    _id: 0,
+    name: "None",
+  },
+  {
     _id: 1,
     name: "Wellness",
   },

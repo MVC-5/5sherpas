@@ -1,85 +1,78 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ChallengeOptions } from "../components/Form/ChallengeDropdown";
 import { Grid, Image, Form } from "semantic-ui-react";
 import ReadGroup from "../components/Form/readAccount";
 import EditGroup from "../components/Form/editAccount";
 import API from "../utils/API";
+import AuthContext from "../utils/AuthContext";
 
 function Settings() {
   const [nameState, setNameState] = useState("Read");
   const [emailState, setEmailState] = useState("Read");
-  const [passState, setPassState] = useState("Read");
 
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [userPass, setUserPass] = useState("");
 
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
-  const [passInput, setPassInput] = useState("");
 
   const [placeholder1, setPlaceholder1] = useState("");
   const [placeholder2, setPlaceholder2] = useState("");
   const [placeholder3, setPlaceholder3] = useState("");
 
-  const [challenges, setChallenges] = useState("");
+  const [challCat1, setChallCat1] = useState("");
+  const [challCat2, setChallCat2] = useState("");
+  const [challCat3, setChallCat3] = useState("");
 
-  const [challCat1, setChallCat1] = useState(challenges[0]);
-  const [challCat2, setChallCat2] = useState(challenges[1]);
-  const [challCat3, setChallCat3] = useState(challenges[2]);
+  const { userId } = useContext(AuthContext);
+  const id = userId || sessionStorage.getItem("userId");
 
-  const id = "5fa8d59123e613045b099a98";
-
+  // retrieves json object from user schema
   const getUserSettings = () => {
-    API.getUserSettings(id).then((res) => {
-      const c1 = res.data[0].challengeCategories[0];
-      const c2 = res.data[0].challengeCategories[1];
-      const c3 = res.data[0].challengeCategories[2];
-      console.log(res);
-      setUserName(res.data[0].name);
-      setUserEmail(res.data[0].email);
-      setUserPass(res.data[0].password);
-      setChallenges(res.data[0].challengeCategories);
-      if (!c1) {
-        setPlaceholder1("Choose Category");
-      } else {
-        setPlaceholder1(c1);
-      }
+    API.getUserSettings(id)
+      .then((res) => {
+        let c1 = "None"
+        let c2 = "None"
+        let c3 = "None"
+        if (res.data[0].challengeCategories[0]) {
+          c1 = res.data[0].challengeCategories[0].name
+          c2 = res.data[0].challengeCategories[1].name
+          c3 = res.data[0].challengeCategories[2].name
+        }
+        setUserName(res.data[0].name);
+        setUserEmail(res.data[0].email);
+        if (c1 === "None") {
+          setPlaceholder1("Choose Category");
+          setChallCat1(0)
+        } else {
+          setPlaceholder1(c1)
+        }
 
-      if (!c2) {
-        setPlaceholder2("Choose Category");
-      } else {
-        setPlaceholder2(c2);
-      }
+        if (c2 === "None") {
+          setPlaceholder2("Choose Category");
+          setChallCat2(0)
+        } else {
+          setPlaceholder2(c2)
+        }
 
-      if (!c3) {
-        setPlaceholder3("Choose Category");
-      } else {
-        setPlaceholder3(c3);
-      }
-    });
+        if (c3 === "None") {
+          setPlaceholder3("Choose Category");
+          setChallCat3(0)
+        } else {
+          setPlaceholder3(c3)
+        }
+      })
   };
 
+  // runs getUserSettings function only once, on page load
   useEffect(() => {
-    getUserSettings();
-    console.log("ran");
-  }, []);
+    getUserSettings()
+  }, [])
 
-  useEffect(() => {
-    console.log(nameInput);
-  }, [nameInput]);
-
-  useEffect(() => {
-    console.log(emailInput);
-  }, [emailInput]);
-
-  useEffect(() => {
-    console.log(passInput);
-  }, [passInput]);
-
-  const handleInputChange = (event) => {
-    const { value } = event.target;
-    const fieldName = event.target.parentElement.getAttribute("data-name");
+  // tracks changes to name and email input fields
+  const handleInputChange = event => {
+    const { value } = event.target
+    const fieldName = event.target.parentElement.getAttribute('data-name')
     switch (fieldName) {
       case "Name":
         setNameInput(value);
@@ -87,14 +80,12 @@ function Settings() {
       case "Email":
         setEmailInput(value);
         break;
-      case "Password":
-        setPassInput(value);
-        break;
       default:
         return;
     }
   };
 
+  // saves name and email input field changes in database upon clicking save button
   const handleSave = (btnType, update) => {
     if (btnType === "Save") {
       switch (update.field) {
@@ -104,9 +95,6 @@ function Settings() {
         case "Email":
           setUserEmail(update.value);
           break;
-        case "Password":
-          setUserPass(update.value);
-          break;
         default:
           return;
       }
@@ -114,10 +102,9 @@ function Settings() {
         field: update.field.toLowerCase(),
         value: update.value,
       };
-      console.log(updateBody);
-      API.updateUserSettings("5fa6f735bf8912e0c05af875", updateBody)
-        .then((res) => {
-          console.log(res);
+      API.updateUserSettings(id, updateBody)
+        .then(res => {
+          console.log(res)
         })
         .catch((err) => {
           console.log(err);
@@ -125,8 +112,8 @@ function Settings() {
     }
   };
 
+  // handles read vs edit state of input fields and handles input field button clicks
   const handleButton = (event) => {
-    console.log(event.target);
     const field = event.target.getAttribute("data-name");
     const btnType = event.target.textContent;
     let newState = "Read";
@@ -142,15 +129,12 @@ function Settings() {
         handleSave(btnType, { field: field, value: emailInput });
         setEmailState(newState);
         break;
-      case "Password":
-        handleSave(btnType, { field: field, value: passInput });
-        setPassState(newState);
-        break;
       default:
         return;
     }
   };
 
+  // returns editable or read only field based on button click
   const getFields = (condition, fieldName, inputValue) => {
     switch (condition) {
       case "Read":
@@ -176,59 +160,67 @@ function Settings() {
     }
   };
 
+  // renders name field
   const renderNameField = () => {
     return getFields(nameState, "Name", userName);
   };
 
+  // renders email field
   const renderEmailField = () => {
     return getFields(emailState, "Email", userEmail);
   };
 
-  const renderPassField = () => {
-    return getFields(passState, "Password", userPass);
-  };
-
+  // handles challenge dropdown selection
   const handleFieldChange = (event, data) => {
     event.preventDefault();
     switch (data.name) {
       case "cat1":
-        if (data.value === "None") {
-          setChallCat1(null);
-        } else {
-          setChallCat1(data.value);
-          console.log(data.value);
-        }
+        setChallCat1(data.value);
         break;
       case "cat2":
-        if (data.value === "None") {
-          setChallCat2(null);
-        } else {
-          setChallCat2(data.value);
-          console.log(data.value);
-        }
+        setChallCat2(data.value);
         break;
       case "cat3":
-        if (data.value === "None") {
-          setChallCat3(null);
-        } else {
-          setChallCat3(data.value);
-          console.log(data.value);
-        }
+        setChallCat3(data.value);
         break;
       default:
         return;
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // handles challenge dropdown form submission and updates values in database
+  const handleSubmit = e => {
+    e.preventDefault()
+    let category1 = challCat1
+    let category2 = challCat2
+    let category3 = challCat3
+    if (!challCat1 && challCat1 !== 0) {
+      options2.map(item => {
+        if (item.text === placeholder1) {
+          category1 = item.value
+        }
+      })
+    }
+    if (!challCat2 && challCat2 !== 0) {
+      options2.map(item => {
+        if (item.text === placeholder2) {
+          category2 = item.value
+        }
+      })
+    }
+    if (!challCat3 && challCat3 !== 0) {
+      options2.map(item => {
+        if (item.text === placeholder3) {
+          category3 = item.value
+        }
+      })
+    }
     const challengeCategories = {
       id: id,
-      choice1: challCat1,
-      choice2: challCat2,
-      choice3: challCat3,
-    };
-    console.log(challengeCategories);
+      choice1: category1,
+      choice2: category2,
+      choice3: category3
+    }
     API.updateUserChallengeCategories(challengeCategories)
       .then((res) => {
         console.log(res);
@@ -239,17 +231,25 @@ function Settings() {
   };
 
   const options1 = [
-    { key: "1", text: "Placeholder 1", value: "Placeholder 1" },
-    { key: "2", text: "Placeholder 2", value: "Placeholder 2" },
-    { key: "3", text: "Placeholder 3", value: "Placeholder 3" },
-  ];
+    { key: '1', text: 'Wellness', value: 1 },
+    { key: '2', text: 'Intelligence', value: 2 },
+    { key: '3', text: 'Well-Roundedness', value: 3 },
+    { key: '4', text: 'Organization', value: 4 },
+    { key: '5', text: 'Career', value: 5 },
+    { key: '6', text: 'Bad Habit Cessation', value: 6 },
+    { key: '7', text: 'Interpersonal Relationships', value: 7 }
+  ]
 
   const options2 = [
-    { key: "0", text: "None", value: "None" },
-    { key: "1", text: "Placeholder 1", value: "Placeholder 1" },
-    { key: "2", text: "Placeholder 2", value: "Placeholder 2" },
-    { key: "3", text: "Placeholder 3", value: "Placeholder 3" },
-  ];
+    { key: '0', text: 'None', value: 0 },
+    { key: '1', text: 'Wellness', value: 1 },
+    { key: '2', text: 'Intelligence', value: 2 },
+    { key: '3', text: 'Well-Roundedness', value: 3 },
+    { key: '4', text: 'Organization', value: 4 },
+    { key: '5', text: 'Career', value: 5 },
+    { key: '6', text: 'Bad Habit Cessation', value: 6 },
+    { key: '7', text: 'Interpersonal Relationships', value: 7 }
+  ]
 
   return (
     <Grid>
@@ -261,7 +261,6 @@ function Settings() {
           <Form>
             {renderNameField()}
             {renderEmailField()}
-            {renderPassField()}
           </Form>
         </Grid.Column>
         <Grid.Column width={3}></Grid.Column>
