@@ -44,7 +44,9 @@ export function ChallengeOptions(props) {
           <Form.Button id='button-style' size='large'>Submit</Form.Button>
         </Grid.Column>
         <Grid.Column width={3}>
-          <Form.Button id='button-style' size='large'>Cancel</Form.Button>
+          <Form.Button
+            onClick={(e) => e.preventDefault()}
+            id='button-style' size='large'>Cancel</Form.Button>
         </Grid.Column>
       </Grid>
       </div>
