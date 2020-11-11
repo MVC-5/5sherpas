@@ -4,7 +4,6 @@ const db = require("../models");
 
 module.exports = {
   loginUser: function (req, res, next) {
-    console.log(req.body);
     passport.authenticate("local", function (err, user) {
       if (err) {
         return next(err);
@@ -48,9 +47,8 @@ module.exports = {
         });
         await newUser
           .save()
-          .then((result) => {
+          .then((res) => {
             res.send("User created");
-            console.log(result);
           })
           .catch((error) => {
             throw error;
@@ -62,7 +60,6 @@ module.exports = {
     const updateId = req.params.id;
     const field = req.body.field;
     const value = req.body.value;
-    console.log(req.body)
     db.User.findOneAndUpdate({ _id: updateId }, { $set: { [field]: value } }, { useFindAndModify: false })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -70,7 +67,6 @@ module.exports = {
   updateUserChallengeCategories: function (req, res) {
     const updateId = req.body.id;
     const categoryArr = [req.body.choice1, req.body.choice2, req.body.choice3]
-    console.log(req.body)
     db.User.findByIdAndUpdate(updateId, { $set: { challengeCategories: categoryArr } }, { new: true, useFindAndModify: false })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

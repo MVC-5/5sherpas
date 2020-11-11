@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ChallengeOptions } from "../components/Form/ChallengeDropdown";
 import { Grid, Image, Form } from "semantic-ui-react";
 import ReadGroup from "../components/Form/readAccount";
 import EditGroup from "../components/Form/editAccount";
 import API from "../utils/API";
+import AuthContext from "../utils/AuthContext";
 
 function Settings() {
   const [nameState, setNameState] = useState("Read");
   const [emailState, setEmailState] = useState("Read");
-  const [passState, setPassState] = useState("Read");
 
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [userPass, setUserPass] = useState("");
 
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
-  const [passInput, setPassInput] = useState("");
 
   const [placeholder1, setPlaceholder1] = useState("");
   const [placeholder2, setPlaceholder2] = useState("");
@@ -26,17 +24,22 @@ function Settings() {
   const [challCat2, setChallCat2] = useState("");
   const [challCat3, setChallCat3] = useState("");
 
-  const id = "5faa294a6c923807bf34d4f9"
+  const { userId } = useContext(AuthContext);
+  const id = userId || sessionStorage.getItem("userId");
 
   const getUserSettings = () => {
     API.getUserSettings(id)
       .then((res) => {
-        const c1 = res.data[0].challengeCategories[0].name
-        const c2 = res.data[0].challengeCategories[1].name
-        const c3 = res.data[0].challengeCategories[2].name
+        let c1 = "None"
+        let c2 = "None"
+        let c3 = "None"
+        if (res.data[0].challengeCategories[0]) {
+          c1 = res.data[0].challengeCategories[0].name
+          c2 = res.data[0].challengeCategories[1].name
+          c3 = res.data[0].challengeCategories[2].name
+        }
         setUserName(res.data[0].name);
         setUserEmail(res.data[0].email);
-        setUserPass(res.data[0].password);
         if (c1 === "None") {
           setPlaceholder1("Choose Category");
           setChallCat1(0)
@@ -57,13 +60,7 @@ function Settings() {
         } else {
           setPlaceholder3(c3)
         }
-
-        if (!c3) {
-          setPlaceholder3("Choose Category");
-        } else {
-          setPlaceholder3(c3);
-        }
-      });
+      })
   };
 
   useEffect(() => {
@@ -80,9 +77,6 @@ function Settings() {
       case "Email":
         setEmailInput(value);
         break;
-      case "Password":
-        setPassInput(value);
-        break;
       default:
         return;
     }
@@ -97,9 +91,6 @@ function Settings() {
         case "Email":
           setUserEmail(update.value);
           break;
-        case "Password":
-          setUserPass(update.value);
-          break;
         default:
           return;
       }
@@ -107,7 +98,6 @@ function Settings() {
         field: update.field.toLowerCase(),
         value: update.value,
       };
-      console.log(updateBody);
       API.updateUserSettings(id, updateBody)
         .then(res => {
           console.log(res)
@@ -119,7 +109,6 @@ function Settings() {
   };
 
   const handleButton = (event) => {
-    console.log(event.target);
     const field = event.target.getAttribute("data-name");
     const btnType = event.target.textContent;
     let newState = "Read";
@@ -134,10 +123,6 @@ function Settings() {
       case "Email":
         handleSave(btnType, { field: field, value: emailInput });
         setEmailState(newState);
-        break;
-      case "Password":
-        handleSave(btnType, { field: field, value: passInput });
-        setPassState(newState);
         break;
       default:
         return;
@@ -177,10 +162,6 @@ function Settings() {
     return getFields(emailState, "Email", userEmail);
   };
 
-  const renderPassField = () => {
-    return getFields(passState, "Password", userPass);
-  };
-
   const handleFieldChange = (event, data) => {
     event.preventDefault();
     switch (data.name) {
@@ -204,28 +185,25 @@ function Settings() {
     let category2 = challCat2
     let category3 = challCat3
     if (!challCat1 && challCat1 !== 0) {
-      const value1 = options2.map(item => {
+      options2.map(item => {
         if (item.text === placeholder1) {
           category1 = item.value
         }
       })
-      console.log(value1);
     }
     if (!challCat2 && challCat2 !== 0) {
-      const value2 = options2.map(item => {
+      options2.map(item => {
         if (item.text === placeholder2) {
           category2 = item.value
         }
       })
-      console.log(value2);
     }
     if (!challCat3 && challCat3 !== 0) {
-      const value3 = options2.map(item => {
+      options2.map(item => {
         if (item.text === placeholder3) {
           category3 = item.value
         }
       })
-      console.log(value3);
     }
     const challengeCategories = {
       id: id,
@@ -233,7 +211,6 @@ function Settings() {
       choice2: category2,
       choice3: category3
     }
-    console.log(challengeCategories)
     API.updateUserChallengeCategories(challengeCategories)
       .then((res) => {
         console.log(res);
@@ -274,7 +251,6 @@ function Settings() {
           <Form>
             {renderNameField()}
             {renderEmailField()}
-            {renderPassField()}
           </Form>
         </Grid.Column>
         <Grid.Column width={3}></Grid.Column>
