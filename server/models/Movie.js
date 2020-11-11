@@ -3,19 +3,16 @@ const { Schema } = mongoose;
 
 const MovieSchema = new Schema({
   title: {
-    type: String
+    type: String,
   },
 
   genre: {
-    type: String
-
+    type: String,
   },
 
-  ismovie: {
-    type: Boolean
-
-  }
-
+  isMovie: {
+    type: Boolean,
+  },
 });
 
 const Movie = mongoose.model("Movie", MovieSchema);
