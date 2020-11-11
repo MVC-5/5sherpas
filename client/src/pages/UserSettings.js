@@ -27,6 +27,7 @@ function Settings() {
   const { userId } = useContext(AuthContext);
   const id = userId || sessionStorage.getItem("userId");
 
+  // retrieves json object from user schema
   const getUserSettings = () => {
     API.getUserSettings(id)
       .then((res) => {
@@ -63,10 +64,12 @@ function Settings() {
       })
   };
 
+  // runs getUserSettings function only once, on page load
   useEffect(() => {
     getUserSettings()
   }, [])
 
+  // tracks changes to name and email input fields
   const handleInputChange = event => {
     const { value } = event.target
     const fieldName = event.target.parentElement.getAttribute('data-name')
@@ -82,6 +85,7 @@ function Settings() {
     }
   };
 
+  // saves name and email input field changes in database upon clicking save button
   const handleSave = (btnType, update) => {
     if (btnType === "Save") {
       switch (update.field) {
@@ -108,6 +112,7 @@ function Settings() {
     }
   };
 
+  // handles read vs edit state of input fields and handles input field button clicks
   const handleButton = (event) => {
     const field = event.target.getAttribute("data-name");
     const btnType = event.target.textContent;
@@ -129,6 +134,7 @@ function Settings() {
     }
   };
 
+  // returns editable or read only field based on button click
   const getFields = (condition, fieldName, inputValue) => {
     switch (condition) {
       case "Read":
@@ -154,14 +160,17 @@ function Settings() {
     }
   };
 
+  // renders name field
   const renderNameField = () => {
     return getFields(nameState, "Name", userName);
   };
 
+  // renders email field
   const renderEmailField = () => {
     return getFields(emailState, "Email", userEmail);
   };
 
+  // handles challenge dropdown selection
   const handleFieldChange = (event, data) => {
     event.preventDefault();
     switch (data.name) {
@@ -179,6 +188,7 @@ function Settings() {
     }
   };
 
+  // handles challenge dropdown form submission and updates values in database
   const handleSubmit = e => {
     e.preventDefault()
     let category1 = challCat1

@@ -47,8 +47,7 @@ module.exports = {
         });
         await newUser
           .save()
-          .then((res) => {
-            res.send("User created");
+          .then(() => {
           })
           .catch((error) => {
             throw error;
