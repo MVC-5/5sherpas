@@ -32,26 +32,25 @@ function Settings() {
   const getUserSettings = () => {
     API.getUserSettings(id)
       .then((res) => {
-        console.log(res);
         const c1 = res.data[0].challengeCategories[0].name
         const c2 = res.data[0].challengeCategories[1].name
         const c3 = res.data[0].challengeCategories[2].name
         setUserName(res.data[0].name);
         setUserEmail(res.data[0].email);
         setUserPass(res.data[0].password);
-        if (!c1) {
+        if (c1 === "None") {
           setPlaceholder1("Choose Category");
         } else {
           setPlaceholder1(c1)
         }
 
-        if (!c2) {
+        if (c2 === "None") {
           setPlaceholder2("Choose Category");
         } else {
           setPlaceholder2(c2)
         }
 
-        if (!c3) {
+        if (c3 === "None") {
           setPlaceholder3("Choose Category");
         } else {
           setPlaceholder3(c3)
@@ -62,20 +61,7 @@ function Settings() {
 
   useEffect(() => {
     getUserSettings()
-    console.log("ran")
   }, [])
-
-  useEffect(() => {
-    console.log(nameInput);
-  }, [nameInput])
-
-  useEffect(() => {
-    console.log(emailInput);
-  }, [emailInput])
-
-  useEffect(() => {
-    console.log(passInput);
-  }, [passInput])
 
   const handleInputChange = event => {
     const { value } = event.target
@@ -180,28 +166,13 @@ function Settings() {
     event.preventDefault()
     switch (data.name) {
       case "cat1":
-        if (data.value === "None") {
-          setChallCat1(null)
-        } else {
-          setChallCat1(data.value);
-          console.log(data.value)
-        }
+        setChallCat1(data.value);
         break;
       case "cat2":
-        if (data.value === "None") {
-          setChallCat2(null)
-        } else {
-          setChallCat2(data.value);
-          console.log(data.value)
-        }
+        setChallCat2(data.value);
         break;
       case "cat3":
-        if (data.value === "None") {
-          setChallCat3(null)
-        } else {
-          setChallCat3(data.value);
-          console.log(data.value)
-        }
+        setChallCat3(data.value);
         break;
       default:
         return
@@ -210,11 +181,38 @@ function Settings() {
 
   const handleSubmit = e => {
     e.preventDefault()
+    let category1 = challCat1
+    let category2 = challCat2
+    let category3 = challCat3
+    if (!challCat1) {
+      const value1 = options2.map(item => {
+        if (item.text === placeholder1) {
+          category1 = item.value
+        }
+      })
+      console.log(value1);
+    }
+    if (!challCat2) {
+      const value2 = options2.map(item => {
+        if (item.text === placeholder2) {
+          category2 = item.value
+        }
+      })
+      console.log(value2);
+    }
+    if (!challCat3) {
+      const value3 = options2.map(item => {
+        if (item.text === placeholder3) {
+          category3 = item.value
+        }
+      })
+      console.log(value3);
+    }
     const challengeCategories = {
       id: id,
-      choice1: challCat1,
-      choice2: challCat2,
-      choice3: challCat3
+      choice1: category1,
+      choice2: category2,
+      choice3: category3
     }
     console.log(challengeCategories)
     API.updateUserChallengeCategories(challengeCategories)
@@ -228,15 +226,23 @@ function Settings() {
 
   const options1 = [
     { key: '1', text: 'Wellness', value: 1 },
-    { key: '2', text: 'Placeholder 2', value: 2 },
-    { key: '3', text: 'Placeholder 3', value: 3 }
+    { key: '2', text: 'Intelligence', value: 2 },
+    { key: '3', text: 'Well-Roundedness', value: 3 },
+    { key: '4', text: 'Organization', value: 4 },
+    { key: '5', text: 'Career', value: 5 },
+    { key: '6', text: 'Bad Habit Cessation', value: 6 },
+    { key: '7', text: 'Interpersonal Relationships', value: 7 }
   ]
 
   const options2 = [
     { key: '0', text: 'None', value: 0 },
-    { key: '1', text: 'Placeholder 1', value: 1 },
-    { key: '2', text: 'Placeholder 2', value: 2 },
-    { key: '3', text: 'Placeholder 3', value: 3 }
+    { key: '1', text: 'Wellness', value: 1 },
+    { key: '2', text: 'Intelligence', value: 2 },
+    { key: '3', text: 'Well-Roundedness', value: 3 },
+    { key: '4', text: 'Organization', value: 4 },
+    { key: '5', text: 'Career', value: 5 },
+    { key: '6', text: 'Bad Habit Cessation', value: 6 },
+    { key: '7', text: 'Interpersonal Relationships', value: 7 }
   ]
 
   return (
