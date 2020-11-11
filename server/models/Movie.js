@@ -11,7 +11,7 @@ const MovieSchema = new Schema({
 
   },
 
-  movie: {
+  ismovie: {
     type: Boolean
 
   }
