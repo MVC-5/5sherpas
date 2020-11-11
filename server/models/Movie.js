@@ -9,6 +9,11 @@ const MovieSchema = new Schema({
   genre: {
     type: String
 
+  },
+
+  movie: {
+    type: Boolean
+
   }
 
 });
