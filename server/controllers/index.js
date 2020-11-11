@@ -48,6 +48,7 @@ module.exports = {
         await newUser
           .save()
           .then(() => {
+            res.send("User created")
           })
           .catch((error) => {
             throw error;
