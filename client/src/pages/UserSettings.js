@@ -184,7 +184,7 @@ function Settings() {
     let category1 = challCat1
     let category2 = challCat2
     let category3 = challCat3
-    if (!challCat1) {
+    if (!challCat1 && challCat1 !== 0) {
       const value1 = options2.map(item => {
         if (item.text === placeholder1) {
           category1 = item.value
@@ -192,7 +192,7 @@ function Settings() {
       })
       console.log(value1);
     }
-    if (!challCat2) {
+    if (!challCat2 && challCat2 !== 0) {
       const value2 = options2.map(item => {
         if (item.text === placeholder2) {
           category2 = item.value
@@ -200,7 +200,7 @@ function Settings() {
       })
       console.log(value2);
     }
-    if (!challCat3) {
+    if (!challCat3 && challCat3 !== 0) {
       const value3 = options2.map(item => {
         if (item.text === placeholder3) {
           category3 = item.value
