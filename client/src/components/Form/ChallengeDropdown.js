@@ -1,10 +1,14 @@
 import React from 'react'
-import { Form } from 'semantic-ui-react'
+import { Form, Grid } from 'semantic-ui-react'
+
+import './style.css';
 
 export function ChallengeOptions(props) {
 
   return (
-    <Form onSubmit={props.onSubmit}>
+    <>
+      <div>
+      <Form onSubmit={props.onSubmit} id="dropdown-form">
       <Form.Group widths='equal'>
         <Form.Select
           required
@@ -32,7 +36,22 @@ export function ChallengeOptions(props) {
           onChange={props.onChange}
         />
       </Form.Group>
-      <Form.Button>Submit</Form.Button>
+
+      <div className='buttons'>
+      <Grid>
+        <Grid.Column width={5}></Grid.Column>
+        <Grid.Column width={3}>
+          <Form.Button id='button-style' size='large'>Submit</Form.Button>
+        </Grid.Column>
+        <Grid.Column width={3}>
+          <Form.Button
+            onClick={(e) => e.preventDefault()}
+            id='button-style' size='large'>Cancel</Form.Button>
+        </Grid.Column>
+      </Grid>
+      </div>
     </Form>
+      </div>
+    </>
   )
 }

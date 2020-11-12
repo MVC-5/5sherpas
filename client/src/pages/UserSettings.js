@@ -5,6 +5,7 @@ import ReadGroup from "../components/Form/readAccount";
 import EditGroup from "../components/Form/editAccount";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
+import User1 from "../assets/user-1.png";
 
 function Settings() {
   const [nameState, setNameState] = useState("Read");
@@ -252,33 +253,39 @@ function Settings() {
   ]
 
   return (
-    <Grid>
-      <Grid.Row>
-        <Grid.Column width={4}>
-          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" />
-        </Grid.Column>
-        <Grid.Column width={9}>
-          <Form>
-            {renderNameField()}
-            {renderEmailField()}
-          </Form>
-        </Grid.Column>
-        <Grid.Column width={3}></Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column>
-          <ChallengeOptions
-            placeholder1={placeholder1}
-            placeholder2={placeholder2}
-            placeholder3={placeholder3}
-            options1={options1}
-            options2={options2}
-            onSubmit={handleSubmit}
-            onChange={handleFieldChange}
-          ></ChallengeOptions>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <>
+      <div className="knot-container">
+        <h1 className="header">my settings</h1>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={3}></Grid.Column>
+              <Grid.Column width={4}>
+                <Image src={User1} />
+              </Grid.Column>
+              <Grid.Column width={6}>
+                <Form>
+                  {renderNameField()}
+                  {renderEmailField()}
+                </Form>
+              </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column width={3}></Grid.Column>
+              <Grid.Column width={10}>
+                <ChallengeOptions
+                  placeholder1={placeholder1}
+                  placeholder2={placeholder2}
+                  placeholder3={placeholder3}
+                  options1={options1}
+                  options2={options2}
+                  onSubmit={handleSubmit}
+                  onChange={handleFieldChange}
+                ></ChallengeOptions>
+              </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    </>
   );
 }
 
