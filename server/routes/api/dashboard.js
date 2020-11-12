@@ -20,6 +20,10 @@ router
   .get(controller.getMentalAct)
 
 router
+  .route("/getmovie")
+  .get(controller.getMovie)
+
+router
   .route("/:id")
   .get(controller.getDashboard)
   .put(controller.updateChallenge)

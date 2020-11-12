@@ -2,6 +2,8 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const db = require("../models");
 
+const categories = ["Action", "Adventure", "Documentary", "Horror", "Family", "Comedy", "Science Fiction"]
+
 module.exports = {
   loginUser: function (req, res, next) {
     passport.authenticate("local", function (err, user) {
@@ -85,11 +87,13 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getMovie: function (req, res) {
-    res.send("Movie suggestion received")
-    // db.Movie
-    //   .find()
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    let index = Math.floor(Math.random()*7)
+    let selectedCat = categories[index].toString()
+    
+      db.Movie
+      .find({genre: selectedCat})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
   getPhysAct: function (req, res) {
     db.ShortActivity
