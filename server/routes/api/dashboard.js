@@ -3,25 +3,18 @@ const controller = require("../../controllers");
 
 // Matches with "/api/dashboard"
 
-router
-  .route("/getdashboard")
-  .get(controller.getDashboard)
+// expects user id in the body {id: "xxxxxxxxx"}
+router.route("/getdashboard").get(controller.getDashboard);
 
-router
-  .route("/movie")
-  .get(controller.getMovie)
+router.route("/movie").get(controller.getMovie);
 
-router
-  .route("/physical")
-  .get(controller.getPhysAct)
+router.route("/physical").get(controller.getPhysAct);
 
-router
-  .route("/mental")
-  .get(controller.getMentalAct)
+router.route("/mental").get(controller.getMentalAct);
 
 router
   .route("/:id")
   .get(controller.getDashboard)
-  .put(controller.updateChallenge)
+  .put(controller.updateChallenge);
 
 module.exports = router;

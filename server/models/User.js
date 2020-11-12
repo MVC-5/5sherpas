@@ -2,6 +2,14 @@ const validator = require("validator");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const currentChallengeSchema = new Schema(
+  {
+    challengeId: { type: Schema.Types.ObjectId, ref: "Challenge" },
+    completed: { type: Boolean },
+  },
+  { _id: false }
+);
+
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -27,33 +35,32 @@ const UserSchema = new Schema({
     type: Number,
   },
 
-  challengeCategories: [{
-    type: Schema.Types.Number,
-    ref: "Category"
-  }],
+  challengeCategories: [
+    {
+      type: Schema.Types.Number,
+      ref: "Category",
+    },
+  ],
 
   keywords: {
     type: Array,
   },
 
-  matchingactivities: [{
-    id: Schema.Types.ObjectId,
-    ref: "Challenges",
-  }],
+  matchingactivities: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Challenge",
+    },
+  ],
 
   neverdolist: {
     type: Array,
   },
 
-  currentchallenge: [{
-    id: Schema.Types.ObjectId,
-    completed: Boolean,
-    ref: "Challenge",
-  }],
+  currentchallenge: [currentChallengeSchema],
 
   totalprogress: {
     type: Array,
-    ref: "Challenge",
   },
 });
 
