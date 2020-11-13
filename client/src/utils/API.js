@@ -58,8 +58,8 @@ export default {
     return axios.get("/api/dashboard/newchallenge");
   },
   // Gets movie suggestion when movie sherpa clicked
-  getMovieSugg: function () {
-    return axios.get("/api/dashboard/movie");
+  getMovieSugg: function (cat) {
+    return axios.get("/api/dashboard/movie/" + cat);
   },
   // Gets physical activity suggestion when physical health sherpa clicked
   getPhysActSugg: function () {

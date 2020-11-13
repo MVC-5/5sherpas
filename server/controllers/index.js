@@ -87,13 +87,25 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   getMovie: function (req, res) {
-    let index = Math.floor(Math.random()*7)
-    let selectedCat = categories[index].toString()
-    
+     let movieChoices = []
+     let selectedCat = req.params.cat.toString()
       db.Movie
-      .find({genre: selectedCat})
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .find({genre: selectedCat}).exec(function(err, result){
+        if (err) {
+          console.log(err,err.stack)
+        }
+        if (result){
+          for (var i=0;i<result.length;i++){
+            movieChoices.push({
+              title: result[i].title
+            })
+          }
+          console.log(movieChoices)
+          res.json(movieChoices)
+        }
+      })
+      // .then(dbModel => res.json(dbModel))
+      // .catch(err => res.status(422).json(err));
   },
   getPhysAct: function (req, res) {
     db.ShortActivity

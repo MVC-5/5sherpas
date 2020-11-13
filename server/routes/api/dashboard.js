@@ -20,7 +20,7 @@ router
   .get(controller.getMentalAct)
 
 router
-  .route("/getmovie")
+  .route("/movie/:cat")
   .get(controller.getMovie)
 
 router
