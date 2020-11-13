@@ -247,8 +247,7 @@ module.exports = {
         .populate("currentChallenge.challengeId")
         .then(async (userDoc) => {
           userDoc.matchingChallenges = matchIds;
-          // TODO: give user a fresh set of challenges using these
-
+          userDoc.currentChallenge = newChallengeSet(userDoc);
           await userDoc.save();
           res.json(userDoc);
         });
