@@ -6,7 +6,7 @@ const LifeAttrSchema = new Schema({
     type: String,
   },
 
-  categoryreference: {
+  categoryReference: {
     type: Number,
     ref: "Category",
   },

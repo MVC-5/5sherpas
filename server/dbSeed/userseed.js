@@ -55,15 +55,15 @@ let users = [
 
     keywords: [],
 
-    matchingactivities: [
+    matchingChallenges: [
       "5fa4f0a31471cc2bfbeab5b9",
       "5fa4f0a31471cc2bfbeab5ba",
       "5fa4f0a31471cc2bfbeab5bb",
     ],
 
-    neverdolist: ["5fa4f0a31471cc2bfbeab5bd"],
+    neverDoList: ["5fa4f0a31471cc2bfbeab5bd"],
 
-    currentchallenge: [
+    currentChallenge: [
       {
         challengeId: "5fa4f0a31471cc2bfbeab5bb",
         completed: false,
@@ -78,7 +78,7 @@ let users = [
       },
     ],
 
-    totalprogress: [
+    totalProgress: [
       { dateRange: [date, date2], completed: 2 },
       { dateRange: [date2, date2.addDays(7)], completed: 3 },
     ],
@@ -92,15 +92,15 @@ let users = [
 
     keywords: [],
 
-    matchingactivities: [
+    matchingChallenges: [
       "5fa4f0a31471cc2bfbeab5b9",
       "5fa4f0a31471cc2bfbeab5ba",
       "5fa4f0a31471cc2bfbeab5bb",
     ],
 
-    neverdolist: ["5fa4f0a31471cc2bfbeab5bd"],
+    neverDoList: ["5fa4f0a31471cc2bfbeab5bd"],
 
-    currentchallenge: [
+    currentChallenge: [
       {
         challengeId: "5fa4f0a31471cc2bfbeab5bb",
         completed: false,
@@ -115,7 +115,7 @@ let users = [
       },
     ],
 
-    totalprogress: [
+    totalProgress: [
       { dateRange: [date, date2], completed: 2 },
       { dateRange: [date2, date2.addDays(7)], completed: 3 },
     ],
@@ -129,15 +129,15 @@ let users = [
 
     keywords: [],
 
-    matchingactivities: [
+    matchingChallenges: [
       "5fa4f0a31471cc2bfbeab5b9",
       "5fa4f0a31471cc2bfbeab5ba",
       "5fa4f0a31471cc2bfbeab5bb",
     ],
 
-    neverdolist: ["5fa4f0a31471cc2bfbeab5bd"],
+    neverDoList: ["5fa4f0a31471cc2bfbeab5bd"],
 
-    currentchallenge: [
+    currentChallenge: [
       {
         challengeId: "5fa4f0a31471cc2bfbeab5bb",
         completed: false,
@@ -152,7 +152,7 @@ let users = [
       },
     ],
 
-    totalprogress: [
+    totalProgress: [
       { dateRange: [date, date2], completed: 2 },
       { dateRange: [date2, date2.addDays(7)], completed: 3 },
     ],

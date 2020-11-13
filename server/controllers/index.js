@@ -1,7 +1,7 @@
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const db = require("../models");
-const challengeController = require("./challengecontroller");
+const challCont = require("./challengecontroller");
 
 module.exports = {
   loginUser: function (req, res, next) {
@@ -70,17 +70,21 @@ module.exports = {
   },
   updateUserChallengeCategories: function (req, res) {
     const updateId = req.body.id;
+    console.log(updateId);
     const categoryArr = [req.body.choice1, req.body.choice2, req.body.choice3];
     db.User.findByIdAndUpdate(
       updateId,
       { $set: { challengeCategories: categoryArr } },
       { new: true, useFindAndModify: false }
     )
-      .then((dbModel) => res.json(dbModel))
+      .then((result) => {
+        console.log(result);
+        challCont.getNewMatching(req, res, categoryArr);
+      })
       .catch((err) => res.status(422).json(err));
   },
   getDashboard: function (req, res) {
-    challengeController.getChallenges(req, res);
+    challCont.getChallenges(req, res);
   },
   getChallenge: function (req, res) {
     db.Challenge.find()
@@ -105,7 +109,20 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   updateChallenge: function (req, res) {
-    res.send("Challenge updated to completed/not now/never show");
+    const request = req.body;
+    console.log(request.action);
+    switch (request.action) {
+      case "complete":
+        return challCont.completeChallenge(req, res);
+      case "swap":
+        return challCont.swapChallenge(req, res);
+      case "never":
+        return challCont.neverDoChallenge(req, res);
+      default:
+        console.error(request.action + " is not a valid option.");
+        break;
+    }
+    res.send(request.action + " is not a valid option.");
     // db.User
     //   .findOneAndUpdate({ _id: req.params.id }, req.body)
     //   .then(dbModel => res.json(dbModel))

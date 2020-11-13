@@ -13,8 +13,8 @@ router.route("/physical").get(controller.getPhysAct);
 router.route("/mental").get(controller.getMentalAct);
 
 router
-  .route("/:id")
-  .get(controller.getDashboard)
+  .route("/updatechallenge")
+  // expect user id, challenge id, and action in the req.body
   .put(controller.updateChallenge);
 
 module.exports = router;
