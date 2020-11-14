@@ -24,7 +24,7 @@ function App() {
       .then((user) => {
         if (user.data.id) {
           sessionStorage.setItem("loggedIn", true);
-          sessionStorage.setItem("userId", user.data.id)
+          sessionStorage.setItem("userId", user.data.id);
           setUserName(user.data.name);
           setUserId(user.data.id);
           setUserEmail(user.data.email);
@@ -55,9 +55,9 @@ function App() {
       <div className="App">
         <Router>
           <div>
-            {auth || isLoggedIn ? <AuthNav /> : <Navbar />}
-
             <Wrapper>
+              {auth || isLoggedIn ? <AuthNav /> : <Navbar />}
+
               <Switch>
                 <Route path="/" exact>
                   <LandingPage />

@@ -14,7 +14,7 @@ const ChallengeSchema = new Schema({
     type: Array,
   },
 
-  categoryreference: {
+  categoryReference: {
     type: Number,
     ref: "Category",
   },
