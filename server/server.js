@@ -1,5 +1,6 @@
 // dependency imports
 const express = require("express");
+const logger = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
@@ -23,6 +24,8 @@ mongoose.connect(
 );
 
 // Middleware
+app.use(logger("dev"));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
