@@ -1,9 +1,11 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 const bcrypt = require("bcryptjs");
+const dotenv = require("dotenv");
+dotenv.config();
 
 mongoose.connect(
-  "mongodb://localhost/5sherpas",
+  process.env.MONGODB_URI || "mongodb://localhost/5sherpas",
   {
     useNewUrlParser: true,
     useFindAndModify: false,
