@@ -100,12 +100,10 @@ module.exports = {
               title: result[i].title
             })
           }
-          console.log(movieChoices)
           res.json(movieChoices)
         }
       })
-      // .then(dbModel => res.json(dbModel))
-      // .catch(err => res.status(422).json(err));
+  
   },
   getPhysAct: function (req, res) {
     db.ShortActivity

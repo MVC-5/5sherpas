@@ -5,6 +5,7 @@ const cors = require("cors");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const logger = require("morgan");
 
 const routes = require("./routes");
 
@@ -23,6 +24,7 @@ mongoose.connect(
 );
 
 // Middleware
+app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
