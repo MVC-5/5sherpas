@@ -1,23 +1,75 @@
-import React from 'react'
-import { Segment, Button } from 'semantic-ui-react'
+import React, { useContext } from "react";
+import UserContext from "../../utils/UserContext";
+import { Segment, Button } from "semantic-ui-react";
+import API from "../../utils/API";
 
 import "./style.css";
 
-const Challenge = () => (
-  <>
-    <div>
-      <Segment.Group id='challenge-holder'>
-        <Segment.Group>
-          <Segment id='challenge-description'>Challenge</Segment>
-        </Segment.Group>
-        <Button.Group id='button-group'>
-          <Button id='button-style' size='large'>Done</Button>
-          <Button id='button-style' size='large'>Try Again</Button>
-          <Button id='button-style' size='large'>Swap</Button>
-        </Button.Group>
-      </Segment.Group>
-    </div>
-  </>
-)
+const Challenge = ({ challenge, status }) => {
+  const { setCurrentChall, setProgressData } = useContext(UserContext);
 
-export default Challenge
+  const handleButtonClick = (action) => {
+    const userId = sessionStorage.getItem("userId");
+    const challData = {
+      userId: userId,
+      challengeId: challenge._id,
+      action: action,
+    };
+    console.log(challData);
+    API.updateChall(challData).then((res) => {
+      console.log(res.data);
+      setCurrentChall(res.data.currentChallenge);
+      setProgressData(res.data.totalProgress);
+    });
+  };
+  return (
+    <>
+      <div>
+        <Segment.Group id="challenge-holder">
+          <Segment.Group>
+            <Segment
+              id="challenge-description"
+              className={status ? "completeChall" : "notCompleteChall"}
+            >
+              {challenge.name}
+            </Segment>
+          </Segment.Group>
+          <Button.Group id="button-group">
+            <Button
+              id="button-style"
+              name="complete"
+              size="large"
+              onClick={(e) => {
+                handleButtonClick(e.target.name);
+              }}
+            >
+              Done
+            </Button>
+            <Button
+              id="button-style"
+              name="never"
+              size="large"
+              onClick={(e) => {
+                handleButtonClick(e.target.name);
+              }}
+            >
+              Never
+            </Button>
+            <Button
+              id="button-style"
+              name="swap"
+              size="large"
+              onClick={(e) => {
+                handleButtonClick(e.target.name);
+              }}
+            >
+              {status ? "Get New" : "Swap"}
+            </Button>
+          </Button.Group>
+        </Segment.Group>
+      </div>
+    </>
+  );
+};
+
+export default Challenge;

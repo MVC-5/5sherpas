@@ -107,7 +107,7 @@ const processDate = async (endDate, userDoc, status = null) => {
 module.exports = {
   // returns current challenges and graph data in a json object
   getChallenges: function (req, res) {
-    const id = req.body.id;
+    const id = req.params.id;
     db.User.findById(id)
       .populate("challengeCategories")
       .populate("matchingChallenges")
@@ -156,6 +156,7 @@ module.exports = {
   completeChallenge: function (req, res) {
     db.User.findById(req.body.userId)
       .populate("challengeCategories")
+      .populate("matchingChallenges")
       .then(async (userDoc) => {
         let success = false;
 
@@ -194,6 +195,7 @@ module.exports = {
           return;
         }
         console.log(userDoc.totalProgress, " the total progress");
+        await userDoc.populate("currentChallenge.challengeId").execPopulate();
         await userDoc.save();
         res.send(userDoc);
       });
@@ -230,6 +232,7 @@ module.exports = {
             );
           return;
         }
+        await userDoc.populate("currentChallenge.challengeId").execPopulate();
         await userDoc.save();
         res.send(userDoc);
       });
@@ -265,6 +268,7 @@ module.exports = {
             );
           return;
         }
+        await userDoc.populate("currentChallenge.challengeId").execPopulate();
         await userDoc.save();
         res.send(userDoc);
       });

@@ -25,7 +25,7 @@ export default {
     return axios({
       method: "get",
       withCredentials: true,
-      url: "http://localhost:3001/api/user",
+      url: "/api/user",
     });
   },
   // Gets the user settings with the given id
@@ -34,24 +34,27 @@ export default {
   },
   // Updates user settings with given id
   updateUserSettings: function (id, userData) {
-    console.log(userData, id)
+    console.log(userData, id);
     return axios({
       method: "put",
       data: userData,
-      url: "/api/user/" + id
+      url: "/api/user/" + id,
     });
   },
   updateUserChallengeCategories: function (userData) {
-    console.log(userData)
+    console.log(userData);
     return axios({
       method: "put",
       data: userData,
-      url: "/api/user/categories"
+      url: "/api/user/categories",
     });
   },
   // Gets weekly challenges and progress map data
   getDashData: function (id) {
-    return axios.get("/api/dashboard/" + id);
+    return axios({
+      method: "get",
+      url: "/api/dashboard/getdashboard/" + id,
+    });
   },
   // Gets new weekly challenge when challenge sherpa clicked
   getNewChallenge: function () {
@@ -70,7 +73,11 @@ export default {
     return axios.get("/api/dashboard/mental");
   },
   // Updates weekly challenge based on user selection of completed, not now, or never show again
-  updateChall: function (id) {
-    return axios.put("/api/dashboard/" + id);
+  updateChall: function (challData) {
+    return axios({
+      method: "put",
+      data: challData,
+      url: "/api/dashboard/updatechallenge",
+    });
   },
 };

@@ -3,8 +3,8 @@ const controller = require("../../controllers");
 
 // Matches with "/api/dashboard"
 
-// expects user id in the body {id: "xxxxxxxxx"}
-router.route("/getdashboard").get(controller.getDashboard);
+// expects user id param
+router.route("/getdashboard/:id").get(controller.getDashboard);
 
 router.route("/movie").get(controller.getMovie);
 
