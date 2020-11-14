@@ -1,5 +1,11 @@
 const db = require("../models");
 
+function removeFromTop(arr, num = 3) {
+  const shortenedArr = arr.splice(0, num);
+  console.log(shortenedArr, " removed from array");
+  return arr;
+}
+
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -81,8 +87,11 @@ const processDate = async (endDate, userDoc, status = null) => {
     // if yes or if a user has no challenges
     if (dateStatus.status || userDoc.currentChallenge.length === 0) {
       const newChall = newChallengeSet(userDoc);
-
+      //update new challenges
       userDoc.currentChallenge = newChall;
+      // remove new challenges from matching
+      userDoc.matchingChallenges = removeFromTop(userDoc.matchingChallenges);
+
       // repopulate the challenges with the new ids
       await userDoc.populate("currentChallenge.challengeId").execPopulate();
     }
@@ -121,6 +130,10 @@ module.exports = {
           // add get challenges for new user
           const challenges = await newChallengeSet(userDoc);
           userDoc.currentChallenge = challenges;
+          // remove new challenges
+          userDoc.matchingChallenges = removeFromTop(
+            userDoc.matchingChallenges
+          );
           await userDoc.populate("currentChallenge.challengeId").execPopulate();
           await userDoc.save();
           console.log("First week created");
@@ -139,9 +152,6 @@ module.exports = {
         console.log("Complete");
       })
       .catch((err) => res.status(422).json(err));
-
-    // TODO: when grabbing new set of challenges. put current challenges into matching and remove new set from array
-    // frontend can calculate the remaining days from the last item in total progress array
   },
   completeChallenge: function (req, res) {
     db.User.findById(req.body.userId)
@@ -154,14 +164,23 @@ module.exports = {
           if (chall.challengeId == req.body.challengeId) {
             console.log(chall.challengeId + " MATCHES");
             success = true;
-            chall.completed = true;
-            userDoc.totalProgress[
-              userDoc.totalProgress.length - 1
-            ].completed += 1;
-            console.log(
-              userDoc.totalProgress[userDoc.totalProgress.length - 1].completed,
-              "COMPLETED"
-            );
+
+            // you can only completed a challenge once!
+            if (chall.completed !== true) {
+              chall.completed = true;
+
+              // increment totalProgress tracker
+              const currentWeek = userDoc.totalProgress.pop();
+              currentWeek.completed += 1;
+              userDoc.totalProgress.push(currentWeek);
+              console.log(userDoc.totalProgress);
+              // Completed amount
+              console.log(
+                userDoc.totalProgress[userDoc.totalProgress.length - 1]
+                  .completed,
+                "COMPLETED"
+              );
+            }
 
             return;
           }
@@ -174,7 +193,7 @@ module.exports = {
             );
           return;
         }
-
+        console.log(userDoc.totalProgress, " the total progress");
         await userDoc.save();
         res.send(userDoc);
       });
@@ -186,22 +205,21 @@ module.exports = {
       .populate("challengeCategories")
       .then(async (userDoc) => {
         const newChallenge = newChallengeSet(userDoc, 1);
-        console.log(newChallenge, req.body.challengeId);
         let challIndex = false;
         userDoc.currentChallenge.forEach((chall, index) => {
           if (chall.challengeId == req.body.challengeId) {
             // add current back to matching
             userDoc.matchingChallenges.push(req.body.challengeId);
             // remove new challenge
-            const removed = userDoc.matchingChallenges.shift();
-            console.log(removed);
-            console.log(chall);
+            userDoc.matchingChallenges = removeFromTop(
+              userDoc.matchingChallenges,
+              1
+            );
             challIndex = index;
 
             return;
           }
         });
-        console.log(challIndex);
         userDoc.currentChallenge[challIndex] = newChallenge[0];
 
         if (challIndex === false) {
@@ -212,22 +230,52 @@ module.exports = {
             );
           return;
         }
-        console.log(userDoc);
         await userDoc.save();
         res.send(userDoc);
       });
     // add challenge back to matching array and shift item from top of array and add it to challenges (in the same index of the one that was swapped)
   },
   neverDoChallenge: function (req, res) {
-    res.json({
-      challId: req.body.challengeId,
-      userId: req.body.userId,
-      action: req.body.action,
-    });
-    // remove from challenges and get a new one challenge from matching to add at the same index, add to neverdo array
+    db.User.findById(req.body.userId)
+      .populate("challengeCategories")
+      .then(async (userDoc) => {
+        const newChallenge = newChallengeSet(userDoc, 1);
+        let challIndex = false;
+        userDoc.currentChallenge.forEach((chall, index) => {
+          if (chall.challengeId == req.body.challengeId) {
+            // add current to neverDoList
+            userDoc.neverDoList.push(req.body.challengeId);
+            // remove new challenge
+            userDoc.matchingChallenges = removeFromTop(
+              userDoc.matchingChallenges,
+              1
+            );
+            challIndex = index;
+
+            return;
+          }
+        });
+        userDoc.currentChallenge[challIndex] = newChallenge[0];
+
+        if (challIndex === false) {
+          res
+            .status(500)
+            .json(
+              `No challenge with id: ${req.body.challengeId} found in user document`
+            );
+          return;
+        }
+        await userDoc.save();
+        res.send(userDoc);
+      });
+
     // neverdo exists so the user never sees those activities even if they update their settings and get a fresh list of activities
   },
   getNewMatching: function (req, res, categoryArr) {
+    const checkNeverDo = (matchingArr, neverDoArr) => {
+      const verifiedArr = matchingArr.filter((id) => !neverDoArr.includes(id));
+      return verifiedArr;
+    };
     const userId = req.body.id;
     console.log(categoryArr[0]);
     db.Challenge.find({
@@ -246,8 +294,13 @@ module.exports = {
         .populate("matchingChallenges")
         .populate("currentChallenge.challengeId")
         .then(async (userDoc) => {
-          userDoc.matchingChallenges = matchIds;
+          userDoc.matchingChallenges = checkNeverDo(
+            matchIds,
+            userDoc.neverDoList
+          );
           userDoc.currentChallenge = newChallengeSet(userDoc);
+          await userDoc.populate("currentChallenge.challengeId").execPopulate();
+
           await userDoc.save();
           res.json(userDoc);
         });
