@@ -55,9 +55,9 @@ function App() {
       <div className="App">
         <Router>
           <div>
-            {auth || isLoggedIn ? <AuthNav /> : <Navbar />}
-
             <Wrapper>
+              {auth || isLoggedIn ? <AuthNav /> : <Navbar />}
+
               <Switch>
                 <Route path="/" exact>
                   <LandingPage />

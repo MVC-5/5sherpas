@@ -1,4 +1,5 @@
 // dependency imports
+const dotenv = require("dotenv");
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -8,6 +9,8 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 const routes = require("./routes");
+
+dotenv.config();
 
 //
 const app = express();
