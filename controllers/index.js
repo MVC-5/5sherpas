@@ -92,11 +92,21 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   getMovie: function (req, res) {
-    res.send("Movie suggestion received");
-    // db.Movie
-    //   .find()
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    let movieChoices = [];
+    let selectedCat = req.params.cat.toString();
+    db.Movie.find({ genre: selectedCat }).exec(function (err, result) {
+      if (err) {
+        console.log(err, err.stack);
+      }
+      if (result) {
+        for (var i = 0; i < result.length; i++) {
+          movieChoices.push({
+            title: result[i].title,
+          });
+        }
+        res.json(movieChoices);
+      }
+    });
   },
   getPhysAct: function (req, res) {
     db.ShortActivity.find({ activityType: "Physical" })
