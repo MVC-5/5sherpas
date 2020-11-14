@@ -1,4 +1,7 @@
-import React from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect, useState } from "react";
+import UserContext from "../../utils/UserContext";
+import API from "../../utils/API";
 
 import "./style.css";
 
@@ -7,14 +10,47 @@ import { MyDashboard } from "../../components/MyDashboard";
 import ConsultSherpas from "../../components/ConsultSherpas";
 
 function userDashboard() {
+  const [currentChall, setCurrentChall] = useState([]);
+  const [progressData, setProgressData] = useState([]);
+  const [update, setUpdate] = useState(false);
+
+  const getDash = (id) => {
+    API.getDashData(id)
+      .then((dashData) => {
+        setCurrentChall(dashData.data.currentChallenge);
+        setProgressData(dashData.data.totalProgress);
+        console.log(dashData.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  useEffect(() => {
+    getDash(sessionStorage.getItem("userId"));
+  }, []);
+
+  useEffect(() => {
+    getDash(sessionStorage.getItem("userId"));
+  }, [update]);
   return (
     <>
-      <div className="knot-container">
-        <div>
-          <MyDashboard />
-          <ConsultSherpas />
+      <UserContext.Provider
+        value={{
+          currentChall,
+          progressData,
+          setUpdate,
+          setCurrentChall,
+          setProgressData,
+        }}
+      >
+        <div className="knot-container">
+          <div>
+            <MyDashboard />
+            <ConsultSherpas />
+          </div>
         </div>
-      </div>
+      </UserContext.Provider>
     </>
   );
 }

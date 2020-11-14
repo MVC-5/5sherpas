@@ -1,6 +1,7 @@
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const db = require("../models");
+const challCont = require("./challengecontroller");
 
 module.exports = {
   loginUser: function (req, res, next) {
@@ -28,11 +29,10 @@ module.exports = {
     //   .catch(err => res.status(422).json(err));
   },
   findUserById: function (req, res) {
-    db.User
-      .find({ _id: req.params.id })
-      .populate('challengeCategories')
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.User.find({ _id: req.params.id })
+      .populate("challengeCategories")
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
   createUser: function (req, res) {
     db.User.findOne({ email: req.body.email }, async (err, doc) => {
@@ -48,7 +48,7 @@ module.exports = {
         await newUser
           .save()
           .then(() => {
-            res.send("User created")
+            res.send("User created");
           })
           .catch((error) => {
             throw error;
@@ -60,54 +60,72 @@ module.exports = {
     const updateId = req.params.id;
     const field = req.body.field;
     const value = req.body.value;
-    db.User.findOneAndUpdate({ _id: updateId }, { $set: { [field]: value } }, { useFindAndModify: false })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.User.findOneAndUpdate(
+      { _id: updateId },
+      { $set: { [field]: value } },
+      { useFindAndModify: false }
+    )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
   updateUserChallengeCategories: function (req, res) {
     const updateId = req.body.id;
-    const categoryArr = [req.body.choice1, req.body.choice2, req.body.choice3]
-    db.User.findByIdAndUpdate(updateId, { $set: { challengeCategories: categoryArr } }, { new: true, useFindAndModify: false })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    console.log(updateId);
+    const categoryArr = [req.body.choice1, req.body.choice2, req.body.choice3];
+    db.User.findByIdAndUpdate(
+      updateId,
+      { $set: { challengeCategories: categoryArr } },
+      { new: true, useFindAndModify: false }
+    )
+      .then((result) => {
+        console.log(result);
+        challCont.getNewMatching(req, res, categoryArr);
+      })
+      .catch((err) => res.status(422).json(err));
   },
   getDashboard: function (req, res) {
-    res.send("User dashboard challenges & progress data received")
-    // db.User
-    //   .findById(req.params.id)
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+    challCont.getChallenges(req, res);
   },
   getChallenge: function (req, res) {
-    db.Challenge
-      .find()
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.Challenge.find()
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
   getMovie: function (req, res) {
-    res.send("Movie suggestion received")
+    res.send("Movie suggestion received");
     // db.Movie
     //   .find()
     //   .then(dbModel => res.json(dbModel))
     //   .catch(err => res.status(422).json(err));
   },
   getPhysAct: function (req, res) {
-    db.ShortActivity
-      .find({ activityType: "Physical" })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.ShortActivity.find({ activityType: "Physical" })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
   getMentalAct: function (req, res) {
-    db.ShortActivity
-      .find({ activityType: "Mental" })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    db.ShortActivity.find({ activityType: "Mental" })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
   },
   updateChallenge: function (req, res) {
-    res.send("Challenge updated to completed/not now/never show")
+    const request = req.body;
+    console.log(request.action);
+    switch (request.action) {
+      case "complete":
+        return challCont.completeChallenge(req, res);
+      case "swap":
+        return challCont.swapChallenge(req, res);
+      case "never":
+        return challCont.neverDoChallenge(req, res);
+      default:
+        console.error(request.action + " is not a valid option.");
+        break;
+    }
+    res.send(request.action + " is not a valid option.");
     // db.User
     //   .findOneAndUpdate({ _id: req.params.id }, req.body)
     //   .then(dbModel => res.json(dbModel))
     //   .catch(err => res.status(422).json(err));
-  }
+  },
 };

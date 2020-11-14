@@ -18,7 +18,6 @@ function Login() {
     } else {
       setIsValidEmail("valid");
     }
-    console.log(isValidEmail);
   };
 
   const login = async (e) => {

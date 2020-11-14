@@ -1,5 +1,6 @@
 let mongoose = require("mongoose");
 let db = require("../models");
+const bcrypt = require("bcryptjs");
 
 mongoose.connect(
   "mongodb://localhost/5sherpas",
@@ -13,77 +14,163 @@ mongoose.connect(
   }
 );
 
+// hash passwords
+const hashPass = async (password) => {
+  let userPass = await bcrypt.hash(password, 10);
+  return userPass;
+};
+
+const hashUserPasswords = () => {
+  users.forEach(async (user) => {
+    let newPass = await hashPass(user.password);
+    user.password = newPass;
+  });
+};
+
+// create dates
+Date.prototype.addDays = function (days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
+
+function getLastSunday() {
+  const t = new Date();
+  t.setDate(t.getDate() - t.getDay());
+  t.setHours(0, 0, 0, 0);
+  return t;
+}
+
+const date = getLastSunday();
+
+const date2 = date.addDays(6);
+
 let users = [
   {
     name: "User1",
     email: "user1@gmail.com",
-    password: "USER1",
+    password: "User1234",
     avatar: 1,
-    challengeCategories: [
-      1, 2, 3
+    challengeCategories: [1, 2, 3],
+
+    keywords: [],
+
+    matchingChallenges: [
+      "5fa4f0a31471cc2bfbeab5b9",
+      "5fa4f0a31471cc2bfbeab5ba",
+      "5fa4f0a31471cc2bfbeab5bb",
     ],
 
-    keywords: ["user1 keyword 1", "user1 keyword 2", "user1 keyword 3"],
+    neverDoList: ["5fa4f0a31471cc2bfbeab5bd"],
 
-    matchingactivities: ["user1 activity 1", "user1 activity 2", "user1 activity 3"],
+    currentChallenge: [
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: false,
+      },
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: true,
+      },
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: false,
+      },
+    ],
 
-    neverdolist: ["user1 never do this"],
-
-    currentchallenge: ["user1 challenge 1", "user1 challenge 2", "user1 challenge 3"],
-
-    totalprogress: ["user1 progress 1", "user1 progress 2", "user1 progress 3"]
+    totalProgress: [
+      { dateRange: [date, date2], completed: 2 },
+      { dateRange: [date2, date2.addDays(7)], completed: 3 },
+    ],
   },
   {
     name: "User2",
     email: "user2@gmail.com",
-    password: "USER2",
+    password: "User1234",
     avatar: 1,
-    challengeCategories: [
-      "Placeholder 1",
-      "Placeholder 2",
-      "Placeholder 3"
+    challengeCategories: [1, 2, 3],
+
+    keywords: [],
+
+    matchingChallenges: [
+      "5fa4f0a31471cc2bfbeab5b9",
+      "5fa4f0a31471cc2bfbeab5ba",
+      "5fa4f0a31471cc2bfbeab5bb",
     ],
 
-    keywords: ["user2 keyword 1", "user2 keyword 2", "user2 keyword 3"],
+    neverDoList: ["5fa4f0a31471cc2bfbeab5bd"],
 
-    matchingactivities: ["user2 activity 1", "user2 activity 2", "user2 activity 3"],
+    currentChallenge: [
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: false,
+      },
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: true,
+      },
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: false,
+      },
+    ],
 
-    neverdolist: ["user2 never do this"],
-
-    currentchallenge: ["user2 challenge 1", "user2 challenge 2", "user2 challenge 3"],
-
-    totalprogress: ["user2 progress 1", "user2 progress 2", "user2 progress 3"]
+    totalProgress: [
+      { dateRange: [date, date2], completed: 2 },
+      { dateRange: [date2, date2.addDays(7)], completed: 3 },
+    ],
   },
   {
     name: "User3",
     email: "user3@gmail.com",
-    password: "USER3",
+    password: "User1234",
     avatar: 1,
-    challengeCategories: [
-      "Placeholder 1",
-      "Placeholder 2",
-      "Placeholder 3"
+    challengeCategories: [1, 2, 3],
+
+    keywords: [],
+
+    matchingChallenges: [
+      "5fa4f0a31471cc2bfbeab5b9",
+      "5fa4f0a31471cc2bfbeab5ba",
+      "5fa4f0a31471cc2bfbeab5bb",
     ],
 
-    keywords: ["user3 keyword 1", "user3 keyword 2", "user3 keyword 3"],
+    neverDoList: ["5fa4f0a31471cc2bfbeab5bd"],
 
-    matchingactivities: ["user3 activity 1", "user3 activity 2", "user3 activity 3"],
+    currentChallenge: [
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: false,
+      },
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: true,
+      },
+      {
+        challengeId: "5fa4f0a31471cc2bfbeab5bb",
+        completed: false,
+      },
+    ],
 
-    neverdolist: ["user3 never do this"],
-
-    currentchallenge: ["user3 challenge 1", "user3 challenge 2", "user3 challenge 3"],
-
-    totalprogress: ["user3 progress 1", "user3 progress 2", "user3 progress 3"]
-  }
+    totalProgress: [
+      { dateRange: [date, date2], completed: 2 },
+      { dateRange: [date2, date2.addDays(7)], completed: 3 },
+    ],
+  },
 ];
 
-db.User.deleteMany({})
-  .then(() => db.User.collection.insertMany(users))
-  .then((data) => {
-    console.log(data.result.n + " records inserted!");
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+const init = async () => {
+  await hashUserPasswords();
+  db.User.deleteMany({})
+    .then(() => db.User.collection.insertMany(users))
+    .then((data) => {
+      console.log(data.result.n + " records inserted!");
+      process.exit(0);
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+};
+
+init();
