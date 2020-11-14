@@ -303,6 +303,9 @@ module.exports = {
             userDoc.neverDoList
           );
           userDoc.currentChallenge = newChallengeSet(userDoc);
+          userDoc.matchingChallenges = removeFromTop(
+            userDoc.matchingChallenges
+          );
           await userDoc.populate("currentChallenge.challengeId").execPopulate();
 
           await userDoc.save();
