@@ -1,25 +1,25 @@
 .dash-section-1 {
-    width: auto;
-    text-align: center;
+  width: auto;
+  text-align: center;
 }
 
 .section-title {
-    font-family: 'Poppins';
-    font-weight: 300;
-    margin: 0 0 0 0;
+  font-family: "Poppins";
+  font-weight: 300;
+  margin: 0 0 0 0;
 }
 
 .sherpa-img-smaller {
-    max-width:50%;
-    height:auto;
+  max-width: 50%;
+  height: auto;
 }
 
 .fpo {
-    text-align: center;
-    background-color: #00c4ff;
-    opacity: 0.2;
-    margin: 50px;
-    padding: 50px;
-    border-radius: 12px;
-    height: 320px;
+  text-align: center;
+  background-color: #00c4ff;
+  opacity: 0.2;
+  margin: 50px;
+  padding: 50px;
+  border-radius: 12px;
+  height: 320px;
 }
