@@ -10,7 +10,7 @@ export function MovieOptions(props) {
   return (
     <>
       <div>
-      <Form onSubmit={props.onSubmit} id="dropdown-form">
+      <Form onSubmit={API.getMovieSugg(props)} id="dropdown-form">
       <Form.Group widths='equal'>
         <Form.Select
           required
@@ -77,7 +77,7 @@ export function MovieOptions(props) {
         <Grid.Column width={3}>
           <Form.Button id='button-style' 
           size='large'
-          onSubmit={API.getMovieSugg(this.name)}>Submit</Form.Button>
+          >Submit</Form.Button>
         </Grid.Column>
       </Grid>
       </div>
