@@ -12,17 +12,21 @@ class BarChart2 extends Component {
   componentDidMount() {
     console.log(this.progressData)
     
-    const totalProgress = [12, 40, 10, 25, 35, 15, 30,];
+    const totalProgress = [12, 40, 10, 25, 35, 15, 30, 24, 18, 12, 40, 10, 25, 35, 15, 30, 24, 18];
 
-    const height = 450,
-    width = 450,
-    barWidth = 45,
-    barOffset = 20;
+    const height = 450;
+    const width = 450;
 
     const xScale = 
     d3.scaleLinear()
     .domain([0, d3.max(totalProgress)])
     .range([0, width])
+
+    const yScale = d3.scaleBand()
+    .domain(d3.range(0, totalProgress.length))
+    .range([0, height])
+    .paddingInner(0.2)
+    .paddingOuter(1)
 
     let dynamicColor;
 
@@ -36,12 +40,13 @@ class BarChart2 extends Component {
       .data(totalProgress)
       .enter()
       .append('rect')
-      .attr('height', barWidth)
 
       .attr('width', 0)
       .attr('x', width)
-      .attr('y', (totalProgress, i) => {
-        return i * (barWidth + barOffset)
+
+      .attr('height', yScale.bandwidth())
+      .attr('y', (data, i) => {
+        return yScale(i);
       })
       .attr('x', (totalProgress) => {
         return width + xScale(totalProgress);
