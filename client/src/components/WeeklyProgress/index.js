@@ -1,11 +1,12 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import UserContext from "../../utils/UserContext";
 import "./style.css";
 
 import sherpa2 from "../../assets/sherpa2.png";
 import D3Graph from "../D3Graph";
 
 export function WeeklyProgress() {
+  const { progressData } = useContext(UserContext);
   return (
     <>
       <div className="dash-section-1">
@@ -14,7 +15,7 @@ export function WeeklyProgress() {
       </div>
       
       <div>
-        < D3Graph />
+        < D3Graph progressData={progressData}/>
       </div>
     </>
   );

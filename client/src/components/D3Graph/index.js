@@ -6,9 +6,12 @@ class BarChart2 extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+    this.progressData = props.progressData
   }
 
   componentDidMount() {
+    console.log(this.progressData)
+    
     const totalProgress = [12, 40, 10, 25, 35, 15, 30,];
 
     const height = 400,
@@ -23,32 +26,28 @@ class BarChart2 extends Component {
 
     let dynamicColor;
 
-    const accessToRef = d3.select(this.myRef.current)
+    const awesome = d3.select(this.myRef.current)
       .append('svg')
       .attr('width', width)
       .attr('height', height)
       .style('background-color', 'transparent')
       .style('padding', 10)
-    
-    accessToRef.selectAll('rect')
+      .selectAll('rect')
       .data(totalProgress)
       .enter()
       .append('rect')
       .attr('width', barWidth)
-      .attr('height', (totalProgress) => {
-        return yScale(totalProgress);
-      })
+
+      .attr('height', 0)
+      .attr('y', height)
       .attr('x', (totalProgress, i) => {
         return i * (barWidth + barOffset)
       })
       .attr('y', (totalProgress) => {
-        return height - yScale(totalProgress);
+        return height + yScale(totalProgress);
       })
-      .style('fill', (d) => d > 25? 'red' : 'orange')
 
-      // .attr('x', (d, i) => i * 60)
-      // .attr('y', (d) => height - 10 * d)
-      // .attr('height', (d) => d * 10)
+      .style('fill', (d) => d > 25? 'red' : 'orange')
 
       .on('mouseover', function() {
         dynamicColor = this.style.fill;
@@ -60,6 +59,18 @@ class BarChart2 extends Component {
         d3.select(this)
             .style('fill', dynamicColor)
       });
+
+      awesome.transition()
+      .attr('height', function(data) {
+        return yScale(data);
+      })
+      .attr('y', function(data) {
+        return height - yScale(data);
+      })
+      .delay(function(data, i) {
+        return i * 20;
+      })
+      .duration(2000)
   }
   
   render() {
