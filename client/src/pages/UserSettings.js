@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ChallengeOptions } from "../components/Form/ChallengeDropdown";
+import { ChallengeOptions } from "../components/UserSettings/ChallengeDropdown";
 import { Grid, Image, Form } from "semantic-ui-react";
-import ReadGroup from "../components/Form/readAccount";
-import EditGroup from "../components/Form/editAccount";
+import ReadGroup from "../components/UserSettings/readAccount";
+import EditGroup from "../components/UserSettings/editAccount";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import User1 from "../assets/user-1.png";
+import { Redirect } from "react-router-dom";
+import EditPass from "../components/UserSettings/EditPassword"
+import ChangePassBtn from "../components/UserSettings/ChangePassBtn";
 
 function Settings() {
   const [nameState, setNameState] = useState("Read");
@@ -24,6 +27,9 @@ function Settings() {
   const [challCat1, setChallCat1] = useState("");
   const [challCat2, setChallCat2] = useState("");
   const [challCat3, setChallCat3] = useState("");
+
+  const [redirectToDash, setRedirectToDash] = useState(false);
+  const [changePass, setChangePass] = useState(false);
 
   const { userId } = useContext(AuthContext);
   const id = userId || sessionStorage.getItem("userId");
@@ -225,11 +231,27 @@ function Settings() {
     API.updateUserChallengeCategories(challengeCategories)
       .then((res) => {
         console.log(res);
+        setRedirectToDash(true)
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const handleCancel = e => {
+    e.preventDefault()
+    setRedirectToDash(true)
+  }
+
+  const handleChangePass = e => {
+    e.preventDefault();
+    setChangePass(true)
+  }
+
+  const handlePassSave = e => {
+    e.preventDefault();
+    setChangePass(false)
+  }
 
   const options1 = [
     { key: '1', text: 'Wellness', value: 1 },
@@ -252,13 +274,18 @@ function Settings() {
     { key: '7', text: 'Interpersonal Relationships', value: 7 }
   ]
 
-  return (
-    <>
-      <div className="knot-container">
-        <h1 className="header">my settings</h1>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column width={3}></Grid.Column>
+  if (redirectToDash) {
+    return <Redirect to="/dashboard" />
+  } else {
+
+    return (
+
+      <>
+        <div className="knot-container">
+          <h1 className="header">my settings</h1>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={3}></Grid.Column>
               <Grid.Column width={4}>
                 <Image src={User1} />
               </Grid.Column>
@@ -266,11 +293,12 @@ function Settings() {
                 <Form>
                   {renderNameField()}
                   {renderEmailField()}
+                  {changePass ? <EditPass onClick={handlePassSave} /> : <ChangePassBtn onClick={handleChangePass} />}
                 </Form>
               </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3}></Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={3}></Grid.Column>
               <Grid.Column width={10}>
                 <ChallengeOptions
                   placeholder1={placeholder1}
@@ -279,14 +307,16 @@ function Settings() {
                   options1={options1}
                   options2={options2}
                   onSubmit={handleSubmit}
+                  onCancel={handleCancel}
                   onChange={handleFieldChange}
                 ></ChallengeOptions>
               </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
-    </>
-  );
+            </Grid.Row>
+          </Grid>
+        </div>
+      </>
+    );
+  }
 }
 
 export default Settings;
