@@ -14,15 +14,15 @@ class BarChart2 extends Component {
     
     const totalProgress = [12, 40, 10, 25, 35, 15, 30,];
 
-    const height = 400,
-    width = 500,
+    const height = 450,
+    width = 450,
     barWidth = 45,
     barOffset = 20;
 
-    const yScale = 
+    const xScale = 
     d3.scaleLinear()
     .domain([0, d3.max(totalProgress)])
-    .range([0, height])
+    .range([0, width])
 
     let dynamicColor;
 
@@ -36,15 +36,15 @@ class BarChart2 extends Component {
       .data(totalProgress)
       .enter()
       .append('rect')
-      .attr('width', barWidth)
+      .attr('height', barWidth)
 
-      .attr('height', 0)
-      .attr('y', height)
-      .attr('x', (totalProgress, i) => {
+      .attr('width', 0)
+      .attr('x', width)
+      .attr('y', (totalProgress, i) => {
         return i * (barWidth + barOffset)
       })
-      .attr('y', (totalProgress) => {
-        return height + yScale(totalProgress);
+      .attr('x', (totalProgress) => {
+        return width + xScale(totalProgress);
       })
 
       .style('fill', (d) => d > 25? 'red' : 'orange')
@@ -61,16 +61,18 @@ class BarChart2 extends Component {
       });
 
       awesome.transition()
-      .attr('height', function(data) {
-        return yScale(data);
+      .attr('width', function(data) {
+        return xScale(data);
       })
-      .attr('y', function(data) {
-        return height - yScale(data);
+      .attr('x', function(data) {
+        return width < xScale(data);
       })
       .delay(function(data, i) {
         return i * 20;
       })
-      .duration(2000)
+      .duration(3000)
+      .ease(d3.easeBack)
+
   }
   
   render() {
