@@ -71,7 +71,7 @@ class BarChart2 extends Component {
         return i * 20;
       })
       .duration(3000)
-      .ease(d3.easeBack)
+      .ease(d3.easeElasticIn)
 
   }
   
