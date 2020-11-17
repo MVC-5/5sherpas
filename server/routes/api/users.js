@@ -10,7 +10,10 @@ router.post("/register", (req, res) => {
   controller.createUser(req, res);
 });
 
-router.route("/").get((req, res) => res.send(req.user));
+router
+  .route("/")
+  .get((req, res) => res.send(req.user))
+  .put(controller.updatePass);
 
 router.route("/categories").put(controller.updateUserChallengeCategories);
 

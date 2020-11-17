@@ -19,6 +19,9 @@ function Settings() {
 
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
+  const [currentPass, setCurrentPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
 
   const [placeholder1, setPlaceholder1] = useState("");
   const [placeholder2, setPlaceholder2] = useState("");
@@ -27,6 +30,8 @@ function Settings() {
   const [challCat1, setChallCat1] = useState("");
   const [challCat2, setChallCat2] = useState("");
   const [challCat3, setChallCat3] = useState("");
+
+  const [message, setMessage] = useState("");
 
   const [redirectToDash, setRedirectToDash] = useState(false);
   const [changePass, setChangePass] = useState(false);
@@ -86,6 +91,15 @@ function Settings() {
         break;
       case "Email":
         setEmailInput(value);
+        break;
+      case "CurrentPass":
+        setCurrentPass(value);
+        break;
+      case "NewPass":
+        setNewPass(value);
+        break;
+      case "ConfirmPass":
+        setConfirmPass(value);
         break;
       default:
         return;
@@ -250,7 +264,29 @@ function Settings() {
 
   const handlePassSave = e => {
     e.preventDefault();
-    setChangePass(false)
+    if (newPass === confirmPass) {
+      const passObj = {
+        id: id,
+        current: currentPass,
+        new: newPass
+      }
+      API.updatePassword(passObj)
+        .then(res => {
+          console.log(res.data);
+          if (res.data === "Success") {
+            setChangePass(false);
+            setMessage("Password Update Succesful")
+          } else {
+            setMessage("Password Update Failed: Current password entered does not match password on file.")
+          }
+        })
+    }
+  }
+
+  const handlePassCancel = e => {
+    e.preventDefault();
+    setChangePass(false);
+    setMessage("");
   }
 
   const options1 = [
@@ -293,7 +329,7 @@ function Settings() {
                 <Form>
                   {renderNameField()}
                   {renderEmailField()}
-                  {changePass ? <EditPass onClick={handlePassSave} /> : <ChangePassBtn onClick={handleChangePass} />}
+                  {changePass ? <EditPass onSubmit={handlePassSave} onCancel={handlePassCancel} onChange={handleInputChange} message={message} /> : <ChangePassBtn onClick={handleChangePass} message={message} />}
                 </Form>
               </Grid.Column>
             </Grid.Row>

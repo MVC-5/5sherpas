@@ -13,6 +13,7 @@ const ChangePassBtn = (props) => {
           </Button.Content>
           <Button.Content hidden data-name="changePass"><Icon name="chevron down" /></Button.Content>
         </Form.Button>
+        <h5>{props.message}</h5>
       </div>
     </>
   )
