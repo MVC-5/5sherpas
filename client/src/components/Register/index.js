@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form } from "semantic-ui-react";
+import { Redirect } from "react-router-dom";
 import "./style.css";
 
 import API from "../../utils/API";
@@ -12,6 +13,7 @@ function Register() {
   const [isValidPassword, setIsValidPassword] = useState("");
   const [registerPassword2, setRegisterPassword2] = useState("");
   const [message, setMessage] = useState("");
+  const [sendToSettings, setSendToSettings] = useState(false);
 
   const register = async (e) => {
     if (
@@ -33,6 +35,7 @@ function Register() {
         setRegisterPassword("");
         setRegisterPassword2("");
         setMessage("Success!");
+        setSendToSettings(true);
       });
     } else {
       setMessage("All fields are required");
@@ -61,76 +64,83 @@ function Register() {
       setIsValidPassword("not-valid");
     }
   };
-  return (
-    <div id="register-form">
-      <h1>Register</h1>
-      <h2>{message}</h2>
-      <Form onSubmit={register}>
-        <Form.Field required>
-          <label htmlFor="regName">Name</label>
-          <input
-            type="text"
-            name="regName"
-            id="regName"
-            placeholder="Name"
-            value={registerName}
-            onChange={(e) => setRegisterName(e.target.value)}
-          />
-        </Form.Field>
 
-        <Form.Field required>
-          <label htmlFor="regEmail">Email</label>
-          <input
-            type="email"
-            name="regEmail"
-            id="regEmail"
-            placeholder="Email"
-            value={registerEmail}
-            className={isValidEmail}
-            onChange={(e) => {
-              testEmail(e.target.value);
-              setRegisterEmail(e.target.value);
-            }}
-          />
-        </Form.Field>
+  if (sendToSettings) {
+    return <Redirect to="/usersettings" />
+  } else {
 
-        <Form.Field required>
-          <label htmlFor="regPassword">Password</label>
-          <input
-            type="password"
-            name="regPassword"
-            id="regPassword"
-            autoComplete="on"
-            placeholder="Password"
-            value={registerPassword}
-            className={isValidPassword}
-            onChange={(e) => {
-              testPassword(e.target.value, registerPassword2);
-              setRegisterPassword(e.target.value);
-            }}
-          />
-        </Form.Field>
 
-        <Form.Field required>
-          <label htmlFor="regPassword2">Verify Password</label>
-          <input
-            name="regPassword2"
-            id="regPassword2"
-            placeholder="Verify Password"
-            type="password"
-            autoComplete="on"
-            value={registerPassword2}
-            className={isValidPassword}
-            onChange={(e) => {
-              testPassword(e.target.value, registerPassword);
-              setRegisterPassword2(e.target.value);
-            }}
-          />
-        </Form.Field>
-        <Button type="submit">BEGIN</Button>
-      </Form>
-    </div>
-  );
+    return (
+      <div id="register-form">
+        <h1>Register</h1>
+        <h2>{message}</h2>
+        <Form onSubmit={register}>
+          <Form.Field required>
+            <label htmlFor="regName">Name</label>
+            <input
+              type="text"
+              name="regName"
+              id="regName"
+              placeholder="Name"
+              value={registerName}
+              onChange={(e) => setRegisterName(e.target.value)}
+            />
+          </Form.Field>
+
+          <Form.Field required>
+            <label htmlFor="regEmail">Email</label>
+            <input
+              type="email"
+              name="regEmail"
+              id="regEmail"
+              placeholder="Email"
+              value={registerEmail}
+              className={isValidEmail}
+              onChange={(e) => {
+                testEmail(e.target.value);
+                setRegisterEmail(e.target.value);
+              }}
+            />
+          </Form.Field>
+
+          <Form.Field required>
+            <label htmlFor="regPassword">Password</label>
+            <input
+              type="password"
+              name="regPassword"
+              id="regPassword"
+              autoComplete="on"
+              placeholder="Password"
+              value={registerPassword}
+              className={isValidPassword}
+              onChange={(e) => {
+                testPassword(e.target.value, registerPassword2);
+                setRegisterPassword(e.target.value);
+              }}
+            />
+          </Form.Field>
+
+          <Form.Field required>
+            <label htmlFor="regPassword2">Verify Password</label>
+            <input
+              name="regPassword2"
+              id="regPassword2"
+              placeholder="Verify Password"
+              type="password"
+              autoComplete="on"
+              value={registerPassword2}
+              className={isValidPassword}
+              onChange={(e) => {
+                testPassword(e.target.value, registerPassword);
+                setRegisterPassword2(e.target.value);
+              }}
+            />
+          </Form.Field>
+          <Button type="submit">BEGIN</Button>
+        </Form>
+      </div>
+    );
+  }
 }
 
 export default Register;
