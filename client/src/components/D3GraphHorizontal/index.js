@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 
-class D3Graph extends Component {
+class D3GraphHorizontal extends Component {
 
   constructor(props) {
     super(props);
@@ -12,10 +12,11 @@ class D3Graph extends Component {
   componentDidMount() {
     console.log(this.progressData)
     
-    const totalProgress = [
-      12, 38, 10, 25, 35, 15, 30, 24, 18, 12, 
-      40, 10, 25, 35, 15, 30, 24, 18, 20, 21
-    ];
+    // const totalProgress = [
+    //   15, 38, 40, 25, 35, 15, 30, 24, 18, 12,
+    // ];
+
+    const totalProgress = this.props.progressData.map(each => each.completed)
 
     // Setting up margins
     const margin = {
@@ -28,6 +29,9 @@ class D3Graph extends Component {
     // Graph area dimensions
     const height = 500 - margin.top - margin.bottom;
     const width = 450 - margin.left - margin.right;
+
+    // Mouse over dynamic color
+    let dynamicColor;
 
     // Proportional width
     const xScale = 
@@ -48,8 +52,8 @@ class D3Graph extends Component {
     d3.scaleLinear()
       .domain([
         0, 
-        totalProgress.length*.33, 
-        totalProgress.length*.66, 
+        totalProgress.length * .33, 
+        totalProgress.length * .66, 
         totalProgress.length
       ])
       .range([
@@ -58,9 +62,6 @@ class D3Graph extends Component {
         '#faebcc', 
         '#ebccd1'
       ]);
-
-    // Mouse over dynamic color
-    let dynamicColor;
 
     // Main graph using d3 api references
     const awesome = d3.select(this.myRef.current)
@@ -77,8 +78,6 @@ class D3Graph extends Component {
       .data(totalProgress)
       .enter()
       .append('rect')
-      .attr('width', 0)
-      .attr('x', width)
       .style('fill', (data, i) => {
         return colors(i);
       },)
@@ -86,9 +85,8 @@ class D3Graph extends Component {
       .attr('y', (data, i) => {
         return yScale(i);
       })
-      .attr('x', (totalProgress) => {
-        return width + xScale(totalProgress);
-      })
+      .attr('width', 0)
+      .attr('x', width)
 
       // Mouse over dynamic color
       .on('mouseover', function() {
@@ -113,7 +111,7 @@ class D3Graph extends Component {
         return i * 20;
       })
       .duration(2000)
-      .ease(d3.easeElasticIn)
+      // .ease(d3.easeElastic)
 
       // Vertical guide / weeks
       const vAxis = 
@@ -145,7 +143,6 @@ class D3Graph extends Component {
         'transform', 
         'translate(' + margin.left + ', ' + (height + margin.top) + ')'
       );
-      horizontalGuide.selectAll('path');
       horizontalGuide.selectAll('path').style('stroke', '#00c4ff');
       horizontalGuide.selectAll('line').style('stroke', '#00c4ff');
   }
@@ -159,4 +156,4 @@ class D3Graph extends Component {
   }
 }
 
-export default D3Graph;
+export default D3GraphHorizontal;
