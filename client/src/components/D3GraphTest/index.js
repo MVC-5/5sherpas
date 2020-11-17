@@ -7,6 +7,7 @@ const D3GraphTest = () => {
 
   const d3Container = useRef(null);
   const [totalProgress, setTotalProgress] = useState([]);
+  const [progressSum, setProgressSum] = useState(0);
 
   function makeGraph(totalProgress) {
     // Setting up margins
@@ -127,18 +128,15 @@ const D3GraphTest = () => {
   }
 
   useEffect(() => {
-    // if (totalProgress.length) {
-    //   makeGraph(totalProgress);
-    // }
-    // const totalProgress = progressData.map((each) => each.completed);
-  }, []);
-
-  useEffect(() => {
     document.querySelector("#d3Graph").innerHTML = "";
 
     const newData = progressData.map((each) => each.completed);
     setTotalProgress(newData);
-    console.log(progressData);
+    let newSum = 0;
+    newData.forEach((num) => {
+      newSum += num;
+    });
+    setProgressSum(newSum);
     if (totalProgress.length) {
       makeGraph(totalProgress);
     }
@@ -146,6 +144,7 @@ const D3GraphTest = () => {
 
   return (
     <>
+      <div className="total">Your total progress: {progressSum}</div>
       <div id="d3Graph" ref={d3Container} width="450" height="500"></div>
     </>
   );
