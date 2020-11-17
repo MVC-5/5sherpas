@@ -83,28 +83,21 @@ module.exports = {
       })
       .catch((err) => res.status(422).json(err));
   },
-  updatePass: function (req, res) {
-    const updateId = req.body.id;
-    db.User.findOne({ _id: updateId }, async (err, userDoc) => {
-      if (err) throw err;
-      const currentHashed = await bcrypt.hash(req.body.current, 10);
-      console.log(currentHashed, userDoc.password)
-      // currentHashed does not equal userDoc.password, will likely need to use passport for this
-      if (currentHashed === userDoc.password) {
-        const newHashed = await bcrypt.hash(req.body.new, 10);
-        userDoc.password = newHashed;
-        await userDoc.save()
-          .then(() => {
-            res.send("Success")
-          })
-          .catch((error) => {
-            throw error
-          })
-
-      } else {
-        res.send("Failed")
+  updatePass: function (req, res, next) {
+    passport.authenticate("local", async function (err, user) {
+      if (err) {
+        return next(err);
       }
-    })
+      if (!user) {
+        return res.send("Failed");
+      }
+      if (user) {
+        const newHashed = await bcrypt.hash(req.body.new, 10);
+        user.password = newHashed;
+        await user.save();
+        return res.send("Success");
+      }
+    })(req, res, next);
   },
   getDashboard: function (req, res) {
     challCont.getChallenges(req, res);

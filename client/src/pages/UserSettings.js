@@ -266,8 +266,8 @@ function Settings() {
     e.preventDefault();
     if (newPass === confirmPass) {
       const passObj = {
-        id: id,
-        current: currentPass,
+        username: userEmail,
+        password: currentPass,
         new: newPass
       }
       API.updatePassword(passObj)

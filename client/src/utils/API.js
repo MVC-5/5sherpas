@@ -52,6 +52,7 @@ export default {
     return axios({
       method: "put",
       data: userData,
+      withCredentials: true,
       url: "/api/user"
     })
   },
