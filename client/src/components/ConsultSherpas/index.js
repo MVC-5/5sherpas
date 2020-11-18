@@ -45,7 +45,6 @@ function ConsultSherpas() {
   const [bubble3Text, setBubble3Text] = useState(
     "Select a genre to get a movie suggestion"
   );
-  // const [movieList, setMovieList] = useState([]);
   const [genre, setGenre] = useState(null);
   const [physList, setPhysList] = useState([]);
   const [mentalList, setMentalList] = useState([]);
