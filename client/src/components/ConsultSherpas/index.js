@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Grid } from "semantic-ui-react";
+import React, { useEffect, useState } from "react";
+import { Grid, Dropdown } from "semantic-ui-react";
 import "./style.css";
 import mainKnot from "../../assets/main-knot.png";
 import sherpa1 from "../../assets/sherpa1.png";
@@ -13,8 +13,27 @@ import bubble3 from "../../assets/bubble-3.png";
 import bubble4 from "../../assets/bubble-4.png";
 import API from "../../utils/API";
 
-let physAct = "";
-let mentalAct = "";
+const movieGenres = [
+  { key: 0, value: "Action", text: "Action" },
+  { key: 1, value: "Adventure", text: "Adventure" },
+  { key: 2, value: "Documentary", text: "Documentary" },
+  { key: 3, value: "Comedy", text: "Comedy" },
+  {
+    key: 4,
+    value: "Horror",
+    text: "Horror",
+  },
+  {
+    key: 5,
+    value: "Family",
+    text: "Family",
+  },
+  {
+    key: 6,
+    value: "Science Fiction",
+    text: "Science Fiction",
+  },
+];
 
 function ConsultSherpas() {
   const [bubble2Text, setBubble2Text] = useState(
@@ -23,54 +42,83 @@ function ConsultSherpas() {
   const [bubble1Text, setBubble1Text] = useState(
     "Click on me to get a mental activity suggestion"
   );
-  const [movieList, setMovieList] = useState([]);
+  const [bubble3Text, setBubble3Text] = useState(
+    "Click on me to get a movie suggestion"
+  );
+  // const [movieList, setMovieList] = useState([]);
   const [genre, setGenre] = useState(null);
-  // const [physList, setPhysList] = useState([]);
-  // const [mentalList, setMentalList] = useState([]);
+  const [physList, setPhysList] = useState([]);
+  const [mentalList, setMentalList] = useState([]);
 
-  // this is a mess
-  async function getMovie(movieGenre) {
-    if (movieList.length && movieGenre === genre) {
-      const randomIndex = Math.floor(Math.random() * movieList.length);
-      return movieList[randomIndex];
-    } else {
-      // this is running every time :(
-      setGenre(movieGenre);
-      await API.getMovieSugg(movieGenre).then((res) => {
-        setMovieList(res.data);
-        console.log(res);
-        const randomIndex = Math.floor(Math.random() * res.data.length);
-        const movie = res.data[randomIndex];
-        // this is returning
-        return movie;
-      });
-    }
+  function getMovie(movieGenre) {
+    API.getMovieSugg(movieGenre).then((res) => {
+      console.log(res);
+      const randomIndex = Math.floor(Math.random() * res.data.length);
+      const movie = res.data[randomIndex];
+      setBubble3Text(movie.title);
+    });
+
+    // }
   }
 
-  function handleSherpaClick(id) {
-    console.log(id);
-    if (id === "Josh") {
-      const newMovie = getMovie("Action");
-      console.log(newMovie);
+  useEffect(() => {
+    if (genre !== null) {
+      console.log("Genre changed");
+      getMovie(genre);
     }
+  }, [genre]);
 
-    if (id === "Jon") {
+  const getPhysical = () => {
+    if (!physList.length) {
       API.getPhysActSugg().then((res) => {
-        // console.log(res.data[Math.floor(Math.random()*res.data.length)+1].name)
-        physAct =
-          res.data[Math.floor(Math.random() * res.data.length) + 1].name;
+        setPhysList(res.data);
+        const randomIndex = Math.floor(Math.random() * res.data.length);
+
+        const physAct = res.data[randomIndex].name;
         setBubble2Text(physAct);
         console.log(physAct);
       });
+    } else {
+      const randomIndex = Math.floor(Math.random() * physList.length);
+      setBubble2Text(physList[randomIndex].name);
     }
+  };
 
-    if (id === "Caleb") {
+  const getMental = () => {
+    if (!mentalList.length) {
       API.getMentalActSugg().then((res) => {
-        mentalAct =
-          res.data[Math.floor(Math.random() * res.data.length) + 1].name;
+        setMentalList(res.data);
+        const randomIndex = Math.floor(Math.random() * res.data.length);
+
+        const mentalAct = res.data[randomIndex].name;
         setBubble1Text(mentalAct);
-        console.log(mentalAct);
       });
+    } else {
+      const randomIndex = Math.floor(Math.random() * mentalList.length);
+      setBubble1Text(mentalList[randomIndex].name);
+    }
+  };
+
+  function handleSherpaClick(id) {
+    switch (id) {
+      // Third sherpa (green) getMovie
+      case "Josh":
+        // getMovie("Action");
+        break;
+      // first sherpa (purple) getMentalActivity
+      case "Caleb":
+        getMental();
+        break;
+
+      // second sherpa (blue) getPhysicalAct
+      case "Jon":
+        console.log("Jon");
+        getPhysical();
+        break;
+
+      default:
+        console.log("YAAAAAAAKKKK");
+        break;
     }
   }
   return (
@@ -89,7 +137,7 @@ function ConsultSherpas() {
               <img
                 onClick={(e) => handleSherpaClick(e.target.id)}
                 aria-hidden="true"
-                className="consult-sherpa"
+                className="consult-sherpa sherpa-left"
                 id="Caleb"
                 src={sherpa5}
                 alt="sherpa5"
@@ -119,14 +167,27 @@ function ConsultSherpas() {
               <div className="bubble-container">
                 <img className="bubble" src={bubble3} alt="bubble" />
 
-                <p className="bubble-text">Content</p>
+                <p className="bubble-text">{bubble3Text}</p>
+
                 {/* <p>{bubble3Text}</p> */}
               </div>
               {/* movie sherpa */}
+              <Dropdown
+                compact
+                id="movie-dropdown"
+                placeholder="Genre"
+                search
+                selection
+                options={movieGenres}
+                onChange={(event, data) => {
+                  console.log(data);
+                  setGenre(data.value);
+                }}
+              />
               <img
                 aria-hidden="true"
                 onClick={(e) => handleSherpaClick(e.target.id)}
-                className="consult-sherpa"
+                className="consult-sherpa sherpa-right"
                 id="Josh"
                 src={sherpa3}
                 alt="sherpa3"
