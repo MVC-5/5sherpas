@@ -58,7 +58,10 @@ const D3GraphTest = () => {
       .attr("height", height + margin.top + margin.bottom)
       .style("background", "transparent")
       .append("g")
-      .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+      .attr(
+        "transform", 
+        "translate(" + margin.left + ", " + margin.top + ")"
+      )
       .selectAll("rect")
       .data(totalProgress)
       .enter()
@@ -76,7 +79,7 @@ const D3GraphTest = () => {
       // Mouse over dynamic color
       .on("mouseover", function () {
         dynamicColor = this.style.fill;
-        d3.select(this).style("fill", "#3c763d");
+        d3.select(this).style("fill", "#00c4ff");
       })
       .on("mouseout", function () {
         d3.select(this).style("fill", dynamicColor);
@@ -115,7 +118,12 @@ const D3GraphTest = () => {
     verticalGuide.selectAll("line").style("stroke", "#00c4ff");
 
     // Horizontal guide / weeks
-    const hAxis = d3.axisBottom(xScale).ticks(totalProgress.size);
+    const hAxis = 
+    d3.axisBottom(xScale)
+      .ticks(totalProgress.size)
+      .tickFormat(function (d) {
+      return d+1
+    })
 
     const horizontalGuide = d3.select("svg").append("g")
     hAxis(horizontalGuide);
