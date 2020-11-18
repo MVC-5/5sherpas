@@ -14,7 +14,7 @@ const D3GraphTest = () => {
     const margin = {
       top: 50,
       right: 25,
-      bottom: 25,
+      bottom: 40,
       left: 50,
     };
 
@@ -144,8 +144,8 @@ const D3GraphTest = () => {
 
   return (
     <>
-      <div className="total">Your total progress: {progressSum}</div>
       <div id="d3Graph" ref={d3Container} width="450" height="500"></div>
+      <div className="total">Total Progress: {progressSum}</div>
     </>
   );
 };
