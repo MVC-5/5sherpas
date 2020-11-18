@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Form } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
+import AuthContext from "../../utils/AuthContext";
 import "./style.css";
 
 import API from "../../utils/API";
@@ -15,6 +16,8 @@ function Register() {
   const [message, setMessage] = useState("");
   const [sendToSettings, setSendToSettings] = useState(false);
 
+  const { setAuth } = useContext(AuthContext);
+
   const register = async (e) => {
     if (
       isValidEmail === "valid" &&
@@ -28,14 +31,21 @@ function Register() {
       }).then((res) => {
         if (res.data === "User already exists") {
           setMessage("User already exists");
+        } else {
+          API.loginUser({ username: registerEmail, password: registerPassword })
+            .then(response => {
+              console.log(response);
+              setRegisterEmail("");
+              setRegisterName("");
+              setRegisterPassword("");
+              setRegisterPassword2("");
+              setMessage("Success!");
+              setAuth(true);
+              setTimeout(() => {
+                setSendToSettings(true);
+              }, 1000)
+            })
         }
-        console.log(res);
-        setRegisterEmail("");
-        setRegisterName("");
-        setRegisterPassword("");
-        setRegisterPassword2("");
-        setMessage("Success!");
-        setSendToSettings(true);
       });
     } else {
       setMessage("All fields are required");
