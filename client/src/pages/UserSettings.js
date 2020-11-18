@@ -33,6 +33,7 @@ function Settings() {
 
   const [message, setMessage] = useState("");
   const [challMessage, setChallMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
 
   const [redirectToDash, setRedirectToDash] = useState(false);
   const [changePass, setChangePass] = useState(false);
@@ -115,8 +116,9 @@ function Settings() {
           setUserName(update.value);
           break;
         case "Email":
-          // if not valid email, send error message and do not update setUserEmail
-          setUserEmail(update.value);
+          if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(update.value)) {
+            setUserEmail(update.value);
+          }
           break;
         default:
           return;
@@ -125,13 +127,17 @@ function Settings() {
         field: update.field.toLowerCase(),
         value: update.value,
       };
-      API.updateUserSettings(id, updateBody)
-        .then(res => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (update.field === "Email" && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(update.value)) {
+        setEmailMessage("Email Update Failed: invalid email entered")
+      } else {
+        API.updateUserSettings(id, updateBody)
+          .then(res => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   };
 
@@ -141,6 +147,7 @@ function Settings() {
     const btnType = event.target.textContent;
     let newState = "Read";
     if (btnType === "Edit") {
+      setEmailMessage("")
       newState = "Edit";
     }
     switch (field) {
@@ -318,14 +325,6 @@ function Settings() {
     setMessage("");
   }
 
-  // const testEmail = (email) => {
-  //   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
-  //     setIsValidEmail("not-valid");
-  //   } else {
-  //     setIsValidEmail("valid");
-  //   }
-  // };
-
   const options1 = [
     { key: '1', text: 'Wellness', value: 1 },
     { key: '2', text: 'Intelligence', value: 2 },
@@ -365,6 +364,7 @@ function Settings() {
               <Grid.Column width={6}>
                 <Form>
                   {renderNameField()}
+                  <h5>{emailMessage}</h5>
                   {renderEmailField()}
                   {changePass ? <EditPass onSubmit={handlePassSave} onCancel={handlePassCancel} onChange={handleInputChange} message={message} /> : <ChangePassBtn onClick={handleChangePass} message={message} />}
                 </Form>
