@@ -114,6 +114,7 @@ function Settings() {
           setUserName(update.value);
           break;
         case "Email":
+          // if not valid email, send error message and do not update setUserEmail
           setUserEmail(update.value);
           break;
         default:
@@ -264,22 +265,38 @@ function Settings() {
 
   const handlePassSave = e => {
     e.preventDefault();
-    if (newPass === confirmPass) {
-      const passObj = {
-        username: userEmail,
-        password: currentPass,
-        new: newPass
+    if (
+      // must contiain uppercase, lowercase, number, and be at least 8 characters long
+      /^(?=[^\s].*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[^\s]).{8,}$/i.test(
+        newPass
+      )
+    ) {
+      if (newPass === confirmPass) {
+        const passObj = {
+          username: userEmail,
+          password: currentPass,
+          new: newPass
+        }
+        API.updatePassword(passObj)
+          .then(res => {
+            console.log(res.data);
+            if (res.data === "Success") {
+              setChangePass(false);
+              setMessage("Password Update Succesful")
+            } else {
+              setMessage("Password Update Failed: Current password entered does not match password on file.")
+            }
+          })
+      } else {
+        setMessage("New password and confirm password fields do not match.")
       }
-      API.updatePassword(passObj)
-        .then(res => {
-          console.log(res.data);
-          if (res.data === "Success") {
-            setChangePass(false);
-            setMessage("Password Update Succesful")
-          } else {
-            setMessage("Password Update Failed: Current password entered does not match password on file.")
-          }
-        })
+    } else {
+      setMessage(<ul>New password must contain each of the following:
+        <li>1 lowercase letter</li>
+        <li>1 uppercase letter</li>
+        <li>1 number</li>
+        <li>at least 8 total characters</li>
+      </ul>)
     }
   }
 
@@ -288,6 +305,14 @@ function Settings() {
     setChangePass(false);
     setMessage("");
   }
+
+  // const testEmail = (email) => {
+  //   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+  //     setIsValidEmail("not-valid");
+  //   } else {
+  //     setIsValidEmail("valid");
+  //   }
+  // };
 
   const options1 = [
     { key: '1', text: 'Wellness', value: 1 },
