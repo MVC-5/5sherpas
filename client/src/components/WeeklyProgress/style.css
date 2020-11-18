@@ -14,16 +14,6 @@
   height: auto;
 }
 
-.fpo {
-  text-align: center;
-  background-color: #00c4ff;
-  opacity: 0.2;
-  margin: 50px;
-  padding: 50px;
-  border-radius: 12px;
-  height: 320px;
-}
-
 .total {
   width: fit-content;
   text-align: center;
