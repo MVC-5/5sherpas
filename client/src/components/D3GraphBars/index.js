@@ -14,7 +14,7 @@ const D3GraphTest = () => {
     const margin = {
       top: 50,
       right: 25,
-      bottom: 40,
+      bottom: 20,
       left: 50,
     };
 
@@ -103,7 +103,7 @@ const D3GraphTest = () => {
       .domain([0, d3.max(totalProgress)])
       .range([height, 0]);
 
-    const vAxis = d3.axisLeft(verticalGuideScale).ticks(10);
+    const vAxis = d3.axisLeft(verticalGuideScale).ticks(10)
 
     const verticalGuide = d3.select("svg").append("g");
     vAxis(verticalGuide);
@@ -117,7 +117,7 @@ const D3GraphTest = () => {
     // Horizontal guide / weeks
     const hAxis = d3.axisBottom(xScale).ticks(totalProgress.size);
 
-    const horizontalGuide = d3.select("svg").append("g");
+    const horizontalGuide = d3.select("svg").append("g")
     hAxis(horizontalGuide);
     horizontalGuide.attr(
       "transform",
@@ -145,6 +145,7 @@ const D3GraphTest = () => {
   return (
     <>
       <div id="d3Graph" ref={d3Container} width="450" height="500"></div>
+      <div className="weeks">weeks</div>
       <div className="total">Total Progress: {progressSum}</div>
     </>
   );

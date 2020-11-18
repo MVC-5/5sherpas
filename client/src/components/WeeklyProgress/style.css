@@ -14,11 +14,19 @@
   height: auto;
 }
 
+.weeks {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Poppins";
+  font-weight: 300;
+  font-size: 1.2em;
+}
+
 .total {
   width: fit-content;
   text-align: center;
-  margin: 10px 125px 0;
-  font-family: Poppins;
+  margin: 10px 130px 0;
+  font-family: "Poppins";
   font-weight: 400;
   font-size: 1.2em;
   padding: 15px 25px;
