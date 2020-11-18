@@ -45,3 +45,12 @@
 i.inverted.icon:hover {
   color: rgb(76, 195, 250);
 }
+
+@media only screen and (max-device-width: 475px) and (-webkit-min-device-pixel-ratio: 2) {
+  #nav-logo {
+    font-size: 1.7rem;
+  }
+  .ui.secondary.pointing.menu .right .item {
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,9 @@
+#dash-container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+@media only screen and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
+  #dash-container {
+    max-width: 520px;
+  }
+}

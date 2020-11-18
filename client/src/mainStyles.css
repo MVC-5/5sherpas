@@ -71,3 +71,25 @@ body {
   top: 550px;
   transform: translate(-50%, -50%);
 }
+
+@media only screen and (max-device-width: 1012px) and (-webkit-min-device-pixel-ratio: 2) {
+  .knot-container {
+    position: relative;
+    margin: 30px auto;
+    width: auto;
+    height: 900px;
+  }
+}
+@media only screen and (max-device-width: 675px) and (-webkit-min-device-pixel-ratio: 2) {
+  #main-knot {
+  }
+}
+
+@media only screen and (max-device-width: 980px) and (-webkit-min-device-pixel-ratio: 2) {
+  .s-2,
+  .s-3,
+  .s-4,
+  .s-5 {
+    display: none;
+  }
+}
