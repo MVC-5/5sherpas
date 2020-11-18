@@ -43,7 +43,7 @@ function ConsultSherpas() {
     "Click on me to get a mental activity suggestion"
   );
   const [bubble3Text, setBubble3Text] = useState(
-    "Click on me to get a movie suggestion"
+    "Select a genre to get a movie suggestion"
   );
   // const [movieList, setMovieList] = useState([]);
   const [genre, setGenre] = useState(null);
