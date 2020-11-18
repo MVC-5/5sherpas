@@ -32,6 +32,7 @@ function Settings() {
   const [challCat3, setChallCat3] = useState("");
 
   const [message, setMessage] = useState("");
+  const [challMessage, setChallMessage] = useState("");
 
   const [redirectToDash, setRedirectToDash] = useState(false);
   const [changePass, setChangePass] = useState(false);
@@ -213,54 +214,65 @@ function Settings() {
   // handles challenge dropdown form submission and updates values in database
   const handleSubmit = e => {
     e.preventDefault()
-    let category1 = challCat1
-    let category2 = challCat2
-    let category3 = challCat3
-    if (!challCat1 && challCat1 !== 0) {
-      options2.map(item => {
-        if (item.text === placeholder1) {
-          category1 = item.value
-        }
-      })
+    if (challCat1 === 0) {
+      setChallMessage("Challenge Category 1 is required")
+    } else {
+      let category1 = challCat1
+      let category2 = challCat2
+      let category3 = challCat3
+      if (!challCat1 && challCat1 !== 0) {
+        options2.map(item => {
+          if (item.text === placeholder1) {
+            category1 = item.value
+          }
+        })
+      }
+      if (!challCat2 && challCat2 !== 0) {
+        options2.map(item => {
+          if (item.text === placeholder2) {
+            category2 = item.value
+          }
+        })
+      }
+      if (!challCat3 && challCat3 !== 0) {
+        options2.map(item => {
+          if (item.text === placeholder3) {
+            category3 = item.value
+          }
+        })
+      }
+      const challengeCategories = {
+        id: id,
+        choice1: category1,
+        choice2: category2,
+        choice3: category3
+      }
+      API.updateUserChallengeCategories(challengeCategories)
+        .then((res) => {
+          console.log(res);
+          setChallMessage("");
+          setRedirectToDash(true)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    if (!challCat2 && challCat2 !== 0) {
-      options2.map(item => {
-        if (item.text === placeholder2) {
-          category2 = item.value
-        }
-      })
-    }
-    if (!challCat3 && challCat3 !== 0) {
-      options2.map(item => {
-        if (item.text === placeholder3) {
-          category3 = item.value
-        }
-      })
-    }
-    const challengeCategories = {
-      id: id,
-      choice1: category1,
-      choice2: category2,
-      choice3: category3
-    }
-    API.updateUserChallengeCategories(challengeCategories)
-      .then((res) => {
-        console.log(res);
-        setRedirectToDash(true)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
   };
 
   const handleCancel = e => {
     e.preventDefault()
-    setRedirectToDash(true)
+    if (challCat1 === 0) {
+      setChallMessage("Challenge Category 1 is required")
+    } else {
+      setRedirectToDash(true)
+    }
   }
 
   const handleChangePass = e => {
     e.preventDefault();
     setChangePass(true)
+    setMessage("")
   }
 
   const handlePassSave = e => {
@@ -362,6 +374,7 @@ function Settings() {
               <Grid.Column width={3}></Grid.Column>
               <Grid.Column width={10}>
                 <ChallengeOptions
+                  message={challMessage}
                   placeholder1={placeholder1}
                   placeholder2={placeholder2}
                   placeholder3={placeholder3}

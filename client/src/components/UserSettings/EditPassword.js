@@ -8,7 +8,7 @@ function EditPassword(props) {
 
   return (
     <>
-      <div>
+      <div id="edit-pass">
         <Form.Group>
           <Input label={"Enter Current Password"} field={"CurrentPass"} readOnly={false} onChange={props.onChange} />
         </Form.Group>

@@ -9,6 +9,7 @@ export function ChallengeOptions(props) {
     <>
       <div>
         <Form onSubmit={props.onSubmit} id="dropdown-form">
+          <h5>{props.message}</h5>
           <Form.Group widths='equal'>
             <Form.Select
               required
