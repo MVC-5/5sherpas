@@ -83,6 +83,22 @@ module.exports = {
       })
       .catch((err) => res.status(422).json(err));
   },
+  updatePass: function (req, res, next) {
+    passport.authenticate("local", async function (err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.send("Failed");
+      }
+      if (user) {
+        const newHashed = await bcrypt.hash(req.body.new, 10);
+        user.password = newHashed;
+        await user.save();
+        return res.send("Success");
+      }
+    })(req, res, next);
+  },
   getDashboard: function (req, res) {
     challCont.getChallenges(req, res);
   },

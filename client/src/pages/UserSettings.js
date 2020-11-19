@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ChallengeOptions } from "../components/Form/ChallengeDropdown";
+import { ChallengeOptions } from "../components/UserSettings/ChallengeDropdown";
 import { Grid, Image, Form } from "semantic-ui-react";
-import ReadGroup from "../components/Form/readAccount";
-import EditGroup from "../components/Form/editAccount";
+import ReadGroup from "../components/UserSettings/readAccount";
+import EditGroup from "../components/UserSettings/editAccount";
 import API from "../utils/API";
 import AuthContext from "../utils/AuthContext";
 import User1 from "../assets/user-1.png";
+import { Redirect } from "react-router-dom";
+import EditPass from "../components/UserSettings/EditPassword"
+import ChangePassBtn from "../components/UserSettings/ChangePassBtn";
 
 function Settings() {
   const [nameState, setNameState] = useState("Read");
@@ -16,6 +19,9 @@ function Settings() {
 
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
+  const [currentPass, setCurrentPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
 
   const [placeholder1, setPlaceholder1] = useState("");
   const [placeholder2, setPlaceholder2] = useState("");
@@ -24,6 +30,13 @@ function Settings() {
   const [challCat1, setChallCat1] = useState("");
   const [challCat2, setChallCat2] = useState("");
   const [challCat3, setChallCat3] = useState("");
+
+  const [message, setMessage] = useState("");
+  const [challMessage, setChallMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+
+  const [redirectToDash, setRedirectToDash] = useState(false);
+  const [changePass, setChangePass] = useState(false);
 
   const { userId } = useContext(AuthContext);
   const id = userId || sessionStorage.getItem("userId");
@@ -81,6 +94,15 @@ function Settings() {
       case "Email":
         setEmailInput(value);
         break;
+      case "CurrentPass":
+        setCurrentPass(value);
+        break;
+      case "NewPass":
+        setNewPass(value);
+        break;
+      case "ConfirmPass":
+        setConfirmPass(value);
+        break;
       default:
         return;
     }
@@ -94,7 +116,9 @@ function Settings() {
           setUserName(update.value);
           break;
         case "Email":
-          setUserEmail(update.value);
+          if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(update.value)) {
+            setUserEmail(update.value);
+          }
           break;
         default:
           return;
@@ -103,13 +127,17 @@ function Settings() {
         field: update.field.toLowerCase(),
         value: update.value,
       };
-      API.updateUserSettings(id, updateBody)
-        .then(res => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (update.field === "Email" && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(update.value)) {
+        setEmailMessage("Email Update Failed: invalid email entered")
+      } else {
+        API.updateUserSettings(id, updateBody)
+          .then(res => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   };
 
@@ -119,6 +147,7 @@ function Settings() {
     const btnType = event.target.textContent;
     let newState = "Read";
     if (btnType === "Edit") {
+      setEmailMessage("")
       newState = "Edit";
     }
     switch (field) {
@@ -192,44 +221,109 @@ function Settings() {
   // handles challenge dropdown form submission and updates values in database
   const handleSubmit = e => {
     e.preventDefault()
-    let category1 = challCat1
-    let category2 = challCat2
-    let category3 = challCat3
-    if (!challCat1 && challCat1 !== 0) {
-      options2.map(item => {
-        if (item.text === placeholder1) {
-          category1 = item.value
-        }
-      })
+    if (challCat1 === 0) {
+      setChallMessage("Challenge Category 1 is required")
+    } else {
+      let category1 = challCat1
+      let category2 = challCat2
+      let category3 = challCat3
+      if (!challCat1 && challCat1 !== 0) {
+        options2.map(item => {
+          if (item.text === placeholder1) {
+            category1 = item.value
+          }
+        })
+      }
+      if (!challCat2 && challCat2 !== 0) {
+        options2.map(item => {
+          if (item.text === placeholder2) {
+            category2 = item.value
+          }
+        })
+      }
+      if (!challCat3 && challCat3 !== 0) {
+        options2.map(item => {
+          if (item.text === placeholder3) {
+            category3 = item.value
+          }
+        })
+      }
+      const challengeCategories = {
+        id: id,
+        choice1: category1,
+        choice2: category2,
+        choice3: category3
+      }
+      API.updateUserChallengeCategories(challengeCategories)
+        .then((res) => {
+          console.log(res);
+          setChallMessage("");
+          setRedirectToDash(true)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    if (!challCat2 && challCat2 !== 0) {
-      options2.map(item => {
-        if (item.text === placeholder2) {
-          category2 = item.value
-        }
-      })
-    }
-    if (!challCat3 && challCat3 !== 0) {
-      options2.map(item => {
-        if (item.text === placeholder3) {
-          category3 = item.value
-        }
-      })
-    }
-    const challengeCategories = {
-      id: id,
-      choice1: category1,
-      choice2: category2,
-      choice3: category3
-    }
-    API.updateUserChallengeCategories(challengeCategories)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
   };
+
+  const handleCancel = e => {
+    e.preventDefault()
+    if (challCat1 === 0) {
+      setChallMessage("Challenge Category 1 is required")
+    } else {
+      setRedirectToDash(true)
+    }
+  }
+
+  const handleChangePass = e => {
+    e.preventDefault();
+    setChangePass(true)
+    setMessage("")
+  }
+
+  const handlePassSave = e => {
+    e.preventDefault();
+    if (
+      // must contiain uppercase, lowercase, number, and be at least 8 characters long
+      /^(?=[^\s].*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[^\s]).{8,}$/i.test(
+        newPass
+      )
+    ) {
+      if (newPass === confirmPass) {
+        const passObj = {
+          username: userEmail,
+          password: currentPass,
+          new: newPass
+        }
+        API.updatePassword(passObj)
+          .then(res => {
+            console.log(res.data);
+            if (res.data === "Success") {
+              setChangePass(false);
+              setMessage("Password Update Succesful")
+            } else {
+              setMessage("Password Update Failed: Current password entered does not match password on file.")
+            }
+          })
+      } else {
+        setMessage("New password and confirm password fields do not match.")
+      }
+    } else {
+      setMessage(<ul>New password must contain each of the following:
+        <li>1 lowercase letter</li>
+        <li>1 uppercase letter</li>
+        <li>1 number</li>
+        <li>at least 8 total characters</li>
+      </ul>)
+    }
+  }
+
+  const handlePassCancel = e => {
+    e.preventDefault();
+    setChangePass(false);
+    setMessage("");
+  }
 
   const options1 = [
     { key: '1', text: 'Wellness', value: 1 },
@@ -252,41 +346,51 @@ function Settings() {
     { key: '7', text: 'Interpersonal Relationships', value: 7 }
   ]
 
-  return (
-    <>
-      <div className="knot-container">
-        <h1 className="header">my settings</h1>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column width={3}></Grid.Column>
+  if (redirectToDash) {
+    return <Redirect to="/dashboard" />
+  } else {
+
+    return (
+
+      <>
+        <div className="knot-container">
+          <h1 className="header">my settings</h1>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={3}></Grid.Column>
               <Grid.Column width={4}>
                 <Image src={User1} />
               </Grid.Column>
               <Grid.Column width={6}>
                 <Form>
                   {renderNameField()}
+                  <h5>{emailMessage}</h5>
                   {renderEmailField()}
+                  {changePass ? <EditPass onSubmit={handlePassSave} onCancel={handlePassCancel} onChange={handleInputChange} message={message} /> : <ChangePassBtn onClick={handleChangePass} message={message} />}
                 </Form>
               </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={3}></Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={3}></Grid.Column>
               <Grid.Column width={10}>
                 <ChallengeOptions
+                  message={challMessage}
                   placeholder1={placeholder1}
                   placeholder2={placeholder2}
                   placeholder3={placeholder3}
                   options1={options1}
                   options2={options2}
                   onSubmit={handleSubmit}
+                  onCancel={handleCancel}
                   onChange={handleFieldChange}
                 ></ChallengeOptions>
               </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
-    </>
-  );
+            </Grid.Row>
+          </Grid>
+        </div>
+      </>
+    );
+  }
 }
 
 export default Settings;

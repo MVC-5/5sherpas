@@ -42,12 +42,19 @@ export default {
     });
   },
   updateUserChallengeCategories: function (userData) {
-    console.log(userData);
     return axios({
       method: "put",
       data: userData,
       url: "/api/user/categories",
     });
+  },
+  updatePassword: function (userData) {
+    return axios({
+      method: "put",
+      data: userData,
+      withCredentials: true,
+      url: "/api/user"
+    })
   },
   // Gets weekly challenges and progress map data
   getDashData: function (id) {

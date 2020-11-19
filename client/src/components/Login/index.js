@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Form } from "semantic-ui-react";
 import API from "../../utils/API";
 import AuthContext from "../../utils/AuthContext";
+import { Redirect } from "react-router-dom";
 
 function Login() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -9,6 +10,7 @@ function Login() {
   const [isValidEmail, setIsValidEmail] = useState("not-valid");
   const [message, setMessage] = useState("");
   const [loginError, setLoginError] = useState(false);
+  const [sendToDash, setSendToDash] = useState(false);
 
   const { setAuth } = useContext(AuthContext);
 
@@ -30,6 +32,9 @@ function Login() {
           } else {
             setMessage(res.data);
             setAuth(true);
+            setTimeout(() => {
+              setSendToDash(true);
+            }, 1000)
           }
 
           setLoginEmail("");
@@ -48,50 +53,55 @@ function Login() {
     e.preventDefault();
   };
 
-  return (
-    <div id="login-form">
-      <div>
-        <h1>Login</h1>
-        <h4>{message}</h4>
-        <Form onSubmit={login}>
-          <Form.Field required>
-            <label htmlFor="loginEmail">Email</label>
+  if (sendToDash) {
+    return <Redirect to="/dashboard" />
+  } else {
 
-            <input
-              type="text"
-              name="loginEmail"
-              id="loginEmail"
-              placeholder="Account Email"
-              value={loginEmail}
-              className={loginError ? "error-bg" : null}
-              onChange={(e) => {
-                setLoginError(false);
-                testEmail(loginEmail);
-                setLoginEmail(e.target.value);
-              }}
-            />
-          </Form.Field>
-          <Form.Field required>
-            <label htmlFor="loginPassword">Password</label>
-            <input
-              type="password"
-              name="loginPassword"
-              id="loginPassword"
-              autoComplete="on"
-              placeholder="Password"
-              value={loginPassword}
-              className={loginError ? "error-bg" : null}
-              onChange={(e) => {
-                setLoginError(false);
-                setLoginPassword(e.target.value);
-              }}
-            />
-          </Form.Field>
-          <Button onClick={login}>Submit</Button>
-        </Form>
+    return (
+      <div id="login-form">
+        <div>
+          <h1>Login</h1>
+          <h4>{message}</h4>
+          <Form onSubmit={login}>
+            <Form.Field required>
+              <label htmlFor="loginEmail">Email</label>
+
+              <input
+                type="text"
+                name="loginEmail"
+                id="loginEmail"
+                placeholder="Account Email"
+                value={loginEmail}
+                className={loginError ? "error-bg" : null}
+                onChange={(e) => {
+                  setLoginError(false);
+                  testEmail(loginEmail);
+                  setLoginEmail(e.target.value);
+                }}
+              />
+            </Form.Field>
+            <Form.Field required>
+              <label htmlFor="loginPassword">Password</label>
+              <input
+                type="password"
+                name="loginPassword"
+                id="loginPassword"
+                autoComplete="on"
+                placeholder="Password"
+                value={loginPassword}
+                className={loginError ? "error-bg" : null}
+                onChange={(e) => {
+                  setLoginError(false);
+                  setLoginPassword(e.target.value);
+                }}
+              />
+            </Form.Field>
+            <Button onClick={login}>Submit</Button>
+          </Form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Login;
