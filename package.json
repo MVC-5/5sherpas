@@ -12,12 +12,19 @@
     "format": "prettier \"./**/*.{js,html}\" --write && cd client && npm run format",
     "lint": "eslint \"./**/*.js\" --quiet && cd client && npm run lint",
     "install": "cd client && npm install",
+    "precommit": "lint-staged",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
+  "lint-staged": {
+    "**/*.{js, md, css, jsx, json, html}": [
+      "eslint --quiet",
+      "prettier --write"
+    ]
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run format",
+      "pre-commit": "npm run precommit",
       "commit-msg": "echo $HUSKY_GIT_PARAMS"
     }
   },
