@@ -32,21 +32,19 @@ function Register() {
         if (res.data === "User already exists") {
           setMessage("User already exists");
         } else {
-          API.loginUser({
-            username: registerEmail,
-            password: registerPassword,
-          }).then((response) => {
-            console.log(response);
-            setRegisterEmail("");
-            setRegisterName("");
-            setRegisterPassword("");
-            setRegisterPassword2("");
-            setMessage("Success!");
-            setAuth(true);
-            setTimeout(() => {
-              setSendToSettings(true);
-            }, 1000);
-          });
+          API.loginUser({ username: registerEmail, password: registerPassword })
+            .then(response => {
+              console.log(response);
+              setRegisterEmail("");
+              setRegisterName("");
+              setRegisterPassword("");
+              setRegisterPassword2("");
+              setMessage("Success!");
+              setAuth(true);
+              setTimeout(() => {
+                setSendToSettings(true);
+              }, 1000)
+            })
         }
       });
     } else {
@@ -78,8 +76,10 @@ function Register() {
   };
 
   if (sendToSettings) {
-    return <Redirect to="/usersettings" />;
+    return <Redirect to="/usersettings" />
   } else {
+
+
     return (
       <div id="register-form">
         <h1>Register</h1>
@@ -114,34 +114,30 @@ function Register() {
           </Form.Field>
 
           <Popup
-            trigger={
-              <Form.Field required>
-                <label htmlFor="regPassword">Password</label>
-                <input
-                  type="password"
-                  name="regPassword"
-                  id="regPassword"
-                  autoComplete="on"
-                  placeholder="Password"
-                  value={registerPassword}
-                  className={isValidPassword}
-                  onChange={(e) => {
-                    testPassword(e.target.value, registerPassword2);
-                    setRegisterPassword(e.target.value);
-                  }}
-                />
-              </Form.Field>
-            }
-            header="Password Requirements"
-            content={
-              <ul>
-                <li>1 lowercase letter</li>
-                <li>1 uppercase letter</li>
-                <li>1 number</li>
-                <li>at least 8 characters</li>
-              </ul>
-            }
-            on="focus"
+            trigger={<Form.Field required>
+              <label htmlFor="regPassword">Password</label>
+              <input
+                type="password"
+                name="regPassword"
+                id="regPassword"
+                autoComplete="on"
+                placeholder="Password"
+                value={registerPassword}
+                className={isValidPassword}
+                onChange={(e) => {
+                  testPassword(e.target.value, registerPassword2);
+                  setRegisterPassword(e.target.value);
+                }}
+              />
+            </Form.Field>}
+            header='Password Requirements'
+            content={<ul>
+              <li>1 lowercase letter</li>
+              <li>1 uppercase letter</li>
+              <li>1 number</li>
+              <li>at least 8 characters</li>
+            </ul>}
+            on='focus'
           />
 
           <Form.Field required>

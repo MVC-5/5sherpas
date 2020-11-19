@@ -53,8 +53,8 @@ export default {
       method: "put",
       data: userData,
       withCredentials: true,
-      url: "/api/user",
-    });
+      url: "/api/user"
+    })
   },
   // Gets weekly challenges and progress map data
   getDashData: function (id) {

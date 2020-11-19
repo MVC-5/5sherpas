@@ -34,7 +34,7 @@ function Login() {
             setAuth(true);
             setTimeout(() => {
               setSendToDash(true);
-            }, 1000);
+            }, 1000)
           }
 
           setLoginEmail("");
@@ -54,8 +54,9 @@ function Login() {
   };
 
   if (sendToDash) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/dashboard" />
   } else {
+
     return (
       <div id="login-form">
         <div>
