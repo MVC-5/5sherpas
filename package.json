@@ -11,10 +11,15 @@
     "seed": "node dbSeed/*.js",
     "format": "prettier \"./**/*.{js,html}\" --write && cd client && npm run format",
     "lint": "eslint \"./**/*.js\" --quiet && cd client && npm run lint",
-    "precommit": "npm run lint && npm run format",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run format",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "author": "",
   "license": "MIT",
