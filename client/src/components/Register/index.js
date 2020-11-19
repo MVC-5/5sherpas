@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Popup } from "semantic-ui-react";
 import "./style.css";
 
 import API from "../../utils/API";
@@ -94,22 +94,32 @@ function Register() {
           />
         </Form.Field>
 
-        <Form.Field required>
-          <label htmlFor="regPassword">Password</label>
-          <input
-            type="password"
-            name="regPassword"
-            id="regPassword"
-            autoComplete="on"
-            placeholder="Password"
-            value={registerPassword}
-            className={isValidPassword}
-            onChange={(e) => {
-              testPassword(e.target.value, registerPassword2);
-              setRegisterPassword(e.target.value);
-            }}
-          />
-        </Form.Field>
+        <Popup
+          trigger={<Form.Field required>
+            <label htmlFor="regPassword">Password</label>
+            <input
+              type="password"
+              name="regPassword"
+              id="regPassword"
+              autoComplete="on"
+              placeholder="Password"
+              value={registerPassword}
+              className={isValidPassword}
+              onChange={(e) => {
+                testPassword(e.target.value, registerPassword2);
+                setRegisterPassword(e.target.value);
+              }}
+            />
+          </Form.Field>}
+          header='Password Requirements'
+          content={<ul>
+            <li>1 lowercase letter</li>
+            <li>1 uppercase letter</li>
+            <li>1 number</li>
+            <li>at least 8 characters</li>
+          </ul>}
+          on='focus'
+        />
 
         <Form.Field required>
           <label htmlFor="regPassword2">Verify Password</label>
@@ -127,6 +137,7 @@ function Register() {
             }}
           />
         </Form.Field>
+
         <Button type="submit">BEGIN</Button>
       </Form>
     </div>
