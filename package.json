@@ -11,6 +11,7 @@
     "seed": "node dbSeed/*.js",
     "format": "prettier \"./**/*.{js,html}\" --write && cd client && npm run format",
     "lint": "eslint \"./**/*.js\" --quiet && cd client && npm run lint",
+    "precommit": "npm run lint && npm run format",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
@@ -21,6 +22,7 @@
     "concurrently": "^4.1.0",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.13.0",
+    "husky": "^4.3.0",
     "nodemon": "^1.18.7",
     "prettier": "^2.1.2"
   },
