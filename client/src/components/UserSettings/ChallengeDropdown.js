@@ -38,21 +38,48 @@ export function ChallengeOptions(props) {
             />
           </Form.Group>
 
-          <div className='buttons'>
-            <Grid>
-              <Grid.Column width={5}></Grid.Column>
-              <Grid.Column width={3}>
-                <Form.Button id='button-style' size='large'>Submit</Form.Button>
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <Form.Button
-                  onClick={props.onCancel}
-                  id='button-style' size='large'>Cancel</Form.Button>
-              </Grid.Column>
+          <div className="buttons">
+            <Grid stackable>
+              <Grid.Row centered>
+                {/* <Grid.Column width={5}></Grid.Column> */}
+                <Grid.Column width={3}>
+                  <Form.Button id="button-style" size="large">
+                    Submit
+                  </Form.Button>
+                </Grid.Column>
+                <Grid.Column width={3}>
+                  <Form.Button
+                    onClick={props.onCancel}
+                    id="button-style"
+                    size="large"
+                  >
+                    Cancel
+                  </Form.Button>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row centered>
+                <Grid.Column width={3}></Grid.Column>
+
+                <Grid.Column width={3}>
+                  <Form.Button
+                    animated
+                    basic
+                    color="blue"
+                    onClick={props.onLogout}
+                    id="button-style"
+                    size="large"
+                  >
+                    <Button.Content visible>Logout</Button.Content>
+                    <Button.Content hidden>
+                      <Icon name="hand peace" />
+                    </Button.Content>
+                  </Form.Button>
+                </Grid.Column>
+              </Grid.Row>
             </Grid>
           </div>
         </Form>
       </div>
     </>
-  )
+  );
 }

@@ -6,6 +6,10 @@ router.post("/login", (req, res, next) => {
   controller.loginUser(req, res, next);
 });
 
+router.post("/logout", (req, res) => {
+  controller.logoutUser(req, res);
+});
+
 router.post("/register", (req, res) => {
   controller.createUser(req, res);
 });
