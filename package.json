@@ -13,6 +13,7 @@
     "lint": "eslint \"./**/*.js\" --quiet && cd client && npm run lint",
     "install": "cd client && npm install",
     "precommit": "lint-staged",
+    "fix-all": "npm run lint && npm run format",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },

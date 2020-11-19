@@ -5,5 +5,5 @@ module.exports = {
   User: require("./User"),
   Matching: require("./Matching"),
   ShortActivity: require("./ShortActivity"),
-  Movie: require("./Movie")
+  Movie: require("./Movie"),
 };
