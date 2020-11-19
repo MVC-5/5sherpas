@@ -44,11 +44,9 @@ function userDashboard() {
           setProgressData,
         }}
       >
-        <div className="knot-container">
-          <div>
-            <MyDashboard />
-            <ConsultSherpas />
-          </div>
+        <div id="dash-container">
+          <MyDashboard />
+          <ConsultSherpas />
         </div>
       </UserContext.Provider>
     </>

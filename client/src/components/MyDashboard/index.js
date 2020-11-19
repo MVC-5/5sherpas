@@ -12,7 +12,7 @@ export function MyDashboard() {
     <>
       <h1 className="header">my dashboard</h1>
       <div>
-        <Grid columns="equal">
+        <Grid columns="equal" stackable>
           <Grid.Column>
             <Segment id="segment">
               <WeeklyChallenges />

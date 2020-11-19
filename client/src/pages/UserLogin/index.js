@@ -14,7 +14,7 @@ function UserLogin() {
         <img className="sherpa-img s-1" src={sherpa1} alt="sherpa1" />
 
         <img id="main-knot" src={mainKnot} alt="knot-logo" />
-        <div className="reg-form-container">
+        <div className="login-form-container">
           <Login />
         </div>
       </div>

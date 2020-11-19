@@ -1,7 +1,9 @@
 let mongoose = require("mongoose");
 let db = require("../models");
+const dotenv = require("dotenv");
+dotenv.config();
 
-mongoose.connect("mongodb://localhost/5sherpas", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/5sherpas", {
   useNewUrlParser: true,
   useFindAndModify: false,
   useUnifiedTopology: true,

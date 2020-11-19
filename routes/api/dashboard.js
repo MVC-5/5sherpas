@@ -7,6 +7,7 @@ const controller = require("../../controllers");
 router.route("/getdashboard/:id").get(controller.getDashboard);
 
 router.route("/movie").get(controller.getMovie);
+router.route("/movie/:cat").get(controller.getMovie);
 
 router.route("/physical").get(controller.getPhysAct);
 
