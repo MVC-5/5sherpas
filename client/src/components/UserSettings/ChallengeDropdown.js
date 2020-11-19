@@ -1,20 +1,19 @@
-import React from 'react'
-import { Form, Grid } from 'semantic-ui-react'
+import React from "react";
+import { Form, Grid, Button, Icon } from "semantic-ui-react";
 
-import './style.css';
+import "./style.css";
 
 export function ChallengeOptions(props) {
-
   return (
     <>
       <div>
         <Form onSubmit={props.onSubmit} id="dropdown-form">
           <h5>{props.message}</h5>
-          <Form.Group widths='equal'>
+          <Form.Group widths="equal">
             <Form.Select
               required
               fluid
-              label='Challenge Category 1'
+              label="Challenge Category 1"
               options={props.options1}
               name="cat1"
               placeholder={props.placeholder1}
@@ -22,7 +21,7 @@ export function ChallengeOptions(props) {
             />
             <Form.Select
               fluid
-              label='Challenge Category 2'
+              label="Challenge Category 2"
               options={props.options2}
               name="cat2"
               placeholder={props.placeholder2}
@@ -30,7 +29,7 @@ export function ChallengeOptions(props) {
             />
             <Form.Select
               fluid
-              label='Challenge Category 3'
+              label="Challenge Category 3"
               options={props.options2}
               name="cat3"
               placeholder={props.placeholder3}
