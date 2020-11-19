@@ -355,13 +355,12 @@ function Settings() {
       <>
         <div className="knot-container">
           <h1 className="header">my settings</h1>
-          <Grid>
+          <Grid stackable columns="equal">
             <Grid.Row>
-              <Grid.Column width={3}></Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column>
                 <Image src={User1} />
               </Grid.Column>
-              <Grid.Column width={6}>
+              <Grid.Column>
                 <Form>
                   {renderNameField()}
                   <h5>{emailMessage}</h5>
@@ -371,8 +370,7 @@ function Settings() {
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column width={3}></Grid.Column>
-              <Grid.Column width={10}>
+              <Grid.Column>
                 <ChallengeOptions
                   message={challMessage}
                   placeholder1={placeholder1}
