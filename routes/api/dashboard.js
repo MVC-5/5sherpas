@@ -9,6 +9,8 @@ router.route("/getdashboard/:id").get(controller.getDashboard);
 router.route("/movie").get(controller.getMovie);
 router.route("/movie/:cat").get(controller.getMovie);
 
+router.route("/yak").get(controller.yakIt);
+
 router.route("/physical").get(controller.getPhysAct);
 
 router.route("/mental").get(controller.getMentalAct);

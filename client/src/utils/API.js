@@ -87,4 +87,11 @@ export default {
       url: "/api/dashboard/updatechallenge",
     });
   },
+
+  // Gets Yak Quotes
+  getYak: function(){
+    return axios.get("/api/dashboard/yak")
+  }
+
+
 };

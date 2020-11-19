@@ -21,6 +21,13 @@ module.exports = {
     })(req, res, next);
   },
 
+  yakIt: function(req, res) {
+    db.Yak
+    .find()
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err))
+  },
+
   findUser: function (req, res) {
     res.send("Found user by email from login");
     // db.User
