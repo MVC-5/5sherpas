@@ -58,10 +58,17 @@ app.use(passport.session());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   console.log("prod env");
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static("client/build"));
 }
 
+app.get("/dashboard", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
+
 app.use(routes);
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client/build/index.html"));
+// });
 
 // Start the API server
 app.listen(PORT, function () {
