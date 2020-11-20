@@ -9,9 +9,11 @@ const D3GraphBars = () => {
   const d3Container = useRef(null);
   const [totalProgress, setTotalProgress] = useState([]);
   const [progressSum, setProgressSum] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(900);
+  const [windowWidth, setWindowWidth] = useState(950);
 
   function makeGraph(totalProgress) {
+    setWindowWidth(window.screen.width);
+
     // Setting up margins
     const margin = {
       top: 25,
