@@ -35,7 +35,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.ORIGIN || "http://localhost:3000",
     credentials: true,
   })
 );
@@ -59,12 +59,12 @@ app.use(passport.session());
 if (process.env.NODE_ENV === "production") {
   console.log("prod env");
   app.use(express.static(path.join(__dirname, "client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+  });
 }
 
 app.use(routes);
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build/index.html"));
-});
 
 // Start the API server
 app.listen(PORT, function () {
