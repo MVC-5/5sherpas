@@ -1,13 +1,11 @@
 {
   "extends": [
     "eslint:recommended", 
-    "plugin:import/errors",
     "prettier"
   ],
   "rules": {
     "no-console": 0
   },
-  "plugins": [ "import"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
