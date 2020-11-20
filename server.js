@@ -7,6 +7,7 @@ const cors = require("cors");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const path = require("path");
 
 const routes = require("./routes");
 
@@ -56,7 +57,8 @@ app.use(passport.session());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build/index.html"));
+  console.log("prod env");
+  app.use(express.static(path.join(__dirname, "client/build")));
 }
 
 app.use(routes);
