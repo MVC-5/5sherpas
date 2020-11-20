@@ -59,6 +59,9 @@ app.use(passport.session());
 if (process.env.NODE_ENV === "production") {
   console.log("prod env");
   app.use(express.static(path.join(__dirname, "client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
+  });
 }
 
 app.use(routes);
