@@ -24,6 +24,7 @@ const Navbar = () => {
             as={NavLink}
             to="/register"
             name="register"
+            id="register-nav"
             active={activeItem === "register"}
             onClick={handleItemClick}
           />
