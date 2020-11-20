@@ -22,11 +22,10 @@
   font-size: 1.2em;
 }
 
-.grid-container {
+.total-container {
   max-width: 480px;
-  display: inline-grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr));
-  justify-content: space-evenly;
+  display: flex;
+  justify-content: center;
   justify-items: center;
 }
 
@@ -47,7 +46,16 @@
   background-color: #00c4ff;
 }
 
+#d3Graph {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .progress-container {
-  margin: 20px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  padding: 20px 0;
 }

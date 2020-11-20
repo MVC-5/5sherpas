@@ -14,12 +14,12 @@ export function MyDashboard() {
       <div>
         <Grid columns="equal" stackable>
           <Grid.Column>
-            <Segment id="segment">
+            <Segment>
               <WeeklyChallenges />
             </Segment>
           </Grid.Column>
           <Grid.Column width={8}>
-            <Segment id="segment">
+            <Segment id="progress-segment">
               <WeeklyProgress />
             </Segment>
           </Grid.Column>
