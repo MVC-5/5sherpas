@@ -7,7 +7,7 @@ export function ChallengeOptions(props) {
 
   return (
     <>
-      <div>
+      <div id="challenge-container">
         <Form onSubmit={props.onSubmit} id="dropdown-form">
           <h5>{props.message}</h5>
           <Form.Group widths='equal'>
@@ -39,12 +39,11 @@ export function ChallengeOptions(props) {
           </Form.Group>
 
           <div className='buttons'>
-            <Grid>
-              <Grid.Column width={5}></Grid.Column>
-              <Grid.Column width={3}>
+            <Grid columns="equal" id="buttons-container" stackable>
+              <Grid.Column className="btn-col">
                 <Form.Button id='button-style' size='large'>Submit</Form.Button>
               </Grid.Column>
-              <Grid.Column width={3}>
+              <Grid.Column className="btn-col">
                 <Form.Button
                   onClick={props.onCancel}
                   id='button-style' size='large'>Cancel</Form.Button>
