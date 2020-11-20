@@ -9,6 +9,7 @@ const D3GraphBars = () => {
   const d3Container = useRef(null);
   const [totalProgress, setTotalProgress] = useState([]);
   const [progressSum, setProgressSum] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(900);
 
   function makeGraph(totalProgress) {
     // Setting up margins
@@ -20,8 +21,34 @@ const D3GraphBars = () => {
     };
 
     // Graph area dimensions
-    const height = 500 - margin.top - margin.bottom;
-    const width = 450 - margin.left - margin.right;
+    let height;
+    let width;
+    let userWindow;
+
+    // to check if window resizes every two seconds
+    setInterval(checkWindowWidth, 2000);
+
+    // called by setInterval
+    function checkWindowWidth() {
+      userWindow = window.screen.width;
+      if (userWindow !== windowWidth) {
+        setWindowWidth(userWindow);
+      }
+    }
+
+    if (windowWidth < 940 && windowWidth > 755) {
+      // medium graph
+      width = 350 - margin.left - margin.right;
+      height = 400 - margin.top - margin.bottom;
+    } else if (windowWidth >= 490) {
+      // big graph
+      width = 450 - margin.left - margin.right;
+      height = 500 - margin.top - margin.bottom;
+    } else {
+      // small graph
+      width = 300 - margin.left - margin.right;
+      height = 350 - margin.top - margin.bottom;
+    }
 
     // Mouse over dynamic color
     let dynamicColor;
@@ -133,6 +160,12 @@ const D3GraphBars = () => {
     horizontalGuide.selectAll("line").style("stroke", "#00c4ff");
   }
 
+  // if window width changes re render graph
+  useEffect(() => {
+    document.querySelector("#d3Graph").innerHTML = "";
+    makeGraph(totalProgress);
+  }, [windowWidth]);
+
   useEffect(() => {
     document.querySelector("#d3Graph").innerHTML = "";
     const newData = progressData.map((each) => each.completed);
@@ -153,18 +186,14 @@ const D3GraphBars = () => {
 
   return (
     <>
-    <div className="progress-container">
-      <div id="d3Graph" ref={d3Container}></div>
-      <div className="weeks">weeks</div>
-      <div className="grid-container">
-        <div className="grid-item"></div>
-        <div className="grid-item">
+      <div className="progress-container">
+        <div id="d3Graph" ref={d3Container}></div>
+        <div className="weeks">weeks</div>
+        <div className="total-container">
           <Segment id="total">
             <div>Total Progress: {progressSum}</div>
           </Segment>
         </div>
-        <div className="grid-item"></div>
-      </div>
       </div>
     </>
   );
