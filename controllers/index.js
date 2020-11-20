@@ -21,6 +21,11 @@ module.exports = {
     })(req, res, next);
   },
 
+  logoutUser: function (req, res) {
+    req.logOut();
+    res.send(`${req.body.name} is logged out`);
+  },
+
   findUser: function (req, res) {
     res.send("Found user by email from login");
     // db.User
