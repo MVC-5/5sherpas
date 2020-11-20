@@ -84,6 +84,10 @@
   margin-right: 40px;
 }
 
+.yakText {
+  top: 50px;
+}
+
 @media only screen and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
   #sherpa-set {
     padding-top: 0;

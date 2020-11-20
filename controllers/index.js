@@ -21,6 +21,12 @@ module.exports = {
     })(req, res, next);
   },
 
+  yakIt: function (req, res) {
+    db.Yak.find()
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+
   logoutUser: function (req, res) {
     req.logOut();
     res.send(`${req.body.name} is logged out`);
