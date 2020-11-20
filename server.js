@@ -35,7 +35,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://the5sherpas-dev.herokuapp.com/",
+    origin: process.env.ORIGIN || "http://localhost:3000",
     credentials: true,
   })
 );
