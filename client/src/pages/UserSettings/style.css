@@ -1,0 +1,53 @@
+#settings-container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.knot-container {
+  margin-top: 0;
+}
+
+#input-column {
+  margin-top: 20px;
+}
+
+#buttons-container {
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+#button-style {
+  margin-right: 0
+}
+
+#logout-col {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
+  .knot-container {
+    max-width: 520px;
+  }
+
+  #input-column {
+    margin-right: 24px !important;
+    margin-left: 24px !important;
+    justify-content: center;
+  }
+
+  #account-form {
+    justify-content: center;
+  }
+
+  #edit-account {
+    justify-content: center;
+  }
+
+  .buttons {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+}
