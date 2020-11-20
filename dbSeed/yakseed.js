@@ -18,7 +18,19 @@ let yak = [
   quote: "Yakan do it!"
   },
   {
-  quote: "You are Yak-tabulous!"
+  quote: "Yakkity yak, please come back!"
+  },
+  {
+  quote: "That's a fact, Yak!"
+  },
+  {
+  quote: "Pack your yak and stay on track!"
+  },
+  {
+  quote: "I'm your Yak, I got your back!"
+  },
+  {
+  quote: "Y.A.K. (Your Animal Kinfolk)"
   }
 ]
 
