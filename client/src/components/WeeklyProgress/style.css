@@ -23,7 +23,7 @@
 }
 
 .grid-container {
-  max-width: 450px;
+  max-width: 480px;
   display: inline-grid;
   grid-template-columns: repeat(3, minmax(250px, 1fr));
   justify-content: space-evenly;
@@ -47,7 +47,7 @@
   background-color: #00c4ff;
 }
 
-.challenges-container {
+.progress-container {
   margin: 20px;
   padding: 20px;
 }

@@ -16,7 +16,7 @@ const D3GraphBars = () => {
       top: 25,
       right: 40,
       bottom: 40,
-      left: 40,
+      left: 60,
     };
 
     // Graph area dimensions
@@ -153,7 +153,7 @@ const D3GraphBars = () => {
 
   return (
     <>
-    <div className="challenges-container">
+    <div className="progress-container">
       <div id="d3Graph" ref={d3Container}></div>
       <div className="weeks">weeks</div>
       <div className="grid-container">
