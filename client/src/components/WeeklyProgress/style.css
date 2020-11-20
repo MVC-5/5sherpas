@@ -16,21 +16,38 @@
 
 .weeks {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   font-family: "Poppins";
   font-weight: 300;
   font-size: 1.2em;
 }
 
-.total {
-  width: fit-content;
+.grid-container {
+  max-width: 450px;
+  display: inline-grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  justify-content: space-evenly;
+  justify-items: center;
+}
+
+#total-area {
+  max-width: 300px;
   text-align: center;
-  margin: 10px 130px 0;
+  margin: 0 100px;
+}
+
+#total {
+  width: auto;
+  text-align: center;
   font-family: "Poppins";
   font-weight: 400;
   font-size: 1.2em;
   padding: 15px 25px;
   border-radius: 10px;
   background-color: #00c4ff;
-  float: right;
+}
+
+.challenges-container {
+  margin: 20px;
+  padding: 20px;
 }

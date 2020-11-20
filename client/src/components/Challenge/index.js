@@ -24,8 +24,8 @@ const Challenge = ({ challenge, status }) => {
   };
   return (
     <>
-      <div>
-        <Segment.Group id="challenge-holder">
+      <div id="challenge-holder">
+        <Segment.Group>
           <Segment.Group>
             <Segment
               id="challenge-description"
@@ -34,7 +34,10 @@ const Challenge = ({ challenge, status }) => {
               {challenge.name}
             </Segment>
           </Segment.Group>
-          <Button.Group id="button-group">
+        </Segment.Group>
+      </div>
+      <div id="button-group">
+        <Segment.Group>
             <Button
               id="button-style"
               name="complete"
@@ -65,7 +68,6 @@ const Challenge = ({ challenge, status }) => {
             >
               {status ? "Get New" : "Swap"}
             </Button>
-          </Button.Group>
         </Segment.Group>
       </div>
     </>

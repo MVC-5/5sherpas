@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import * as d3 from "d3";
 import UserContext from "../../utils/UserContext";
+import { Segment } from "semantic-ui-react";
 
-const D3GraphTest = () => {
+const D3GraphBars = () => {
   const { progressData } = useContext(UserContext);
 
   const d3Container = useRef(null);
@@ -12,10 +13,10 @@ const D3GraphTest = () => {
   function makeGraph(totalProgress) {
     // Setting up margins
     const margin = {
-      top: 50,
-      right: 25,
-      bottom: 20,
-      left: 50,
+      top: 25,
+      right: 40,
+      bottom: 40,
+      left: 40,
     };
 
     // Graph area dimensions
@@ -152,11 +153,21 @@ const D3GraphTest = () => {
 
   return (
     <>
-      <div id="d3Graph" ref={d3Container} width="450" height="500"></div>
+    <div className="challenges-container">
+      <div id="d3Graph" ref={d3Container}></div>
       <div className="weeks">weeks</div>
-      <div className="total">Total Progress: {progressSum}</div>
+      <div className="grid-container">
+        <div className="grid-item"></div>
+        <div className="grid-item">
+          <Segment id="total">
+            <div>Total Progress: {progressSum}</div>
+          </Segment>
+        </div>
+        <div className="grid-item"></div>
+      </div>
+      </div>
     </>
   );
 };
 
-export default D3GraphTest;
+export default D3GraphBars;
