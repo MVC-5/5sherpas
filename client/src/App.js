@@ -16,7 +16,7 @@ import Navbar from "./components/Navbar";
 import AuthNav from "./components/AuthNav";
 import UserLogin from "./pages/UserLogin";
 import Registration from "./pages/Registration";
-import UserSettings from "./pages/UserSettings/index";
+import UserSettings from "./pages/UserSettings";
 
 function App() {
   const authCall = () => {

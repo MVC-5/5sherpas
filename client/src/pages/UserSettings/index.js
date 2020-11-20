@@ -38,56 +38,56 @@ function Settings() {
 
   const [redirectToDash, setRedirectToDash] = useState(false);
   const [changePass, setChangePass] = useState(false);
+  const [redirectToLP, setRedirectToLP] = useState(false);
 
-  const { userId } = useContext(AuthContext);
+  const { userId, setAuth } = useContext(AuthContext);
   const id = userId || sessionStorage.getItem("userId");
 
   // retrieves json object from user schema
   const getUserSettings = () => {
-    API.getUserSettings(id)
-      .then((res) => {
-        let c1 = "None"
-        let c2 = "None"
-        let c3 = "None"
-        if (res.data[0].challengeCategories[0]) {
-          c1 = res.data[0].challengeCategories[0].name
-          c2 = res.data[0].challengeCategories[1].name
-          c3 = res.data[0].challengeCategories[2].name
-        }
-        setUserName(res.data[0].name);
-        setUserEmail(res.data[0].email);
-        if (c1 === "None") {
-          setPlaceholder1("Choose Category");
-          setChallCat1(0)
-        } else {
-          setPlaceholder1(c1)
-        }
+    API.getUserSettings(id).then((res) => {
+      let c1 = "None";
+      let c2 = "None";
+      let c3 = "None";
+      if (res.data[0].challengeCategories[0]) {
+        c1 = res.data[0].challengeCategories[0].name;
+        c2 = res.data[0].challengeCategories[1].name;
+        c3 = res.data[0].challengeCategories[2].name;
+      }
+      setUserName(res.data[0].name);
+      setUserEmail(res.data[0].email);
+      if (c1 === "None") {
+        setPlaceholder1("Choose Category");
+        setChallCat1(0);
+      } else {
+        setPlaceholder1(c1);
+      }
 
-        if (c2 === "None") {
-          setPlaceholder2("Choose Category");
-          setChallCat2(0)
-        } else {
-          setPlaceholder2(c2)
-        }
+      if (c2 === "None") {
+        setPlaceholder2("Choose Category");
+        setChallCat2(0);
+      } else {
+        setPlaceholder2(c2);
+      }
 
-        if (c3 === "None") {
-          setPlaceholder3("Choose Category");
-          setChallCat3(0)
-        } else {
-          setPlaceholder3(c3)
-        }
-      })
+      if (c3 === "None") {
+        setPlaceholder3("Choose Category");
+        setChallCat3(0);
+      } else {
+        setPlaceholder3(c3);
+      }
+    });
   };
 
   // runs getUserSettings function only once, on page load
   useEffect(() => {
-    getUserSettings()
-  }, [])
+    getUserSettings();
+  }, []);
 
   // tracks changes to name and email input fields
-  const handleInputChange = event => {
-    const { value } = event.target
-    const fieldName = event.target.parentElement.getAttribute('data-name')
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    const fieldName = event.target.parentElement.getAttribute("data-name");
     switch (fieldName) {
       case "Name":
         setNameInput(value);
@@ -128,12 +128,15 @@ function Settings() {
         field: update.field.toLowerCase(),
         value: update.value,
       };
-      if (update.field === "Email" && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(update.value)) {
-        setEmailMessage("Email Update Failed: invalid email entered")
+      if (
+        update.field === "Email" &&
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(update.value)
+      ) {
+        setEmailMessage("Email Update Failed: invalid email entered");
       } else {
         API.updateUserSettings(id, updateBody)
-          .then(res => {
-            console.log(res)
+          .then((res) => {
+            console.log(res);
           })
           .catch((err) => {
             console.log(err);
@@ -148,7 +151,7 @@ function Settings() {
     const btnType = event.target.textContent;
     let newState = "Read";
     if (btnType === "Edit") {
-      setEmailMessage("")
+      setEmailMessage("");
       newState = "Edit";
     }
     switch (field) {
@@ -220,70 +223,83 @@ function Settings() {
   };
 
   // handles challenge dropdown form submission and updates values in database
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (challCat1 === 0) {
-      setChallMessage("Challenge Category 1 is required")
+      setChallMessage("Challenge Category 1 is required");
     } else {
-      let category1 = challCat1
-      let category2 = challCat2
-      let category3 = challCat3
+      let category1 = challCat1;
+      let category2 = challCat2;
+      let category3 = challCat3;
       if (!challCat1 && challCat1 !== 0) {
-        options2.map(item => {
+        options2.map((item) => {
           if (item.text === placeholder1) {
-            category1 = item.value
+            category1 = item.value;
           }
-        })
+        });
       }
       if (!challCat2 && challCat2 !== 0) {
-        options2.map(item => {
+        options2.map((item) => {
           if (item.text === placeholder2) {
-            category2 = item.value
+            category2 = item.value;
           }
-        })
+        });
       }
       if (!challCat3 && challCat3 !== 0) {
-        options2.map(item => {
+        options2.map((item) => {
           if (item.text === placeholder3) {
-            category3 = item.value
+            category3 = item.value;
           }
-        })
+        });
       }
       const challengeCategories = {
         id: id,
         choice1: category1,
         choice2: category2,
-        choice3: category3
-      }
+        choice3: category3,
+      };
       API.updateUserChallengeCategories(challengeCategories)
         .then((res) => {
           console.log(res);
           setChallMessage("");
-          setRedirectToDash(true)
+          setRedirectToDash(true);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-
   };
 
-  const handleCancel = e => {
-    e.preventDefault()
-    if (challCat1 === 0) {
-      setChallMessage("Challenge Category 1 is required")
-    } else {
-      setRedirectToDash(true)
-    }
-  }
-
-  const handleChangePass = e => {
+  const handleCancel = (e) => {
     e.preventDefault();
-    setChangePass(true)
-    setMessage("")
-  }
+    if (challCat1 === 0) {
+      setChallMessage("Challenge Category 1 is required");
+    } else {
+      setRedirectToDash(true);
+    }
+  };
 
-  const handlePassSave = e => {
+  const handleLogout = (e) => {
+    e.preventDefault();
+    API.logoutUser({ name: userName })
+      .then((res) => {
+        console.log(res);
+        setRedirectToLP(true);
+        sessionStorage.clear();
+        setAuth(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleChangePass = (e) => {
+    e.preventDefault();
+    setChangePass(true);
+    setMessage("");
+  };
+
+  const handlePassSave = (e) => {
     e.preventDefault();
     if (
       // must contiain uppercase, lowercase, number, and be at least 8 characters long
@@ -295,20 +311,21 @@ function Settings() {
         const passObj = {
           username: userEmail,
           password: currentPass,
-          new: newPass
-        }
-        API.updatePassword(passObj)
-          .then(res => {
-            console.log(res.data);
-            if (res.data === "Success") {
-              setChangePass(false);
-              setMessage("Password Update Succesful")
-            } else {
-              setMessage("Password Update Failed: Current password entered does not match password on file.")
-            }
-          })
+          new: newPass,
+        };
+        API.updatePassword(passObj).then((res) => {
+          console.log(res.data);
+          if (res.data === "Success") {
+            setChangePass(false);
+            setMessage("Password Update Succesful");
+          } else {
+            setMessage(
+              "Password Update Failed: Current password entered does not match password on file."
+            );
+          }
+        });
       } else {
-        setMessage("New password and confirm password fields do not match.")
+        setMessage("New password and confirm password fields do not match.");
       }
     } else {
       setMessage(<div><h5>New password must contain each of the following:</h5>
@@ -319,41 +336,41 @@ function Settings() {
           <li>at least 8 total characters</li>
         </ul></div>)
     }
-  }
+  };
 
-  const handlePassCancel = e => {
+  const handlePassCancel = (e) => {
     e.preventDefault();
     setChangePass(false);
     setMessage("");
-  }
+  };
 
   const options1 = [
-    { key: '1', text: 'Wellness', value: 1 },
-    { key: '2', text: 'Intelligence', value: 2 },
-    { key: '3', text: 'Well-Roundedness', value: 3 },
-    { key: '4', text: 'Organization', value: 4 },
-    { key: '5', text: 'Career', value: 5 },
-    { key: '6', text: 'Bad Habit Cessation', value: 6 },
-    { key: '7', text: 'Interpersonal Relationships', value: 7 }
-  ]
+    { key: "1", text: "Wellness", value: 1 },
+    { key: "2", text: "Intelligence", value: 2 },
+    { key: "3", text: "Well-Roundedness", value: 3 },
+    { key: "4", text: "Organization", value: 4 },
+    { key: "5", text: "Career", value: 5 },
+    { key: "6", text: "Bad Habit Cessation", value: 6 },
+    { key: "7", text: "Interpersonal Relationships", value: 7 },
+  ];
 
   const options2 = [
-    { key: '0', text: 'None', value: 0 },
-    { key: '1', text: 'Wellness', value: 1 },
-    { key: '2', text: 'Intelligence', value: 2 },
-    { key: '3', text: 'Well-Roundedness', value: 3 },
-    { key: '4', text: 'Organization', value: 4 },
-    { key: '5', text: 'Career', value: 5 },
-    { key: '6', text: 'Bad Habit Cessation', value: 6 },
-    { key: '7', text: 'Interpersonal Relationships', value: 7 }
-  ]
+    { key: "0", text: "None", value: 0 },
+    { key: "1", text: "Wellness", value: 1 },
+    { key: "2", text: "Intelligence", value: 2 },
+    { key: "3", text: "Well-Roundedness", value: 3 },
+    { key: "4", text: "Organization", value: 4 },
+    { key: "5", text: "Career", value: 5 },
+    { key: "6", text: "Bad Habit Cessation", value: 6 },
+    { key: "7", text: "Interpersonal Relationships", value: 7 },
+  ];
 
   if (redirectToDash) {
-    return <Redirect to="/dashboard" />
+    return <Redirect to="/dashboard" />;
+  } else if (redirectToLP) {
+    return <Redirect to="/" />;
   } else {
-
     return (
-
       <>
         <div className="knot-container">
           <h1 className="header">my settings</h1>
@@ -367,7 +384,19 @@ function Settings() {
                   {renderNameField()}
                   <h5>{emailMessage}</h5>
                   {renderEmailField()}
-                  {changePass ? <EditPass onSubmit={handlePassSave} onCancel={handlePassCancel} onChange={handleInputChange} message={message} /> : <ChangePassBtn onClick={handleChangePass} message={message} />}
+                  {changePass ? (
+                    <EditPass
+                      onSubmit={handlePassSave}
+                      onCancel={handlePassCancel}
+                      onChange={handleInputChange}
+                      message={message}
+                    />
+                  ) : (
+                      <ChangePassBtn
+                        onClick={handleChangePass}
+                        message={message}
+                      />
+                    )}
                 </Form>
               </Grid.Column>
             </Grid.Row>
@@ -383,6 +412,7 @@ function Settings() {
                   onSubmit={handleSubmit}
                   onCancel={handleCancel}
                   onChange={handleFieldChange}
+                  onLogout={handleLogout}
                 ></ChallengeOptions>
               </Grid.Column>
             </Grid.Row>
