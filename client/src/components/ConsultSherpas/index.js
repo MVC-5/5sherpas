@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Dropdown } from "semantic-ui-react";
+import { Grid, Dropdown, Icon } from "semantic-ui-react";
 import "./style.css";
 import mainKnot from "../../assets/main-knot.png";
 import sherpa1 from "../../assets/sherpa1.png";
@@ -47,7 +47,7 @@ function ConsultSherpas() {
   );
 
   const [yakText, setYakText] = useState(
-    "I'm a yak bro!"
+    "I'm a yak, click me!"
   );
 
 
@@ -106,6 +106,9 @@ function ConsultSherpas() {
   };
 
   const yakQuote = () => {
+    document.getElementById("closeYak").classList.remove("remove-yak-text")
+    document.getElementById("bubble-4").classList.remove("remove-yak-text")
+    document.getElementById("yakText").classList.remove("remove-yak-text")
     if (!yakList.length) {
       API.getYak().then((res) => {
         console.log(res.data)
@@ -146,6 +149,13 @@ function ConsultSherpas() {
         console.log("YAAAAAAAKKKK");
         break;
     }
+  }
+
+  function hideYakText() {
+    document.getElementById("closeYak").classList.add("remove-yak-text")
+    document.getElementById("bubble-4").classList.add("remove-yak-text")
+    document.getElementById("yakText").classList.add("remove-yak-text")
+    
   }
   return (
     <>
@@ -223,8 +233,9 @@ function ConsultSherpas() {
         </Grid>
 
         <div className="yak-container">
-          <img className="bubble-4" src={bubble4} alt="bubble" />
-          <p>{yakText}</p>
+          <Icon id="closeYak" name="close" onClick={hideYakText}/>
+          <img id="bubble-4" src={bubble4} alt="bubble" />
+          <p id="yakText">{yakText}</p>
           <img
             onClick={(e) => handleSherpaClick(e.target.id)}
             aria-hidden="true"
