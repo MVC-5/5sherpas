@@ -7,7 +7,6 @@ const cors = require("cors");
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const path = require("path");
 
 const routes = require("./routes");
 
@@ -61,14 +60,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-app.get("/dashboard", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build/index.html"));
-});
-
 app.use(routes);
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client/build/index.html"));
-// });
 
 // Start the API server
 app.listen(PORT, function () {
