@@ -10,10 +10,13 @@
 
 #challenge-holder {
   border-style: none;
+  text-align: center;
+  padding: 10px 0 0;
 }
 
 #button-group {
-  padding: 0 35px 20px;
+  border-style: none;
+  text-align: center;
 }
 
 #button-style {
@@ -23,6 +26,7 @@
   border-style: solid;
   border-width: 1px;
   color: #ffffff61;
+  margin: 5px 2px;
 }
 
 #button-style:hover {
@@ -32,9 +36,9 @@
 }
 
 #challenge-description.completeChall {
-  background-color: rgba(7, 102, 7, 0.356);
+  background-color: #6200ee;
 }
 
 #challenge-description.notCompleteChall {
-  background-color: rgba(102, 7, 7, 0.356);
+  background-color: #500047;
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Dropdown } from "semantic-ui-react";
+import { Grid, Dropdown, Icon } from "semantic-ui-react";
 import "./style.css";
 import mainKnot from "../../assets/main-knot.png";
 import sherpa1 from "../../assets/sherpa1.png";
@@ -45,9 +45,13 @@ function ConsultSherpas() {
   const [bubble3Text, setBubble3Text] = useState(
     "Select a genre to get a movie suggestion"
   );
+
+  const [yakText, setYakText] = useState("I'm a yak, click me!");
+
   const [genre, setGenre] = useState(null);
   const [physList, setPhysList] = useState([]);
   const [mentalList, setMentalList] = useState([]);
+  const [yakList, setYakList] = useState([]);
 
   function getMovie(movieGenre) {
     API.getMovieSugg(movieGenre).then((res) => {
@@ -98,6 +102,25 @@ function ConsultSherpas() {
     }
   };
 
+  const yakQuote = () => {
+    document.getElementById("closeYak").classList.remove("remove-yak-text");
+    document.getElementById("bubble-4").classList.remove("remove-yak-text");
+    document.getElementById("yakText").classList.remove("remove-yak-text");
+    if (!yakList.length) {
+      API.getYak().then((res) => {
+        console.log(res.data);
+        setYakList(res.data);
+        const randomIndex = Math.floor(Math.random() * res.data.length);
+
+        const yakQuote = res.data[randomIndex].quote;
+        setYakText(yakQuote);
+      });
+    } else {
+      const randomIndex = Math.floor(Math.random() * yakList.length);
+      setYakText(yakList[randomIndex].quote);
+    }
+  };
+
   function handleSherpaClick(id) {
     switch (id) {
       // Third sherpa (green) getMovie
@@ -115,10 +138,20 @@ function ConsultSherpas() {
         getPhysical();
         break;
 
+      case "PC Yak":
+        yakQuote();
+        break;
+
       default:
         console.log("YAAAAAAAKKKK");
         break;
     }
+  }
+
+  function hideYakText() {
+    document.getElementById("closeYak").classList.add("remove-yak-text");
+    document.getElementById("bubble-4").classList.add("remove-yak-text");
+    document.getElementById("yakText").classList.add("remove-yak-text");
   }
   return (
     <>
@@ -196,7 +229,9 @@ function ConsultSherpas() {
         </Grid>
 
         <div className="yak-container">
-          <img className="bubble-4" src={bubble4} alt="bubble" />
+          <Icon id="closeYak" name="close" onClick={hideYakText} />
+          <img id="bubble-4" src={bubble4} alt="bubble" />
+          <p id="yakText">{yakText}</p>
           <img
             onClick={(e) => handleSherpaClick(e.target.id)}
             aria-hidden="true"

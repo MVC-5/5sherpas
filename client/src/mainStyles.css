@@ -80,10 +80,10 @@ body {
     height: 900px;
   }
 }
-@media only screen and (max-device-width: 675px) and (-webkit-min-device-pixel-ratio: 2) {
+/* @media only screen and (max-device-width: 675px) and (-webkit-min-device-pixel-ratio: 2) {
   #main-knot {
   }
-}
+} */
 
 @media only screen and (max-device-width: 980px) and (-webkit-min-device-pixel-ratio: 2) {
   .s-2,

@@ -7,7 +7,7 @@ import API from "../../utils/API";
 import AuthContext from "../../utils/AuthContext";
 import User1 from "../../assets/user-1.png";
 import { Redirect } from "react-router-dom";
-import EditPass from "../../components/UserSettings/EditPassword"
+import EditPass from "../../components/UserSettings/EditPassword";
 import ChangePassBtn from "../../components/UserSettings/ChangePassBtn";
 import "./style.css";
 
@@ -328,13 +328,17 @@ function Settings() {
         setMessage("New password and confirm password fields do not match.");
       }
     } else {
-      setMessage(<div><h5>New password must contain each of the following:</h5>
-        <ul>
-          <li>1 lowercase letter</li>
-          <li>1 uppercase letter</li>
-          <li>1 number</li>
-          <li>at least 8 total characters</li>
-        </ul></div>)
+      setMessage(
+        <div>
+          <h5>New password must contain each of the following:</h5>
+          <ul>
+            <li>1 lowercase letter</li>
+            <li>1 uppercase letter</li>
+            <li>1 number</li>
+            <li>at least 8 total characters</li>
+          </ul>
+        </div>
+      );
     }
   };
 
@@ -392,11 +396,11 @@ function Settings() {
                       message={message}
                     />
                   ) : (
-                      <ChangePassBtn
-                        onClick={handleChangePass}
-                        message={message}
-                      />
-                    )}
+                    <ChangePassBtn
+                      onClick={handleChangePass}
+                      message={message}
+                    />
+                  )}
                 </Form>
               </Grid.Column>
             </Grid.Row>

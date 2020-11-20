@@ -54,3 +54,15 @@ i.inverted.icon:hover {
     font-size: 1.1rem;
   }
 }
+
+@media only screen and (max-device-width: 440px) and (-webkit-min-device-pixel-ratio: 2) {
+  #dashboard-nav {
+    display: none;
+  }
+}
+
+@media only screen and (max-device-width: 360px) and (-webkit-min-device-pixel-ratio: 2) {
+  #register-nav {
+    display: none;
+  }
+}
