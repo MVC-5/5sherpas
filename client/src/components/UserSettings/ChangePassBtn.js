@@ -7,7 +7,7 @@ const ChangePassBtn = (props) => {
   return (
     <>
       <div id='align'>
-        <Form.Button animated basic color="blue" onClick={props.onClick} data-name="changePass">
+        <Form.Button animated basic color="blue" onClick={props.onClick} data-name="changePass" id="pass-btn">
           <Button.Content visible>
             Change Password
           </Button.Content>

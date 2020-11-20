@@ -13,7 +13,7 @@ function EditPassword(props) {
           <Input label={"Enter Current Password"} field={"CurrentPass"} readOnly={false} onChange={props.onChange} />
         </Form.Group>
         <Popup
-          trigger={<Form.Group><Input label={"Enter New Password"} field={"NewPass"} readOnly={false} onChange={props.onChange} /></Form.Group>}
+          trigger={<Form.Group id="new-pass-input"><Input label={"Enter New Password"} field={"NewPass"} readOnly={false} onChange={props.onChange} /></Form.Group>}
           header='Password Requirements'
           content={<ul>
             <li>1 lowercase letter</li>
@@ -23,15 +23,15 @@ function EditPassword(props) {
           </ul>}
           on='focus'
         />
-        <Form.Group>
+        <Form.Group id="confirm-pass-input">
           <Input label={"Confirm New Password"} field={"ConfirmPass"} readOnly={false} onChange={props.onChange} />
         </Form.Group>
         <h5>{props.message}</h5>
-        <Grid className='buttons'>
-          <Grid.Column width={6}>
+        <Grid id='challenge-btn-container' className='buttons' columns="equal" stackable>
+          <Grid.Column>
             <Form.Button id='button-style' size='large' onClick={props.onSubmit}>Change Password</Form.Button>
           </Grid.Column>
-          <Grid.Column width={6}>
+          <Grid.Column>
             <Form.Button
               id='button-style' size='large' onClick={props.onCancel}>Cancel</Form.Button>
           </Grid.Column>

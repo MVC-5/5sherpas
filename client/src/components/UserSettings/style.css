@@ -28,7 +28,44 @@
 }
 
 .buttons {
-  margin-top: 50px;
+  margin-top: 30px;
   width: auto;
   text-align: center;
+}
+
+#challenge-container {
+  margin-right: 24px;
+  margin-left: 24px;
+}
+
+#challenge-btn-container {
+  max-width: 293px
+}
+
+#edit-pass {
+  margin-top: 25px
+}
+
+#new-pass-input {
+  margin-top: 15px
+}
+
+#confirm-pass-input {
+  margin-top: 15px
+}
+
+@media only screen and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
+  #align {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+  }
+
+  #pass-btn {
+    margin-top: 25px;
+  }
+
+  #challenge-btn-container {
+    max-width: none;
+  }
 }
