@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Grid } from 'semantic-ui-react'
+import { Form, Grid, Button, Icon } from 'semantic-ui-react'
 
 import './style.css';
 
@@ -48,6 +48,24 @@ export function ChallengeOptions(props) {
                   onClick={props.onCancel}
                   id='button-style' size='large'>Cancel</Form.Button>
               </Grid.Column>
+              <Grid.Row centered>
+                <Grid.Column id="logout-col">
+                  <Form.Button
+                    centered
+                    animated
+                    basic
+                    color="blue"
+                    onClick={props.onLogout}
+                    id="button-style"
+                    size="large"
+                  >
+                    <Button.Content visible>Logout</Button.Content>
+                    <Button.Content hidden>
+                      <Icon name="hand peace" />
+                    </Button.Content>
+                  </Form.Button>
+                </Grid.Column>
+              </Grid.Row>
             </Grid>
           </div>
         </Form>
