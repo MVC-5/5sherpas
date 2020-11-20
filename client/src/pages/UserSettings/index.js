@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ChallengeOptions } from "../components/UserSettings/ChallengeDropdown";
+import { ChallengeOptions } from "../../components/UserSettings/ChallengeDropdown";
 import { Grid, Image, Form } from "semantic-ui-react";
-import ReadGroup from "../components/UserSettings/readAccount";
-import EditGroup from "../components/UserSettings/editAccount";
-import API from "../utils/API";
-import AuthContext from "../utils/AuthContext";
-import User1 from "../assets/user-1.png";
+import ReadGroup from "../../components/UserSettings/readAccount";
+import EditGroup from "../../components/UserSettings/editAccount";
+import API from "../../utils/API";
+import AuthContext from "../../utils/AuthContext";
+import User1 from "../../assets/user-1.png";
 import { Redirect } from "react-router-dom";
-import EditPass from "../components/UserSettings/EditPassword";
-import ChangePassBtn from "../components/UserSettings/ChangePassBtn";
+import EditPass from "../../components/UserSettings/EditPassword"
+import ChangePassBtn from "../../components/UserSettings/ChangePassBtn";
+import "./style.css";
 
 function Settings() {
   const [nameState, setNameState] = useState("Read");
@@ -327,15 +328,13 @@ function Settings() {
         setMessage("New password and confirm password fields do not match.");
       }
     } else {
-      setMessage(
+      setMessage(<div><h5>New password must contain each of the following:</h5>
         <ul>
-          New password must contain each of the following:
           <li>1 lowercase letter</li>
           <li>1 uppercase letter</li>
           <li>1 number</li>
           <li>at least 8 total characters</li>
-        </ul>
-      );
+        </ul></div>)
     }
   };
 
@@ -375,13 +374,12 @@ function Settings() {
       <>
         <div className="knot-container">
           <h1 className="header">my settings</h1>
-          <Grid>
+          <Grid stackable columns="equal" id="settings-container">
             <Grid.Row>
-              <Grid.Column width={3}></Grid.Column>
-              <Grid.Column width={4}>
+              <Grid.Column>
                 <Image src={User1} />
               </Grid.Column>
-              <Grid.Column width={6}>
+              <Grid.Column id="input-column">
                 <Form>
                   {renderNameField()}
                   <h5>{emailMessage}</h5>
@@ -394,17 +392,16 @@ function Settings() {
                       message={message}
                     />
                   ) : (
-                    <ChangePassBtn
-                      onClick={handleChangePass}
-                      message={message}
-                    />
-                  )}
+                      <ChangePassBtn
+                        onClick={handleChangePass}
+                        message={message}
+                      />
+                    )}
                 </Form>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column width={3}></Grid.Column>
-              <Grid.Column width={10}>
+              <Grid.Column>
                 <ChallengeOptions
                   message={challMessage}
                   placeholder1={placeholder1}
