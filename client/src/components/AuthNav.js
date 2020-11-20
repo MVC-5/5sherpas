@@ -25,6 +25,7 @@ const AuthNav = () => {
           <Menu.Item
             as={NavLink}
             to="/dashboard"
+            id="dashboard-nav"
             name="Dashboard"
             active={activeItem === "dashboard"}
             onClick={handleItemClick}

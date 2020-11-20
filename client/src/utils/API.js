@@ -28,6 +28,14 @@ export default {
       url: "/api/user",
     });
   },
+  logoutUser: function (userData) {
+    return axios({
+      method: "post",
+      data: userData,
+      withCredentials: true,
+      url: "/api/user/logout",
+    });
+  },
   // Gets the user settings with the given id
   getUserSettings: function (id) {
     return axios.get("/api/user/" + id);
@@ -53,8 +61,8 @@ export default {
       method: "put",
       data: userData,
       withCredentials: true,
-      url: "/api/user"
-    })
+      url: "/api/user",
+    });
   },
   // Gets weekly challenges and progress map data
   getDashData: function (id) {

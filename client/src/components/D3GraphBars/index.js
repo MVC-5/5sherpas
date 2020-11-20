@@ -59,10 +59,7 @@ const D3GraphBars = () => {
       .attr("height", height + margin.top + margin.bottom)
       .style("background", "transparent")
       .append("g")
-      .attr(
-        "transform", 
-        "translate(" + margin.left + ", " + margin.top + ")"
-      )
+      .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
       .selectAll("rect")
       .data(totalProgress)
       .enter()
@@ -107,7 +104,7 @@ const D3GraphBars = () => {
       .domain([0, d3.max(totalProgress)])
       .range([height, 0]);
 
-    const vAxis = d3.axisLeft(verticalGuideScale).ticks(10)
+    const vAxis = d3.axisLeft(verticalGuideScale).ticks(10);
 
     const verticalGuide = d3.select("svg").append("g");
     vAxis(verticalGuide);
@@ -119,14 +116,14 @@ const D3GraphBars = () => {
     verticalGuide.selectAll("line").style("stroke", "#00c4ff");
 
     // Horizontal guide / weeks
-    const hAxis = 
-    d3.axisBottom(xScale)
+    const hAxis = d3
+      .axisBottom(xScale)
       .ticks(totalProgress.size)
       .tickFormat(function (d) {
-      return d+1
-    })
+        return d + 1;
+      });
 
-    const horizontalGuide = d3.select("svg").append("g")
+    const horizontalGuide = d3.select("svg").append("g");
     hAxis(horizontalGuide);
     horizontalGuide.attr(
       "transform",
