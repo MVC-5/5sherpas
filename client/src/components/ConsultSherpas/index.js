@@ -45,9 +45,16 @@ function ConsultSherpas() {
   const [bubble3Text, setBubble3Text] = useState(
     "Select a genre to get a movie suggestion"
   );
+
+  const [yakText, setYakText] = useState(
+    "I'm a yak bro!"
+  );
+
+
   const [genre, setGenre] = useState(null);
   const [physList, setPhysList] = useState([]);
   const [mentalList, setMentalList] = useState([]);
+  const [yakList, setYakList] = useState([]);
 
   function getMovie(movieGenre) {
     API.getMovieSugg(movieGenre).then((res) => {
@@ -98,6 +105,22 @@ function ConsultSherpas() {
     }
   };
 
+  const yakQuote = () => {
+    if (!yakList.length) {
+      API.getYak().then((res) => {
+        console.log(res.data)
+        setYakList(res.data);
+        const randomIndex = Math.floor(Math.random() * res.data.length);
+
+        const yakQuote = res.data[randomIndex].quote;
+        setYakText(yakQuote);
+      });
+    } else {
+      const randomIndex = Math.floor(Math.random() * yakList.length);
+      setYakText(yakList[randomIndex].quote);
+    }
+  }
+
   function handleSherpaClick(id) {
     switch (id) {
       // Third sherpa (green) getMovie
@@ -115,6 +138,10 @@ function ConsultSherpas() {
         getPhysical();
         break;
 
+      case "PC Yak":
+        yakQuote();
+        break;
+        
       default:
         console.log("YAAAAAAAKKKK");
         break;
@@ -197,6 +224,7 @@ function ConsultSherpas() {
 
         <div className="yak-container">
           <img className="bubble-4" src={bubble4} alt="bubble" />
+          <p>{yakText}</p>
           <img
             onClick={(e) => handleSherpaClick(e.target.id)}
             aria-hidden="true"
