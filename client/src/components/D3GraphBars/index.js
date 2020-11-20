@@ -134,7 +134,6 @@ const D3GraphTest = () => {
 
   useEffect(() => {
     document.querySelector("#d3Graph").innerHTML = "";
-
     const newData = progressData.map((each) => each.completed);
     setTotalProgress(newData);
     let newSum = 0;
@@ -142,10 +141,14 @@ const D3GraphTest = () => {
       newSum += num;
     });
     setProgressSum(newSum);
+  }, [progressData]);
+
+  useEffect(() => {
+    document.querySelector("#d3Graph").innerHTML = "";
     if (totalProgress.length) {
       makeGraph(totalProgress);
     }
-  }, [progressData]);
+  }, [totalProgress]);
 
   return (
     <>
