@@ -16,8 +16,8 @@
 
 #movie-dropdown {
   position: relative;
-  top: -40px;
-  z-index: 3;
+  top: -45px;
+  z-index: 5;
 }
 
 .consult-sherpa {
@@ -76,7 +76,8 @@
   align-items: center;
 }
 
-#Jon, #Caleb {
+#Jon,
+#Caleb {
   cursor: pointer;
 }
 
@@ -90,7 +91,7 @@
 .yak-img {
   height: 100px;
   margin-right: 40px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 #yakText {
@@ -116,11 +117,11 @@
 }
 
 #closeYak:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .remove-yak-text {
-  display: none !important
+  display: none !important;
 }
 
 @media only screen and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
@@ -132,12 +133,21 @@
   }
   .bubble-text {
     width: 250px;
+    top: -130px;
   }
   #second-knot {
     display: none;
   }
   .yak-container {
     display: none;
+  }
+  .consult-sherpa {
+    position: relative;
+    z-index: 4;
+  }
+
+  #movie-dropdown {
+    top: -30px;
   }
 }
 
