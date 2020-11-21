@@ -63,6 +63,10 @@
   margin: 0 2.5px;
 }
 
+#logout-button-style {
+  margin: 7.5px 0;
+}
+
 @media only screen and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {
   #align {
     display: flex;
