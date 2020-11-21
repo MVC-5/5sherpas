@@ -12,16 +12,17 @@
   color: #ffffff;
 }
 
-#button-style {
+#user-button-style {
   font-family: "poppins";
   font-weight: 400;
   background-color: #2e2e2e;
   border-style: solid;
   border-width: 1px;
   color: #ffffff61;
+  margin: 0;
 }
 
-#button-style:hover {
+#user-button-style:hover {
   background-color: #00c4ff;
   color: #ffffff;
   font-weight: 400;
@@ -52,6 +53,14 @@
 
 #confirm-pass-input {
   margin-top: 15px
+}
+
+#pass-btn {
+  margin-right: .25px;
+}
+
+#field-btn {
+  margin: 0 2.5px;
 }
 
 @media only screen and (max-device-width: 767px) and (-webkit-min-device-pixel-ratio: 2) {

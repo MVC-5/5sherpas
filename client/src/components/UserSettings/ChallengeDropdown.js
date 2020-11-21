@@ -61,7 +61,7 @@ export function ChallengeOptions(props) {
                     basic
                     color="blue"
                     onClick={props.onLogout}
-                    id="button-style"
+                    id="user-button-style"
                     size="large"
                   >
                     <Button.Content visible>Logout</Button.Content>
