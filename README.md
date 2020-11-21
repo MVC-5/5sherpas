@@ -26,7 +26,7 @@ The **5 Sherpas** app generate great suggestions on constructive activities base
 
 Did you know that each interrelated wellness dimension (emotional, spiritual, environmental, physical, social, and intellectual) is important in the pursuit of optimum health, according to the [World Health Organization](https://www.who.int/)?
 
-The **5 Sherpas** app helps you to achieve a healthier and more balanced life by suggesting activities called weekly challenges, after creating your account and sign in you will be able to select your initial three relevant categories among:
+The **5 Sherpas** app helps you to achieve a healthier and more balanced life by suggesting activities called weekly challenges.  After creating your account and login you will be able to select your initial three categories from the list below:
 
 - Wellness
 - Intelligence
@@ -38,8 +38,8 @@ The **5 Sherpas** app helps you to achieve a healthier and more balanced life by
 
 The dashboard will then display the three challenges that the **Sherpas** chose for you from your previously selected categories. Each new challenge has three optional action buttons:
 
-- Done: To check that challenge completed
-- Never: To never see that suggested challenge again
+- Done: To check off a challenge as being completed
+- Never: To never see a suggested challenge again
 - Swap: To ask the Sherpas for a new suggestion in that category
 
 You will see your progress for every week reflected in the Sherpa-chart and the global number of your completed challenges displayed in the Total Progress badge.
