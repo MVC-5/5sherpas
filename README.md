@@ -1,3 +1,95 @@
+![License Badge](https://img.shields.io/badge/License-MIT-0298c3)
+
+![brand]()
+
+# 5 Sherpas
+
+## Table of Contents
+
+- [Project description and concept](#project-description)
+- [User story](#user-story)
+- [Installation](#installation)
+- [Features](#features)
+- [Application preview](#application-preview)
+- [Tech stack](#technology-and-framework)
+- [Contributing](#contributing)
+- [Questions and future development](#questions)
+- [License](#license)
+
+## Project Description
+
+The **5 Sherpas** app generate great suggestions on constructive activities based on the user's goals for personal improvement. At the end of the each week the user will be able to see their level of contentment in different aspects of life, such as wellness, career, and relationships among others.
+
+## Application Concept
+
+**Yakan do it!**
+
+Each interrelated wellness dimension (emotional, spiritual, environmental, physical, social, and intellectual) is important in the pursuit of optimum health, according to the [World Health Organization](https://www.who.int/).
+
+**5 Sherpas** helps people to...
+
+[Try 5 Sherpas now on Heroku](https://the5sherpas.herokuapp.com/)
+
+## User Story
+
+---
+
+- **As a person** who struggles with various aspects of wellness,
+- I want a guide to help me take constructive steps to improve my life
+- So I can realize my goals and the qualities I want my life to reflect.
+
+---
+
+## Installation
+
+The **5 Sherpas** app is hosted on heroku, no special installation is required other than a web browser for mobile or desktop devices. ([**Google Chrome**](https://www.google.com/chrome/?brand=CHBD&gclid=Cj0KCQjwv7L6BRDxARIsAGj-34pI6kcGFGrZkxQgztLSwZZ7JzwQJFBfDBdgTHCurYEpg3QscMjHhYUaAkkjEALw_wcB&gclsrc=aw.ds) is recommended).
+
+## Features
+
+-
+-
+-
+
+## Application Preview
+
+![iPad]()
+
+![iPhone]()
+
+## Technology and Framework
+
+- React.js
+- Mongo / Mongoose
+- SemanticUI React Components
+- D3.js
+- Passport.js
+- Heroku
+- Node / Express Web Server
+- MVC Paradigm
+
+## Contributing
+
+- This project was created by [Caleb](https://github.com/calebkirkish), [Dan](https://github.com/DanGillette25), [Luke](https://github.com/ShepLT1), [Jon](https://github.com/JonPhoenix), and [Josh](https://github.com/zapponejosh/)
+- This app is licensed under the MIT licensing model. Feel free to fork the repo or clone it locally to your machine and make whatever changes you'd like.
+
+## Questions
+
+- Feel free to send a DM to any of the original contributors to this repo.
+
+## Future Features
+
+- Modal popup for more context and ideas for challenges
+- User keyword selection to refine profile
+- Expanding all categories in the DB
+- A helpful "yak" that also acts as a setup guide
+- Add a storytelling about the app on the landing page
+
+## License
+
+MIT
+
+---
+
 # 5 Sherpas
 
 ## Project 3 Proposal.
