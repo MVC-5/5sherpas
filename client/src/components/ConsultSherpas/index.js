@@ -37,10 +37,10 @@ const movieGenres = [
 
 function ConsultSherpas() {
   const [bubble2Text, setBubble2Text] = useState(
-    "It's time to move! Click on me if you are looking for something phyiscal."
+    "Craving movement? Click on me if you are looking for something phyiscal."
   );
   const [bubble1Text, setBubble1Text] = useState(
-    "Time to find your calm. I'll give you a mental activity suggestion."
+    "Find your calm. I'll give you a mental activity suggestion."
   );
   const [bubble3Text, setBubble3Text] = useState(
     "Time to chill. Select a genre to get a movie."
