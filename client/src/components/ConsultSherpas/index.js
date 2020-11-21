@@ -40,7 +40,7 @@ function ConsultSherpas() {
     "It's time to move! Click on me if you are looking for something phyiscal."
   );
   const [bubble1Text, setBubble1Text] = useState(
-    "Take care of the station master. I'll give you a mental activity suggestion."
+    "Time to find your calm. I'll give you a mental activity suggestion."
   );
   const [bubble3Text, setBubble3Text] = useState(
     "Time to chill. Select a genre to get a movie."
