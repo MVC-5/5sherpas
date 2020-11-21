@@ -1,4 +1,6 @@
 // dependency imports
+import sslRedirect from "heroku-ssl-redirect";
+
 const dotenv = require("dotenv");
 const express = require("express");
 const logger = require("morgan");
@@ -28,6 +30,8 @@ mongoose.connect(
 
 // Middleware
 app.use(logger("dev"));
+
+app.use(sslRedirect());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
