@@ -270,6 +270,7 @@ function Settings() {
     }
   };
 
+  // handles redirect to dash or requirement message on challenge category cancel click
   const handleCancel = (e) => {
     e.preventDefault();
     if (challCat1 === 0) {
@@ -279,6 +280,7 @@ function Settings() {
     }
   };
 
+  // handles logout feature
   const handleLogout = (e) => {
     e.preventDefault();
     API.logoutUser({ name: userName })
@@ -293,12 +295,14 @@ function Settings() {
       });
   };
 
+  // renders input fields and buttons for changing password
   const handleChangePass = (e) => {
     e.preventDefault();
     setChangePass(true);
     setMessage("");
   };
 
+  // validates and saves password if passes validation
   const handlePassSave = (e) => {
     e.preventDefault();
     if (
@@ -342,12 +346,14 @@ function Settings() {
     }
   };
 
+  // re-renders change password button on password update cancel
   const handlePassCancel = (e) => {
     e.preventDefault();
     setChangePass(false);
     setMessage("");
   };
 
+  // dropdown options for challenge category 1
   const options1 = [
     { key: "1", text: "Wellness", value: 1 },
     { key: "2", text: "Intelligence", value: 2 },
@@ -358,6 +364,7 @@ function Settings() {
     { key: "7", text: "Interpersonal Relationships", value: 7 },
   ];
 
+  // dropdown options for challenge category 2 & 3
   const options2 = [
     { key: "0", text: "None", value: 0 },
     { key: "1", text: "Wellness", value: 1 },
