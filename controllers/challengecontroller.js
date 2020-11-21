@@ -6,6 +6,7 @@ function removeFromTop(arr, num = 3) {
   return arr;
 }
 
+// shuffles array, mainly used for shuffling challenges
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -275,6 +276,8 @@ module.exports = {
 
     // neverdo exists so the user never sees those activities even if they update their settings and get a fresh list of activities
   },
+
+  // gets all challenges that match user-selected challenge categories, shuffles them, grabs the first 3 to display on dashboard, removes those 3 challenges from the matching challenges array, and saves the new user document
   getNewMatching: function (req, res, categoryArr) {
     const checkNeverDo = (matchingArr, neverDoArr) => {
       const verifiedArr = matchingArr.filter((id) => !neverDoArr.includes(id));
