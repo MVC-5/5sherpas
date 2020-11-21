@@ -1,6 +1,6 @@
 ![License Badge](https://img.shields.io/badge/License-MIT-0298c3)
 
-![brand]()
+![brand](demo/5-sherpas-banner.png)
 
 # 5 Sherpas
 
@@ -85,9 +85,11 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 
 ## Application Preview
 
-![iPad]()
+![iPad](demo/5-sherpas-ipad-view-1.png)
 
-![iPhone]()
+![iPhone](demo/5-sherpas-iphone-views.png)
+
+![iPad](demo/5-sherpas-ipad-view-2.png)
 
 ## Technology and Framework
 
