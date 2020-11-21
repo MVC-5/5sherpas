@@ -4,6 +4,7 @@ const db = require("../models");
 const challCont = require("./challengecontroller");
 
 module.exports = {
+  // logs in user
   loginUser: function (req, res, next) {
     passport.authenticate("local", function (err, user) {
       if (err) {
@@ -21,30 +22,28 @@ module.exports = {
     })(req, res, next);
   },
 
+  // gets yak quotes
   yakIt: function (req, res) {
     db.Yak.find()
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
 
+  // logs out user
   logoutUser: function (req, res) {
     req.logOut();
     res.send(`${req.body.name} is logged out`);
   },
 
-  findUser: function (req, res) {
-    res.send("Found user by email from login");
-    // db.User
-    //   .findOne(req.email)
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
-  },
+  // gets user document based on id
   findUserById: function (req, res) {
     db.User.find({ _id: req.params.id })
       .populate("challengeCategories")
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
+  // creates user if they don't already exist
   createUser: function (req, res) {
     db.User.findOne({ email: req.body.email }, async (err, doc) => {
       if (err) throw err;
@@ -67,6 +66,8 @@ module.exports = {
       }
     });
   },
+
+  // updates name or email for specific user
   updateUserSettings: function (req, res) {
     const updateId = req.params.id;
     const field = req.body.field;
@@ -79,6 +80,8 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
+  // updates user-selected challenge categories
   updateUserChallengeCategories: function (req, res) {
     const updateId = req.body.id;
     console.log(updateId);
@@ -94,6 +97,8 @@ module.exports = {
       })
       .catch((err) => res.status(422).json(err));
   },
+
+  // upon validation, updates user password
   updatePass: function (req, res, next) {
     passport.authenticate("local", async function (err, user) {
       if (err) {
@@ -110,14 +115,20 @@ module.exports = {
       }
     })(req, res, next);
   },
+
+  // gets dashboard user data
   getDashboard: function (req, res) {
     challCont.getChallenges(req, res);
   },
+
+  // gets challenges to display in dashboard
   getChallenge: function (req, res) {
     db.Challenge.find()
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
+  // gets movies based on user genre selection
   getMovie: function (req, res) {
     let movieChoices = [];
     let selectedCat = req.params.cat.toString();
@@ -135,16 +146,22 @@ module.exports = {
       }
     });
   },
+
+  // gets physical activity suggestion
   getPhysAct: function (req, res) {
     db.ShortActivity.find({ activityType: "Physical" })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
+  // gets mental health activity suggestion
   getMentalAct: function (req, res) {
     db.ShortActivity.find({ activityType: "Mental" })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
+  // updates challenge status based on user selection in dashboard
   updateChallenge: function (req, res) {
     const request = req.body;
     console.log(request.action);
@@ -160,9 +177,5 @@ module.exports = {
         break;
     }
     res.send(request.action + " is not a valid option.");
-    // db.User
-    //   .findOneAndUpdate({ _id: req.params.id }, req.body)
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
   },
 };

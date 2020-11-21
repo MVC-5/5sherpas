@@ -28,6 +28,7 @@ export default {
       url: "/api/user",
     });
   },
+  // logout user
   logoutUser: function (userData) {
     return axios({
       method: "post",
@@ -49,6 +50,7 @@ export default {
       url: "/api/user/" + id,
     });
   },
+  // updates challenge categories for specific user
   updateUserChallengeCategories: function (userData) {
     return axios({
       method: "put",
@@ -56,6 +58,7 @@ export default {
       url: "/api/user/categories",
     });
   },
+  // updates user password
   updatePassword: function (userData) {
     return axios({
       method: "put",
