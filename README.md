@@ -97,7 +97,7 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 - MongoDB Atlas
 - Semantic UI React Components
 - D3 for data visualization
-- PassportJS
+- PassportJS and bcryptJS
 - ReactJS (Create React App)
 - Node/Express Web server
 - Heroku
