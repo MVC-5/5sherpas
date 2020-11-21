@@ -55,9 +55,9 @@ Give it a try and feel **Yak-tastic!**
 
 ---
 
-- **As a person** who struggles with various aspects of wellness,
-- I want a guide to help me take constructive steps to improve my life
-- So I can realize my goals and the qualities I want my life to reflect.
+**As a person** who struggles with various aspects of wellness,
+I want a guide to help me take constructive steps to improve my life
+So I can realize my goals and the qualities I want my life to reflect.
 
 ---
 
@@ -91,14 +91,16 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 
 ## Technology and Framework
 
-- React.js
-- Mongo / Mongoose
-- SemanticUI React Components
-- D3.js
-- Passport.js
+- Mongoose
+- MongoDB Atlas
+- Semantic UI React Components
+- D3 for data visualization
+- PassportJS
+- ReactJS (Create React App)
+- Node/Express Web server
 - Heroku
-- Node / Express Web Server
 - MVC Paradigm
+- Prettier, EsLint and pre-commit hooks (using Husky & Lint-staged)
 
 ## Contributing
 
@@ -123,30 +125,3 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 MIT
 
 ---
-
-<div class="text-white bg-gray-dark mb-2">
-
-# 5 Sherpas
-
-## Project 3 Proposal.
-
-_Group Members:_ Josh Zappone, Luke Shepherd, Caleb Kirkish, Jon Phoenix, and Dan Gillette
-
-_User Story_
-As a person who struggles with various aspects of wellness, I want a guide to help me take constructive steps to improve my life so that I can realize my goals and the qualities I want my life to reflect.
-
-_Proposed Application_
-Our app would start the user experience by gathering info on the user's goals. It would then generate random suggestions on constructive activities that are based on those goals that the user can select from. At the end of each day, the user will provide a numeric rating as to their level of contentment in life. These ratings will be used to help the user track their progress.
-
-_Proposed Tech Stack_
-
-- MongoDB/Mongoose
-- SemanticUI React Components
-- D3/Charts
-- PassportJS
-- ReactJS
-- Node/Express Web Server
-- Heroku
-- MVC Paradigm
-
-</div>
