@@ -19,7 +19,6 @@ function userDashboard() {
       .then((dashData) => {
         setCurrentChall(dashData.data.currentChallenge);
         setProgressData(dashData.data.totalProgress);
-        console.log(dashData.data);
       })
       .catch((err) => {
         throw err;

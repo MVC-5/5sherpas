@@ -11,28 +11,28 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/5sherpas", {
 
 let yak = [
   {
-  quote: "That's Yak-Tastic!"
+    quote: "That's Yak-Tastic!",
   },
 
   {
-  quote: "Yakan do it!"
+    quote: "Yakan do it!",
   },
   {
-  quote: "Yakkity yak, please come back!"
+    quote: "Yakkity yak, please come back!",
   },
   {
-  quote: "That's a fact, Yak!"
+    quote: "That's a fact, Yak!",
   },
   {
-  quote: "Pack your yak and stay on track!"
+    quote: "Pack your yak and stay on track!",
   },
   {
-  quote: "I'm your Yak, I got your back!"
+    quote: "I'm your Yak, I got your back!",
   },
   {
-  quote: "Y.A.K. (Your Animal Kinfolk)"
-  }
-]
+    quote: "Y.A.K. (Your Animal Kinfolk)",
+  },
+];
 
 db.Yak.deleteMany({})
   .then(() => db.Yak.collection.insertMany(yak))

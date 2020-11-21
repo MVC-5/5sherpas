@@ -55,7 +55,6 @@ function ConsultSherpas() {
 
   function getMovie(movieGenre) {
     API.getMovieSugg(movieGenre).then((res) => {
-      console.log(res);
       const randomIndex = Math.floor(Math.random() * res.data.length);
       const movie = res.data[randomIndex];
       setBubble3Text(movie.title);
@@ -66,7 +65,6 @@ function ConsultSherpas() {
 
   useEffect(() => {
     if (genre !== null) {
-      console.log("Genre changed");
       getMovie(genre);
     }
   }, [genre]);
@@ -79,7 +77,6 @@ function ConsultSherpas() {
 
         const physAct = res.data[randomIndex].name;
         setBubble2Text(physAct);
-        console.log(physAct);
       });
     } else {
       const randomIndex = Math.floor(Math.random() * physList.length);
@@ -108,7 +105,6 @@ function ConsultSherpas() {
     document.getElementById("yakText").classList.remove("remove-yak-text");
     if (!yakList.length) {
       API.getYak().then((res) => {
-        console.log(res.data);
         setYakList(res.data);
         const randomIndex = Math.floor(Math.random() * res.data.length);
 
@@ -134,7 +130,6 @@ function ConsultSherpas() {
 
       // second sherpa (blue) getPhysicalAct
       case "Jon":
-        console.log("Jon");
         getPhysical();
         break;
 
@@ -212,7 +207,6 @@ function ConsultSherpas() {
                 selection
                 options={movieGenres}
                 onChange={(event, data) => {
-                  console.log(data);
                   setGenre(data.value);
                 }}
               />
