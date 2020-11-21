@@ -18,15 +18,36 @@
 
 ## Project Description
 
-The **5 Sherpas** app generate great suggestions on constructive activities based on the user's goals for personal improvement. At the end of the each week the user will be able to see their level of contentment in different aspects of life, such as wellness, career, and relationships among others.
+The **5 Sherpas** app generate great suggestions on constructive activities based on your goals for personal improvement. At the end of the each week you will be able to see your level of contentment in different aspects of life, such as wellness, career, and relationships among others.
 
 ## Application Concept
 
-**Yakan do it!**
+**It's all about Wellness**
 
-Each interrelated wellness dimension (emotional, spiritual, environmental, physical, social, and intellectual) is important in the pursuit of optimum health, according to the [World Health Organization](https://www.who.int/).
+Did you know that each interrelated wellness dimension (emotional, spiritual, environmental, physical, social, and intellectual) is important in the pursuit of optimum health, according to the [World Health Organization](https://www.who.int/)?
 
-**5 Sherpas** helps people to...
+The **5 Sherpas** app helps you to achieve a healthier and more balanced life by suggesting activities called weekly challenges, after creating your account and sign in you will be able to select your initial three relevant categories among:
+
+- Wellness
+- Intelligence
+- Well-roundedness
+- Organization
+- Career
+- Bad Habit Cessation
+- Interpersonal Relationships
+
+The dashboard will then display the three challenges that the **Sherpas** chose for you from your previously selected categories. Each new challenge has three optional action buttons:
+
+- Done: To check that challenge completed
+- Never: To never see that suggested challenge again
+- Swap: To ask the Sherpas for a new suggestion in that category
+
+You will see your progress for every week reflected in the Sherpa-chart and the global number of your completed challenges displayed in the Total Progress badge.
+
+**Yakan Do It!**
+
+You can always consult the **Sherpas** on the dashboard to get new suggestions on mental activities, physical activities, and even to get a movie suggestion! The Sherpas' friendly **Yak** will be encouraging you in your personal journey to achieve the very best version of yourself!
+Give it a try and feel **Yak-tastic!**
 
 [Try 5 Sherpas now on Heroku](https://the5sherpas.herokuapp.com/)
 
@@ -81,7 +102,7 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 - Modal popup for more context and ideas for challenges
 - User keyword selection to refine profile
 - Expanding all categories in the DB
-- A helpful "yak" that also acts as a setup guide
+- A helpful "Yak" that also acts as a setup guide
 - Add a storytelling about the app on the landing page
 
 ## License
