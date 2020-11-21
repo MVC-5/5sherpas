@@ -91,6 +91,8 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 
 ![iPad](demo/5-sherpas-ipad-view-2.png)
 
+[5 Sherpas App Slideshow](https://docs.google.com/presentation/d/1LwrNjAb_ItqmBJwd_zFXtqkeQ4Rj2jEjh0nRWV2RpVg/edit#slide=id.gac975ba886_8_0)
+
 ## Technology and Framework
 
 - Mongoose
