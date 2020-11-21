@@ -24,9 +24,9 @@ The **5 Sherpas** app generate great suggestions on constructive activities base
 
 **It's all about Wellness**
 
-Did you know that each interrelated wellness dimension (emotional, spiritual, environmental, physical, social, and intellectual) is important in the pursuit of optimum health, according to the [World Health Organization](https://www.who.int/)?
+Did you know that each interrelated wellness dimension (emotional, spiritual, environmental, physical, social, and intellectual) is important in the pursuit of optimum health, according to the [World Health Organization](https://www.who.int/).
 
-The **5 Sherpas** app helps you to achieve a healthier and more balanced life by suggesting activities called weekly challenges.  After creating your account and login you will be able to select your initial three categories from the list below:
+The **5 Sherpas** app helps you to achieve a healthier and more balanced life by suggesting activities called weekly challenges. After creating your account and login you will be able to select your initial three categories from the list below:
 
 - Wellness
 - Intelligence
