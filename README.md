@@ -67,9 +67,21 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 
 ## Features
 
--
--
--
+- Instantly updating graph
+- User login and logout
+- Password and email validation (frontend and backend)
+- Protected/authenticated routes
+- Will account for users that don’t long in for a long period of time
+- Securely storing passwords in the backend
+- Allowing the user to change password
+- Disable user info fields unless editing
+- List of user challenges updates with user profile changes
+- Users can choose to never see a given challenge again or just swap
+  for a new one
+- User gets new challenges every week
+- Shows unique navigation for logged in users
+- Fully responsive
+- We have an encouraging yak
 
 ## Application Preview
 
@@ -104,12 +116,15 @@ The **5 Sherpas** app is hosted on heroku, no special installation is required o
 - Expanding all categories in the DB
 - A helpful "Yak" that also acts as a setup guide
 - Add a storytelling about the app on the landing page
+- Choosing the user avatar
 
 ## License
 
 MIT
 
 ---
+
+<div class="text-white bg-gray-dark mb-2">
 
 # 5 Sherpas
 
@@ -133,3 +148,5 @@ _Proposed Tech Stack_
 - Node/Express Web Server
 - Heroku
 - MVC Paradigm
+
+</div>
