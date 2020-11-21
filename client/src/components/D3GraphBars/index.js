@@ -78,7 +78,7 @@ const D3GraphBars = () => {
         totalProgress.length * 0.66,
         totalProgress.length,
       ])
-      .range(["#d6e9c6", "#bce8f1", "#faebcc", "#ebccd1"]);
+      .range(["#54AF18", "#06D5D9", "#7831CD", "#9D2241"]);
 
     // Main graph using d3 api references
     const awesome = d3
