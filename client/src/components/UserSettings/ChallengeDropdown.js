@@ -40,14 +40,14 @@ export function ChallengeOptions(props) {
           <div className="buttons">
             <Grid columns="equal" id="buttons-container" stackable>
               <Grid.Column className="btn-col">
-                <Form.Button id="button-style" size="large">
+                <Form.Button id="user-button-style" size="large">
                   Submit
                 </Form.Button>
               </Grid.Column>
               <Grid.Column className="btn-col">
                 <Form.Button
                   onClick={props.onCancel}
-                  id="button-style"
+                  id="user-button-style"
                   size="large"
                 >
                   Cancel
@@ -61,7 +61,7 @@ export function ChallengeOptions(props) {
                     basic
                     color="blue"
                     onClick={props.onLogout}
-                    id="button-style"
+                    id="logout-button-style"
                     size="large"
                   >
                     <Button.Content visible>Logout</Button.Content>

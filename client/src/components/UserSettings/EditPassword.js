@@ -55,7 +55,7 @@ function EditPassword(props) {
         >
           <Grid.Column>
             <Form.Button
-              id="button-style"
+              id="user-button-style"
               size="large"
               onClick={props.onSubmit}
             >
@@ -64,7 +64,7 @@ function EditPassword(props) {
           </Grid.Column>
           <Grid.Column>
             <Form.Button
-              id="button-style"
+              id="user-button-style"
               size="large"
               onClick={props.onCancel}
             >
