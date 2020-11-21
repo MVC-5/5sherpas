@@ -38,36 +38,36 @@ const Challenge = ({ challenge, status }) => {
       </div>
       <div id="button-group">
         <Segment.Group>
-            <Button
-              id="button-style"
-              name="complete"
-              size="large"
-              onClick={(e) => {
-                handleButtonClick(e.target.name);
-              }}
-            >
-              Done
-            </Button>
-            <Button
-              id="button-style"
-              name="never"
-              size="large"
-              onClick={(e) => {
-                handleButtonClick(e.target.name);
-              }}
-            >
-              Never
-            </Button>
-            <Button
-              id="button-style"
-              name="swap"
-              size="large"
-              onClick={(e) => {
-                handleButtonClick(e.target.name);
-              }}
-            >
-              {status ? "Get New" : "Swap"}
-            </Button>
+          <Button
+            id="button-style"
+            name="complete"
+            size="large"
+            onClick={(e) => {
+              handleButtonClick(e.target.name);
+            }}
+          >
+            Done
+          </Button>
+          <Button
+            id="button-style"
+            name="never"
+            size="large"
+            onClick={(e) => {
+              handleButtonClick(e.target.name);
+            }}
+          >
+            Never
+          </Button>
+          <Button
+            id="button-style"
+            name="swap"
+            size="large"
+            onClick={(e) => {
+              handleButtonClick(e.target.name);
+            }}
+          >
+            {status ? "Get New" : "Swap"}
+          </Button>
         </Segment.Group>
       </div>
     </>

@@ -6,5 +6,5 @@ module.exports = {
   Matching: require("./Matching"),
   ShortActivity: require("./ShortActivity"),
   Movie: require("./Movie"),
-  Yak: require("./Yak")
+  Yak: require("./Yak"),
 };

@@ -10,7 +10,7 @@ export function WeeklyProgress() {
         <img className="sherpa-img-smaller" src={sherpa2} alt="sherpa4" />
         <h1 className="section-title">your progress</h1>
       </div>
-      
+
       <div>
         <D3GraphBars />
       </div>

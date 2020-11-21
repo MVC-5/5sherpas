@@ -35,7 +35,7 @@ function Register() {
           API.loginUser({
             username: registerEmail,
             password: registerPassword,
-          }).then((response) => {
+          }).then(() => {
             setRegisterEmail("");
             setRegisterName("");
             setRegisterPassword("");
