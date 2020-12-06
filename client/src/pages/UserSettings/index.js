@@ -261,9 +261,7 @@ function Settings() {
       API.updateUserChallengeCategories(challengeCategories)
         .then(() => {
           setChallMessage("");
-          setTimeout(() => {
-            setRedirectToDash(true);
-          }, 500);
+          setRedirectToDash(true);
         })
         .catch((err) => {
           console.log(err);
