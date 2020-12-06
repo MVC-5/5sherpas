@@ -283,8 +283,7 @@ function Settings() {
   const handleLogout = (e) => {
     e.preventDefault();
     API.logoutUser({ name: userName })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setRedirectToLP(true);
         sessionStorage.clear();
         setAuth(false);
