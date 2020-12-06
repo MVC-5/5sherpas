@@ -86,13 +86,15 @@ module.exports = {
     const updateId = req.body.id;
     console.log(updateId);
     const categoryArr = [req.body.choice1, req.body.choice2, req.body.choice3];
+    // update user with new categories
     db.User.findByIdAndUpdate(
       updateId,
       { $set: { challengeCategories: categoryArr } },
       { new: true, useFindAndModify: false }
     )
       .then((result) => {
-        console.log(result);
+        console.log(result, "index controller line 96");
+        // continue API call by getting new matching and challenges
         challCont.getNewMatching(req, res, categoryArr);
       })
       .catch((err) => res.status(422).json(err));

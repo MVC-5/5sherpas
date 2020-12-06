@@ -15,9 +15,7 @@ const Challenge = ({ challenge, status }) => {
       challengeId: challenge._id,
       action: action,
     };
-    console.log(challData);
     API.updateChall(challData).then((res) => {
-      console.log(res.data);
       setCurrentChall(res.data.currentChallenge);
       setProgressData(res.data.totalProgress);
     });

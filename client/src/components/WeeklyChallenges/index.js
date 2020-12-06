@@ -5,6 +5,7 @@ import "./style.css";
 
 import sherpa4 from "../../assets/sherpa4.png";
 import Challenge from "../Challenge";
+import { Link } from "react-router-dom";
 
 export function WeeklyChallenges() {
   const { currentChall } = useContext(UserContext);
@@ -16,17 +17,22 @@ export function WeeklyChallenges() {
         <h1 className="section-title">weekly challenges</h1>
       </div>
       <div className="challenges-container">
-        {currentChall.map((chall) => {
-          console.log(chall.completed);
-
-          return (
-            <Challenge
-              key={chall.challengeId._id}
-              challenge={chall.challengeId}
-              status={chall.completed}
-            />
-          );
-        })}
+        {!currentChall.length ? (
+          <h3>
+            To get challenges go to <Link to="/usersettings">your profile</Link>{" "}
+            to select categories.
+          </h3>
+        ) : (
+          currentChall.map((chall) => {
+            return (
+              <Challenge
+                key={chall.challengeId._id}
+                challenge={chall.challengeId}
+                status={chall.completed}
+              />
+            );
+          })
+        )}
       </div>
     </>
   );

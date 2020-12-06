@@ -48,7 +48,7 @@ const checkDate = (endDate, status) => {
   const endDate2 = new Date(endDate);
 
   // because this will always end with "current" we set status to record if it has gone through checkDate and created a new week
-  if (today.valueOf() < endDate2.valueOf()) {
+  if (today.valueOf() <= endDate2.valueOf()) {
     const returnObj = {
       msg: "current",
       status: status,
@@ -70,6 +70,10 @@ const checkDate = (endDate, status) => {
 };
 
 const newChallengeSet = (doc, amount = 3) => {
+  // if no matching challenges users must set new categories first
+  if (doc.matchingChallenges.length < amount) {
+    return "No matching";
+  }
   console.log("New challenges to be added");
   const newChall = doc.matchingChallenges
     .slice(0, amount)
@@ -119,7 +123,13 @@ module.exports = {
         today.setHours(0, 0, 0, 0);
 
         const userDoc = results;
+
+        // if new user
         if (userDoc.totalProgress.length === 0) {
+          // if today is saturday the first week starts tomorrow
+          if (today.getDay() === 6) {
+            today.addDays(1);
+          }
           const nearestSun = getLastSunday(today);
           const endOfWeek1 = nearestSun.addDays(6);
 
@@ -128,14 +138,7 @@ module.exports = {
             completed: 0,
           };
           userDoc.totalProgress.push(firstDateRange);
-          // add get challenges for new user
-          const challenges = await newChallengeSet(userDoc);
-          userDoc.currentChallenge = challenges;
-          // remove new challenges
-          userDoc.matchingChallenges = removeFromTop(
-            userDoc.matchingChallenges
-          );
-          await userDoc.populate("currentChallenge.challengeId").execPopulate();
+
           await userDoc.save();
           console.log("First week created");
           res.json(userDoc);
@@ -208,6 +211,14 @@ module.exports = {
       .populate("challengeCategories")
       .then(async (userDoc) => {
         const newChallenge = newChallengeSet(userDoc, 1);
+        if (newChallenge === "No matching") {
+          res
+            .status(500)
+            .json(
+              `No remaining challenges remain. Please select new categories.`
+            );
+          return;
+        }
         let challIndex = false;
         userDoc.currentChallenge.forEach((chall, index) => {
           if (chall.challengeId == req.body.challengeId) {
@@ -223,6 +234,7 @@ module.exports = {
             return;
           }
         });
+        // add new challenge in place of the old
         userDoc.currentChallenge[challIndex] = newChallenge[0];
 
         if (challIndex === false) {
@@ -244,6 +256,14 @@ module.exports = {
       .populate("challengeCategories")
       .then(async (userDoc) => {
         const newChallenge = newChallengeSet(userDoc, 1);
+        if (newChallenge === "No matching") {
+          res
+            .status(500)
+            .json(
+              `No remaining challenges remain. Please select new categories.`
+            );
+          return;
+        }
         let challIndex = false;
         userDoc.currentChallenge.forEach((chall, index) => {
           if (chall.challengeId == req.body.challengeId) {
@@ -285,6 +305,8 @@ module.exports = {
     };
     const userId = req.body.id;
     console.log(categoryArr[0]);
+
+    // find challenges that match the new categories
     db.Challenge.find({
       $or: [
         { categoryReference: categoryArr[0] },
@@ -292,20 +314,34 @@ module.exports = {
         { categoryReference: categoryArr[2] },
       ],
     }).then(async (matchingChall) => {
+      // create array of matching challenges
       const matchIds = matchingChall.map((item) => {
         return item._id;
       });
       shuffle(matchIds);
+
+      // get user
       db.User.findById(userId)
         .populate("challengeCategories")
-        .populate("matchingChallenges")
-        .populate("currentChallenge.challengeId")
         .then(async (userDoc) => {
-          userDoc.matchingChallenges = checkNeverDo(
+          // removing any neverDo challenges from matching and set to user
+          userDoc.matchingChallenges = await checkNeverDo(
             matchIds,
             userDoc.neverDoList
           );
-          userDoc.currentChallenge = newChallengeSet(userDoc);
+          // get new challenges using updated user matching. Default new challenge count is 3.
+          const newChallenges = newChallengeSet(userDoc);
+          // if there was an error and there were no matching challenges given
+          if (newChallenges === "No matching") {
+            res
+              .status(500)
+              .json(
+                `No remaining matching challenges. Please select new categories.`
+              );
+            return;
+          }
+          userDoc.currentChallenge = newChallenges;
+          // remove new challenges from matching. defaults to 3
           userDoc.matchingChallenges = removeFromTop(
             userDoc.matchingChallenges
           );

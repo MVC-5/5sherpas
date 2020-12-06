@@ -259,8 +259,7 @@ function Settings() {
         choice3: category3,
       };
       API.updateUserChallengeCategories(challengeCategories)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           setChallMessage("");
           setRedirectToDash(true);
         })
@@ -284,8 +283,7 @@ function Settings() {
   const handleLogout = (e) => {
     e.preventDefault();
     API.logoutUser({ name: userName })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setRedirectToLP(true);
         sessionStorage.clear();
         setAuth(false);
