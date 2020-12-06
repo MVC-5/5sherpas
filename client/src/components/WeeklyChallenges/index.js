@@ -17,8 +17,6 @@ export function WeeklyChallenges() {
       </div>
       <div className="challenges-container">
         {currentChall.map((chall) => {
-          console.log(chall.completed);
-
           return (
             <Challenge
               key={chall.challengeId._id}
