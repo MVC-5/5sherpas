@@ -323,8 +323,6 @@ module.exports = {
       // get user
       db.User.findById(userId)
         .populate("challengeCategories")
-        // .populate("matchingChallenges")
-        // .populate("currentChallenge.challengeId")
         .then(async (userDoc) => {
           // removing any neverDo challenges from matching and set to user
           userDoc.matchingChallenges = await checkNeverDo(
