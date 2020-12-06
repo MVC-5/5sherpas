@@ -25,10 +25,6 @@ function userDashboard() {
       });
   };
 
-  // useEffect(() => {
-  //   getDash(sessionStorage.getItem("userId"));
-  // }, []);
-
   useEffect(() => {
     getDash(sessionStorage.getItem("userId"));
   }, [update]);
