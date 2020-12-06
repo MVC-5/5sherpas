@@ -48,7 +48,7 @@ const checkDate = (endDate, status) => {
   const endDate2 = new Date(endDate);
 
   // because this will always end with "current" we set status to record if it has gone through checkDate and created a new week
-  if (today.valueOf() < endDate2.valueOf()) {
+  if (today.valueOf() <= endDate2.valueOf()) {
     const returnObj = {
       msg: "current",
       status: status,
@@ -126,6 +126,10 @@ module.exports = {
 
         // if new user
         if (userDoc.totalProgress.length === 0) {
+          // if today is saturday the first week starts tomorrow
+          if (today.getDay() === 6) {
+            today.addDays(1);
+          }
           const nearestSun = getLastSunday(today);
           const endOfWeek1 = nearestSun.addDays(6);
 
@@ -134,24 +138,11 @@ module.exports = {
             completed: 0,
           };
           userDoc.totalProgress.push(firstDateRange);
-          // add get challenges for new user
-          // const challenges = await newChallengeSet(userDoc);
-          // if (challenges === "No matching") {
-          //   console.log("First week created but no matching challenges found");
-          //   res.json(userDoc);
-          //   return;
-          // } else {
-          // userDoc.currentChallenge = challenges;
-          // // remove new challenges
-          // userDoc.matchingChallenges = removeFromTop(
-          //   userDoc.matchingChallenges
-          // );
-          await userDoc.populate("currentChallenge.challengeId").execPopulate();
+
           await userDoc.save();
           console.log("First week created");
           res.json(userDoc);
           return;
-          // }
         }
         let mostRecentEnd =
           userDoc.totalProgress[userDoc.totalProgress.length - 1].dateRange[1];
@@ -222,7 +213,7 @@ module.exports = {
         const newChallenge = newChallengeSet(userDoc, 1);
         if (newChallenge === "No matching") {
           res
-            .status(503)
+            .status(500)
             .json(
               `No remaining challenges remain. Please select new categories.`
             );
@@ -267,7 +258,7 @@ module.exports = {
         const newChallenge = newChallengeSet(userDoc, 1);
         if (newChallenge === "No matching") {
           res
-            .status(503)
+            .status(500)
             .json(
               `No remaining challenges remain. Please select new categories.`
             );
@@ -345,7 +336,7 @@ module.exports = {
           // if there was an error and there were no matching challenges given
           if (newChallenges === "No matching") {
             res
-              .status(503)
+              .status(500)
               .json(
                 `No remaining matching challenges. Please select new categories.`
               );
