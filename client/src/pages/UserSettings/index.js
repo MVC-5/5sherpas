@@ -40,11 +40,15 @@ function Settings() {
   const [changePass, setChangePass] = useState(false);
   const [redirectToLP, setRedirectToLP] = useState(false);
 
-  const { userId, setAuth } = useContext(AuthContext);
+  const { userId, setAuth, isNewUser } = useContext(AuthContext);
   const id = userId || sessionStorage.getItem("userId");
 
   // retrieves json object from user schema
   const getUserSettings = () => {
+    if (isNewUser) {
+      console.log("New User");
+    }
+
     API.getUserSettings(id).then((res) => {
       let c1 = "None";
       let c2 = "None";

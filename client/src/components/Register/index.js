@@ -16,7 +16,7 @@ function Register() {
   const [message, setMessage] = useState("");
   const [sendToSettings, setSendToSettings] = useState(false);
 
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, setIsNewUser } = useContext(AuthContext);
 
   const register = async (e) => {
     if (
@@ -42,6 +42,7 @@ function Register() {
             setRegisterPassword2("");
             setMessage("Success!");
             setAuth(true);
+            setIsNewUser(true);
             setTimeout(() => {
               setSendToSettings(true);
             }, 1000);

@@ -1,0 +1,16 @@
+#helpful-yak {
+  width: 80px;
+}
+
+.callout {
+  color: rgb(209, 166, 72);
+  text-transform: uppercase;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.ui.modal > .actions {
+  text-align: center;
+}
