@@ -10,6 +10,7 @@ import sherpa5 from "../../assets/sherpa5.png";
 
 // components
 import { RegisterButton } from "../../components/RegisterButton";
+import { LandingIntro } from "../../components/LandingIntro";
 
 function LandingPage() {
   return (
@@ -24,6 +25,19 @@ function LandingPage() {
         <img id="main-knot" src={mainKnot} alt="knot-logo" />
         <div className="register-btn">
           <RegisterButton />
+        </div>
+        <div id="know">
+          <a id="link" href="#intro">
+            Know <br></br>More
+          </a>
+        </div>
+        <div>
+          <LandingIntro />
+        </div>
+        <div id="back">
+          <a id="link" href="#navbar">
+            Back
+          </a>
         </div>
       </div>
       {/* </Container> */}
