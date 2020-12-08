@@ -22,7 +22,8 @@ function Register() {
     if (
       isValidEmail === "valid" &&
       registerName &&
-      isValidPassword === "valid"
+      isValidPassword === "valid" &&
+      registerPassword === registerPassword2
     ) {
       API.registerUser({
         email: registerEmail,
@@ -49,7 +50,25 @@ function Register() {
         }
       });
     } else {
-      setMessage("All fields are required");
+      if (isValidEmail === "not-valid") {
+        setMessage("Please enter a valid email");
+      } else if (isValidPassword === "not-valid") {
+        setMessage(
+          <div>
+            <h2>Password must contain:</h2>
+            <ul id="ver-list">
+              <li>1 lowercase letter</li>
+              <li>1 uppercase letter</li>
+              <li>1 number</li>
+              <li>at least 8 total characters</li>
+            </ul>
+          </div>
+        );
+      } else if (registerPassword !== registerPassword2) {
+        setMessage("Password and Verify Password fields do not match");
+      } else {
+        setMessage("All fields are required");
+      }
     }
     e.preventDefault();
   };
@@ -62,13 +81,12 @@ function Register() {
     }
   };
 
-  const testPassword = (passwordA, passwordB) => {
+  const testPassword = (passwordA) => {
     if (
       // must contiain uppercase, lowercase, number, and be at least 8 characters long
       /^(?=[^\s].*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[^\s]).{8,}$/i.test(
         passwordA
-      ) &&
-      passwordA === passwordB
+      )
     ) {
       setIsValidPassword("valid");
     } else {
@@ -82,7 +100,6 @@ function Register() {
     return (
       <div id="register-form">
         <h1>Register</h1>
-        <h2>{message}</h2>
         <Form onSubmit={register}>
           <Form.Field required>
             <label htmlFor="regName">Name</label>
@@ -125,7 +142,7 @@ function Register() {
                   value={registerPassword}
                   className={isValidPassword}
                   onChange={(e) => {
-                    testPassword(e.target.value, registerPassword2);
+                    testPassword(e.target.value);
                     setRegisterPassword(e.target.value);
                   }}
                 />
@@ -154,11 +171,11 @@ function Register() {
               value={registerPassword2}
               className={isValidPassword}
               onChange={(e) => {
-                testPassword(e.target.value, registerPassword);
                 setRegisterPassword2(e.target.value);
               }}
             />
           </Form.Field>
+          <h2>{message}</h2>
           <Button type="submit">BEGIN</Button>
         </Form>
       </div>
