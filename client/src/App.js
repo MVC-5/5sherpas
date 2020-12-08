@@ -42,6 +42,7 @@ function App() {
   const [userId, setUserId] = useState(false);
   const [userEmail, setUserEmail] = useState(false);
   const [auth, setAuth] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(false);
   const isLoggedIn = sessionStorage.getItem("loggedIn");
 
   useEffect(() => {
@@ -50,7 +51,15 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ userId, userEmail, setAuth, userName, auth }}
+      value={{
+        userId,
+        userEmail,
+        setAuth,
+        userName,
+        auth,
+        isNewUser,
+        setIsNewUser,
+      }}
     >
       <div className="App">
         <Router>

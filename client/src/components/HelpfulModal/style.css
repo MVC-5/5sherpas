@@ -1,0 +1,23 @@
+#helpful-yak {
+  width: 80px;
+}
+
+.callout {
+  color: #500047;
+  background-color: #fff;
+  padding: 2px;
+  margin: 2px;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.ui.modal > .actions {
+  text-align: center;
+  border-color: var(--primary-color);
+}
+
+.ui.modal > .header {
+  border-color: var(--primary-color);
+}
