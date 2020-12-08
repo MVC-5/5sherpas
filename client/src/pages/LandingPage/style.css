@@ -10,3 +10,39 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+#know {
+  font-family: poppins;
+  font-size: 1.5em;
+  line-height: 1.2em;
+  text-align: center;
+  position: absolute;
+  text-decoration: underline;
+  text-shadow: 1px 1px 22px var(--accent-dark-color);
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#back {
+  font-family: poppins;
+  font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 50px;
+  text-decoration: underline;
+  text-shadow: 1px 1px 22px var(--accent-dark-color);
+}
+
+#link {
+  color: var(--default-text);
+}
+
+#link:hover {
+  color: var(--light-secondary-color);
+}
+
+@media only screen and (max-device-width: 1012px) and (-webkit-min-device-pixel-ratio: 2) {
+  #know #back {
+    font-size: 130%;
+  }
+}
