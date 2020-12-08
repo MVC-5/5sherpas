@@ -48,10 +48,6 @@ function Settings() {
 
   // retrieves json object from user schema
   const getUserSettings = () => {
-    if (isNewUser) {
-      console.log("New User");
-    }
-
     API.getUserSettings(id).then((res) => {
       let c1 = "None";
       let c2 = "None";
