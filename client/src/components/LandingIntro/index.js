@@ -10,8 +10,8 @@ export function LandingIntro() {
           The <span className="intro-title">5 Sherpas</span> give you
           personalized suggestions to achieve a healthier and more balanced life
           through activities called weekly challenges.
-          <br></br>
-          <br></br>
+          <br />
+          <br />
           Create an account and begin your journey, improve your wellness,
           health, mental cognition, organization skills, career satisfaction,
           and interpersonal relationships.

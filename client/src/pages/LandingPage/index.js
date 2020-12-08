@@ -28,7 +28,11 @@ function LandingPage() {
         </div>
         <div id="know">
           <a id="link" href="#intro">
-            Know <br></br>More
+            <u>
+              Learn
+              <br />
+              More
+            </u>
           </a>
         </div>
         <div>
@@ -36,7 +40,7 @@ function LandingPage() {
         </div>
         <div id="back">
           <a id="link" href="#navbar">
-            Back
+            <u>Back</u>
           </a>
         </div>
       </div>
