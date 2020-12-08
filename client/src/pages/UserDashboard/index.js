@@ -52,7 +52,7 @@ function userDashboard() {
         want to do click <span className="callout">NEVER</span>, or if you just
         want to swap it out for a new one and maybe see it another time click{" "}
         <span className="callout">SWAP</span>! When you have completed a
-        challenge hit <span className="callout">COMPLETE</span> and you will
+        challenge hit <span className="callout">DONE</span> and you will
         immediately see your progress tracked on the graph.
       </p>
       <p>
