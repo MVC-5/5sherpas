@@ -23,3 +23,11 @@
 #login-form .error-bg {
   background-color: rgb(253, 212, 212);
 }
+
+li {
+  font-size: 14px;
+}
+
+#ver-list {
+  margin-top: 0;
+}
