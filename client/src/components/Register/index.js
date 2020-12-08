@@ -43,6 +43,7 @@ function Register() {
             setMessage("Success!");
             setAuth(true);
             setIsNewUser(true);
+            localStorage.setItem("newUser", "true");
             setTimeout(() => {
               setSendToSettings(true);
             }, 1000);

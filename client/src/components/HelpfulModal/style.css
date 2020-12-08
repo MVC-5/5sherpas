@@ -3,8 +3,10 @@
 }
 
 .callout {
-  color: rgb(209, 166, 72);
-  text-transform: uppercase;
+  color: #500047;
+  background-color: #fff;
+  padding: 2px;
+  margin: 2px;
 }
 
 .modal-content {
@@ -13,4 +15,9 @@
 
 .ui.modal > .actions {
   text-align: center;
+  border-color: var(--primary-color);
+}
+
+.ui.modal > .header {
+  border-color: var(--primary-color);
 }

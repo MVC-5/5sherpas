@@ -42,7 +42,7 @@ function App() {
   const [userId, setUserId] = useState(false);
   const [userEmail, setUserEmail] = useState(false);
   const [auth, setAuth] = useState(false);
-  const [isNewUser, setIsNewUser] = useState(true);
+  const [isNewUser, setIsNewUser] = useState(false);
   const isLoggedIn = sessionStorage.getItem("loggedIn");
 
   useEffect(() => {

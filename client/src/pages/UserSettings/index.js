@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router-dom";
 import { ChallengeOptions } from "../../components/UserSettings/ChallengeDropdown";
 import { Grid, Image, Form } from "semantic-ui-react";
 import ReadGroup from "../../components/UserSettings/readAccount";
 import EditGroup from "../../components/UserSettings/editAccount";
 import API from "../../utils/API";
 import AuthContext from "../../utils/AuthContext";
+import HelpfulModal from "../../components/HelpfulModal/HelpfulModal";
+
 import User1 from "../../assets/user-1.png";
-import { Redirect } from "react-router-dom";
+
 import EditPass from "../../components/UserSettings/EditPassword";
 import ChangePassBtn from "../../components/UserSettings/ChangePassBtn";
 import "./style.css";
@@ -377,6 +380,23 @@ function Settings() {
     { key: "6", text: "Bad Habit Cessation", value: 6 },
     { key: "7", text: "Interpersonal Relationships", value: 7 },
   ];
+  const welcomeMsg = (
+    <>
+      <h4>
+        <span className="callout">This is your profile.</span>
+      </h4>
+      <p>
+        Before you get started, let&apos;s select the areas you would like to
+        focus on first. The sherpas will then dig through their packs to find
+        just what you need to start your journey!
+      </p>
+      <p>
+        Choose one to three categories from the list below. Don&apos;t worry,
+        you can update these at any time!
+      </p>
+      <p>Return to this page to logout or update any of your information.</p>
+    </>
+  );
 
   if (redirectToDash) {
     return <Redirect to="/dashboard" />;
@@ -385,6 +405,13 @@ function Settings() {
   } else {
     return (
       <>
+        {isNewUser ? (
+          <HelpfulModal
+            headerMsg="Welcome!"
+            modalContent={welcomeMsg}
+            buttonText="I'm ready!"
+          />
+        ) : null}
         <div className="knot-container">
           <h1 className="header">my settings</h1>
           <Grid stackable columns="equal" id="settings-container">
